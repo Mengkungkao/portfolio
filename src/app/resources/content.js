@@ -1,20 +1,20 @@
 import { Logo } from "@/once-ui/components";
 
 const person = {
-  firstName: "Selene",
-  lastName: "Yu",
+  firstName: "Meng Kung",
+  lastName: "Kao",
   get name() {
     return `${this.firstName} ${this.lastName}`;
   },
-  role: "Design Engineer",
+  role: "Electrical & Electronic Engineer",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  email: "mengkungkao@gmail.com",
+  location: "Australia/Melbourne", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  languages: ["English", "Khmer"], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: (
     <>
@@ -30,12 +30,12 @@ const social = [
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system/nextjs-starter",
+    link: "https://github.com/Mengkungkao",
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    link: "https://www.linkedin.com/in/mengkung/",
   },
   {
     name: "X",
@@ -55,17 +55,21 @@ const home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: <>Graduate Electrical & Electronic Engineer</>,
   featured: {
     display: true,
-    title: <>Recent project: <strong className="ml-4">Once UI</strong></>,
-    href: "/work/building-once-ui-a-customizable-design-system",
+    title: <>About <strong className="ml-4">Me</strong></>,
+    href: "/about",
   },
   subline: (
     <>
-      I'm Selene, a design engineer at <Logo icon={false} style={{ display: "inline-flex", top: "0.25em", marginLeft: "-0.25em" }}/>, where I craft intuitive
-      <br /> user experiences. After hours, I build my own projects.
-    </>
+      I am currently pursuing a Master of Professional Engineering at Swinburne University of Technology. 
+      I have over a year of experience as an electrical system designer, working on lighting, power distribution, 
+      and extra-low voltage systems in buildings.
+      Aside from employment, I've been volunteering as a tutor, teaching high school students about STEM and 
+      guiding them in the best route for their next studies. Currently, I am a team member of Team Swinburne Formula SAE 
+      to contribute my knowledge and skills improving car performance.
+      </>
   ),
 };
 
@@ -90,10 +94,8 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
-      </>
+        I am an Electrical & Electronic Engineer. I am now pursuing a Master of Professional Engineering at Swinburne University of Technology. I have over a year of experience as an electrical system designer, working on lighting, power distribution, and extra-low voltage systems in buildings. Aside from employment, I've been volunteering as a tutor, teaching high school students about STEM and guiding them in the best route for their next studies. Currently, I am a team member of Team Swinburne Formula SAE to contribute my knowledge and skills improving car performance.
+       </>
     ),
   },
   work: {
@@ -101,17 +103,16 @@ const about = {
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "Universal Biosensor",
+        timeframe: "2025 - Present",
+        role: "Engineering Intern",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Redesigned the PLC schematic.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Developed and write a new easy understanding working instruction.
+          
           </>,
         ],
         images: [
@@ -125,17 +126,17 @@ const about = {
         ],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "ET&S Engineering Import Export Co., Ltd",
+        timeframe: "2022 - 2023",
+        role: "Electrical CAD Operator",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Developed the Electrical load calculation, sizing cables, & voltage drop with Excels and Ecodial Schneider Software.
+            
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            Read and write electrical work documents that comply with IEC/BS standard regulatory in Cambodia.
+       
           </>,
         ],
         images: [],
@@ -147,12 +148,12 @@ const about = {
     title: "Studies",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "Swinburne University of Technology",
+        description: <>Master of Professional Engineering (Electrical & Electronic Engineering)</>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "Institute of Technology of Cambodia",
+        description: <>Engineer's degree (Electrical and Electronic Engineering)</>,
       },
     ],
   },
@@ -161,9 +162,10 @@ const about = {
     title: "Technical skills",
     skills: [
       {
-        title: "Figma",
-        description: <>Able to prototype in Figma with Once UI with unnatural speed.</>,
+        title: "CAD Drawing",
+        description: <>Able to work with 2D AutoCAD, 3D SolidWork, and Fusion360.</>,
         // optional: leave the array empty if you don't want to display images
+       
         images: [
           {
             src: "/images/projects/project-01/cover-02.jpg",
@@ -180,8 +182,8 @@ const about = {
         ],
       },
       {
-        title: "Next.js",
-        description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
+        title: "Programming",
+        description: <>Writing code C, C++, Python, Matlab for engineering simulation.</>,
         // optional: leave the array empty if you don't want to display images
         images: [
           {
