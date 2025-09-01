@@ -31,7 +31,7 @@ export const Footer = () => {
             <SmartLink
               href="/"
             >
-              Once UI
+              About Me
             </SmartLink>
           </Text>
         </Text>
