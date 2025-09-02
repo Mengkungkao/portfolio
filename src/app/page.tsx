@@ -34,7 +34,7 @@ export default function Home() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Column fillWidth paddingY="24" gap="m">
+      <Column fillWidth paddingY="24" gap="m" horizontal="center">
         <Column maxWidth="s">
           {home.featured && (
           <RevealFx fillWidth horizontal="start" paddingTop="16" paddingBottom="32" paddingLeft="12">
