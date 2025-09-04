@@ -57,7 +57,7 @@ const home = {
   description: `Portfolio website showcasing my work as a ${person.role}`,
   headline: <>Graduate Electrical & Electronic Engineer</>,
   featured: {
-    display: true,
+    display: false,
     title: <>About <strong className="ml-4">Me</strong></>,
     href: "/about",
   },
