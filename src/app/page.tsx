@@ -60,7 +60,7 @@ export default function Home() {
               data-border="rounded"
               href={about.path}
               variant="secondary"
-              size="m"
+              size="l"
               arrowIcon
             >
               <Flex gap="8" vertical="center">
