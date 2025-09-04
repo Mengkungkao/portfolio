@@ -150,10 +150,12 @@ const about = {
     institutions: [
       {
         name: "Swinburne University of Technology",
+        timeframe: "2024 - present",
         description: <>Master of Professional Engineering (Electrical & Electronic Engineering)</>,
       },
       {
         name: "Institute of Technology of Cambodia",
+        timeframe: "2017 - 2022",
         description: <>Engineer's degree (Electrical and Electronic Engineering)</>,
       },
     ],
