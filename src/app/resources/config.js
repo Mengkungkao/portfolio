@@ -76,10 +76,10 @@ const effects = {
   },
   grid: {
     display: true,
-    opacity: 100,
+    opacity: 60,
     color: "neutral-alpha-medium",
-    width: "0.25rem",
-    height: "0.25rem",
+    width: "0.5rem",
+    height: "0.5rem",
   },
   lines: {
     display: false,
