@@ -36,14 +36,14 @@ export default function Home() {
       />
       <Column fillWidth paddingY="24" gap="m" horizontal="center">
         <Column maxWidth="s">
-          {home.featured && (
+          {/*home.featured && (
           <RevealFx fillWidth horizontal="center" paddingTop="16" paddingBottom="32" paddingLeft="12">
             <Badge background="brand-alpha-weak" paddingX="12" paddingY="4" onBackground="neutral-strong" textVariant="label-default-s" arrow={false}
               href={home.featured.href}>
               <Row paddingY="2">{home.featured.title}</Row>
             </Badge>
           </RevealFx>
-          )}
+          )*/}
           <RevealFx translateY="4" fillWidth horizontal="start" paddingBottom="16">
             <Heading wrap="balance" variant="display-strong-l">
               {home.headline}
@@ -55,25 +55,17 @@ export default function Home() {
             </Text>
           </RevealFx>
           <RevealFx paddingTop="12" delay={0.4} horizontal="start" paddingLeft="12">
-            <Button
-              id="about"
-              data-border="rounded"
-              href={about.path}
-              variant="secondary"
-              size="l"
-              arrowIcon
-            >
-              <Flex gap="8" vertical="center">
+            <Badge maxWidth="s" background="brand-alpha-weak" onBackground="neutral-strong" textVariant="body-default-l" arrow={false}
+              href="/about">
                 {about.avatar.display && (
                   <Avatar
-                    style={{ marginLeft: "-0.75rem", marginRight: "0.25rem" }}
+                    style={{ marginLeft: "-0.5rem", marginRight: "0.5rem" }}
                     src={person.avatar}
                     size="m"
                   />
                 )}
                 {about.title}
-              </Flex>
-            </Button>
+              </Badge>
           </RevealFx>
         </Column>
       </Column>
