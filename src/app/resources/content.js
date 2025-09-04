@@ -56,11 +56,12 @@ const home = {
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
   headline: <>Graduate Electrical & Electronic Engineer</>,
-  featured: {
+  /*featured: {
     display: false,
     title: <>About <strong className="ml-4">Me</strong></>,
     href: "/about",
   },
+  */
   subline: (
     <>
       I am currently pursuing a Master of Professional Engineering at Swinburne University of Technology. 

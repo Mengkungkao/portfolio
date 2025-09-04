@@ -55,7 +55,7 @@ export default function Home() {
             </Text>
           </RevealFx>
           <RevealFx paddingTop="12" delay={0.4} horizontal="start" paddingLeft="12">
-            <Badge
+            <Button
               id="about"
               data-border="rounded"
               href={about.path}
@@ -73,7 +73,7 @@ export default function Home() {
                 )}
                 {about.title}
               </Flex>
-            </Badge>
+            </Button>
           </RevealFx>
         </Column>
       </Column>
