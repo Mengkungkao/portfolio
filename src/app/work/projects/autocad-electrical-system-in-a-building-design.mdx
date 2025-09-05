@@ -58,9 +58,14 @@ A single-line diagram (SLD) is a simplified graphical representation of an elect
 
 ### 5.2 Voltage Drop
 - Based on **IEC 60287 Voltage drop** is limit by 5%.
-**Formula for voltage drop:**  
+**Formula for voltage drop of phase to phase/phase to neutral:**  
 ```math
-V_{drop} = \sqrt{3} × I × (Rcosφ + Xsinφ) × L
+Delta_V_{drop} = 2 × Ib × (Rcosφ + Xsinφ) × L
+```
+
+**Formula for voltage drop of balanced 3-phase:**  
+```math
+Delta_V_{drop} = sqrt(3) × Ib × (Rcosφ + Xsinφ) × L
 ```
 ---
 
