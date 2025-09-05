@@ -4,41 +4,95 @@ publishedAt: "2023-04-01"
 summary: "Design concept for a three-phase low-voltage electrical distribution system to supply power to the medical equipment."
 images:
   - "/images/projects/project-01/autocad.jpg"
-  - "/images/projects/project-01/autocad.jpg"
+  - "/images/projects/project-01/sld.jpg"
 
 ---
 
-## Overview
+## 1. Introduction  
+This project presents a **conceptual design** of a **three-phase low-voltage electrical routing system** to provide a **reliable power supply** to critical medical equipment.  
 
-In this project, I will describe about a conceptual design of a three-phase low-voltage electrical routing system for reliable power supply to medical equipment.
+The design emphasizes:  
+- **Safety:** Use of protection devices (MCB, RCCB, relays, fuses).  
+- **Efficiency:** Optimized routing to reduce power losses.  
+- **Redundancy:** Ensures uninterrupted operation of sensitive devices.  
+- **Compliance:** Meets electrical safety standards for medical facilities.  
 
-## Key Features
+---
 
-- **Three-phase low-voltage supply system**
-- **Integration of safety and protection devices**
-- **Efficient routing to minimize power losses**
-- **Compliance with electrical safety standards for medical facilities**
+## 2. Key Features  
+- Three-phase low-voltage supply system.  
+- Integration of safety and protection devices.  
+- Efficient routing with reduced I²R losses.  
+- Compliance with **IEC 60364** and **AS/NZS 3000 (Wiring Rules)**.  
+- Provision for future expansion and redundancy.  
 
-## Electrical Components
+---
 
-- **Exhaust fan**
-- **Booster fan**
-- **Dehumidifier**
-- **Variable Speed Drive (VSD)**
-- **Control panel**
-- **Protection devices (MCB, RCCB, Relays)**
+## 3. Electrical Components  
+- **Exhaust Fan** (air circulation).  
+- **Booster Fan** (air pressure control).  
+- **Dehumidifier** (humidity regulation).  
+- **Variable Speed Drive (VSD)** (for motors).  
+- **Control Panel** (switching & monitoring).  
+- **Protection Devices:**  
+  - Miniature Circuit Breaker (**MCB**).  
+  - Residual Current Circuit Breaker (**RCCB**).  
+  - Relays.  
+  - Fuses.  
 
-## Single Line Diagram
+---
 
-A single-line diagram (SLD) is developed to illustrate the power flow from the main supply through protective devices and distribution panels to end equipment. This diagram provides a clear overview of system connections and ensures ease of maintenance and troubleshooting.
+## 4. Single Line Diagram 
 
-## Challenges and Learnings
+A single-line diagram (SLD) is a simplified graphical representation of an electrical system, showing the connections and relationships between components. Symbols represent equipment such as transformers, circuit breakers, and fuses, while lines represent energized or unenergized conductors.
+![Single Line Diagram](/images/projects/project-01/sld.jpg)
 
-Designing a system that balances load demands and safety compliance.
-Addressing redundancy requirements for critical medical operations.
-Learning to optimize the use of VSDs for energy efficiency.
-Applying theoretical knowledge to practical system layout and component selection.
 
-## Outcome
+---
 
-The project resulted in a well-structured electrical routing concept capable of delivering stable and reliable power to medical equipment. The design ensures safety, operational efficiency, and adaptability for future expansion.
+## 5. Cable Sizing & Voltage Drop
+
+### 5.1 Cable Sizing  
+- Based on **IEC 60287** (current capacity) and **voltage drop** calculations.  
+- Factors considered: load current, length of run, ambient temperature, grouping.  
+
+### 5.2 Voltage Drop
+- Based on **IEC 60287 Voltage drop** is limit by 5%.
+**Formula for voltage drop:**  
+```math
+V_{drop} = \sqrt{3} × I × (Rcosφ + Xsinφ) × L
+```
+---
+
+## 6. Miniature Circuit Breaker Selection
+
+For the three-phase low-voltage medical system, MCBs protect against **overcurrent and short circuits**.  
+
+---
+
+## 7. Normal Operation Modes for Exhaust & Booster Fan
+
+### 7.1. Manual Mode
+
+- Selector switch must be set to **Manual**.
+- Operator can **Start/Stop** the fan via push buttons located on the **cover panel**.
+
+### 7.2. Automatic Mode
+
+- Selector switch must be set to **Auto**.
+- Exhaust Air Fan will automatically run when it receives a **dry contact signal** from the **room thermostat**.
+- Speed control is based on the 0–10V feedback from the pressure transmitter.
+
+---
+
+## 8. Normal Operation Modes of Dehumidifier Operation Sequence  
+
+### 8.1. Manual Mode
+
+- Selector switch must be set to **Manual**.
+- Operator can **Start/Stop** the dehumidifier via push buttons located on the **cover panel**.
+
+### 8.2. Automatic Mode
+
+- Selector switch must be set to **Auto**.
+- Dehumidifier will operate automatically upon receiving a **dry contact signal** from the **room thermostat**.
