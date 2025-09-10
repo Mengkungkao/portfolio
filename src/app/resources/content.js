@@ -206,7 +206,7 @@ const about = {
     title: "Technical skills",
     skills: [
       {
-        title: "CAD Drawing",
+        title: "CAD CAM Design and Build",
         description: <>Able to work with 2D AutoCAD, 3D SolidWork, and Fusion360.</>,
         // optional: leave the array empty if you don't want to display images
        
