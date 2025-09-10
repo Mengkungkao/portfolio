@@ -226,7 +226,7 @@ const about = {
         ],
       },
 {
-        title: "PCD Design & Build",
+        title: "PCB Design & Build",
         description: <>Designed PCBs using Altium and KiCAD, with additional technical skills in soldering.</>,
         // optional: leave the array empty if you don't want to display images
        
