@@ -116,7 +116,7 @@ const about = {
           {
             
             src: "/images/projects/project-01/universalbiosensors.jpg",
-            alt: "Once UI Project",
+            alt: "UBS",
             width: 16,
             height: 9,
           },
