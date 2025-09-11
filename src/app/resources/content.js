@@ -218,7 +218,7 @@ const about = {
             height: 9,
           },
           {
-            src: "/images/projects/project-01/autocad.jpg",
+            src: "/images/projects/project-01/3dsldwork-01.jpg",
             alt: "Project image",
             width: 16,
             height: 9,
@@ -226,7 +226,7 @@ const about = {
         ],
       },
 {
-        title: "PCB Design & Build",
+        title: "PCB Design, Build and Programming",
         description: <>Designed PCBs using Altium and KiCAD, with additional technical skills in soldering.</>,
         // optional: leave the array empty if you don't want to display images
        
@@ -237,15 +237,28 @@ const about = {
             width: 16,
             height: 9,
           },
+          {
+            src: "/images/projects/project-01/kicad.jpg",
+            alt: "Project image",
+            width: 16,
+            height: 9,
+          },
+          {
+            src: "/images/projects/project-01/kicad-02.jpg",
+            alt: "Project image",
+            width: 16,
+            height: 9,
+          },
           
         ],
       },
 
       {
         title: "Programming",
-        description: <>Writing code C, C++, Python, Matlab for engineering simulation.</>,
+        description: <>Writing code C, C++, Python, Matlab, STM32 for engineering programming and simulation.</>,
         // optional: leave the array empty if you don't want to display images
         images: [
+          
           {
             src: "/images/projects/project-01/matlabcoding.jpg",
             alt: "Project image",
@@ -254,6 +267,12 @@ const about = {
           },
           {
             src: "/images/projects/project-01/accysim.jpg",
+            alt: "Project image",
+            width: 16,
+            height: 9,
+          },
+          {
+            src: "/images/projects/project-01/stm32.jpg",
             alt: "Project image",
             width: 16,
             height: 9,
