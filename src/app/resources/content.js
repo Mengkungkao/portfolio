@@ -114,6 +114,7 @@ const about = {
         images: [
           // optional: leave the array empty if you don't want to display images
           {
+            
             src: "/images/projects/project-01/universalbiosensors.jpg",
             alt: "Once UI Project",
             width: 16,
@@ -284,7 +285,18 @@ const about = {
         description: <>Used Dialux Evo to calculate illuminance levels in specific rooms.</>,
         // optional: leave the array empty if you don't want to display images
         images: [
-          
+          {
+            src: "/images/projects/project-01/gfdialux.png",
+            alt: "Project image",
+            width: 16,
+            height: 9,
+          },
+          {
+            src: "/images/projects/project-01/gfdialux1.png",
+            alt: "Project image",
+            width: 16,
+            height: 9,
+          },
         ],
       },
       {
