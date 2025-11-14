@@ -1,7 +1,7 @@
 ---
 title: "MATLAB Simulink Model for Accumulator Heat Transfer Analysis"
 publishedAt: "2025-09-01"
-summary: "Modeling and Simulation of battery pack heat conviction and transfer in MATLAB Simulink with Batemo cells."
+summary: "Modeling and Simulation of battery pack heat conviction and transfer in MATLAB Simulink with Batemo cells for Team Swinburne Formula SAE Studies."
 images:
   - "/images/projects/project-01/accysim.jpg"
   - "/images/projects/project-01/accysim2.jpg"
@@ -18,11 +18,13 @@ team:
 
 ## Overview
 
-Lithium-ion batteries are widely used in electric vehicles (EVs), renewable energy storage, and portable electronics. However, battery cells generate heat during charging/discharging due to internal resistance and electrochemical reactions. Excessive temperature rise can degrade battery performance, shorten lifespan, and increase the risk of thermal runaway.
+Lithium-ion batteries are widely used in electric vehicles (EVs), renewable energy storage, and portable electronics. 
+However, battery cells generate heat during charging/discharging due to internal resistance and electrochemical reactions. 
+Excessive temperature rise can degrade battery performance, shorten lifespan, and increase the risk of thermal runaway.
 
 To manage heat, battery thermal management systems (BTMS) are implemented. This project develops a MATLAB/Simulink model to analyze:
 - Heat generation in the battery pack.
-- Heat transfer within cells and modules.
+- Heat transfer within cells and modules to enclosure with ambient temperature.
 - Convective cooling using a liquid cooling loop.
 
 
@@ -46,15 +48,15 @@ To manage heat, battery thermal management systems (BTMS) are implemented. This 
 
 ## Simulink Implementation
 
-- Simscape Electrical for electrical model.
-- Simscape Thermal for heat transfer.
-- Simscape Fluids for coolant loop modeling.
+- Simscape Electrical model
+- Simscape Thermal for heat transfer
+- Simscape Fluids for coolant loop modeling
 - Coupling: Electrical → Heat → Thermal → Cooling loop.
 
 ## Results & Discussion
 
 - Temperature rise curves show uncontrolled heating can exceed 60°C at high C-rate.
-- Cooling loop maintains temperature within 25–40°C safe range.**
+- Cooling loop maintains temperature within 25–40°C safe range.
 - Adaptive control improves cooling efficiency and reduces energy consumption of pump.
 - Heat distribution across modules shows reduced thermal gradients.
 
