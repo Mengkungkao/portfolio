@@ -1,0 +1,263 @@
+---
+title: "How to build a FPV free style drone "
+publishedAt: "2026-02-01"
+summary: "  "
+images:
+  - "/images/projects/project-01/accysim.jpg"
+  - "/images/projects/project-01/accysim2.jpg"
+  - "/images/projects/project-01/accysim3.jpg"
+  
+  
+team:
+  - name: "Meng Kung Kao"
+    role: "Electrical & Electronic Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/mengkung"
+  
+---
+
+# FPV Drone Build
+
+An FPV drone is made from several electronic and mechanical parts that work together to create a fast, stable, and controllable aircraft. This guide explains the main parts of an FPV drone, the purpose of each part, and how they connect in a typical build.
+
+## 1. Frame
+
+The **frame** is the main structure of the drone. It holds all components together and gives the drone its shape and strength. Most FPV frames are made from carbon fiber because it is light and strong.
+
+![Images](/images/blogs/stemtutor01.jpg)
+
+
+**Main functions of the frame:**
+- Supports all drone components
+- Protects electronics during flight or crash
+- Determines drone size and propeller clearance
+
+**Common frame sizes:**
+- 3-inch for small and light drones
+- 5-inch for freestyle and racing
+- 7-inch for long-range drones
+
+## 2. Motors
+
+The **motors** spin the propellers and produce thrust. FPV drones normally use **brushless motors** because they are efficient, powerful, and durable.
+
+**Main functions of motors:**
+- Generate lift and movement
+- Control roll, pitch, and yaw by changing motor speed
+
+**Important motor specifications:**
+- **KV rating**: shows how fast the motor spins per volt
+- **Stator size**: affects torque and power
+
+A 5-inch freestyle drone often uses motors such as **2207** or **2306** size.
+
+## 3. Propellers
+
+The **propellers** convert motor rotation into thrust. FPV drones use four propellers, and each one must match the motor direction.
+
+**Main functions of propellers:**
+- Produce lift
+- Affect speed, control, and efficiency
+
+**Propeller factors:**
+- Diameter
+- Pitch
+- Number of blades
+
+Higher pitch usually gives more speed and response, but it can also increase current draw.
+
+## 4. Flight Controller (FC)
+
+The **flight controller** is the brain of the drone. It reads sensor data and sends commands to the ESCs to stabilize and control the drone.
+
+**Main functions of the flight controller:**
+- Processes pilot input from the radio receiver
+- Uses gyroscope and accelerometer data for stabilization
+- Controls motor output
+- Connects with software such as Betaflight
+
+**Common FC sizes:**
+- 20x20 mm
+- 30.5x30.5 mm
+
+## 5. Electronic Speed Controller (ESC)
+
+The **ESC** controls the speed of each motor. A modern FPV drone often uses a **4-in-1 ESC**, which combines four ESC channels into one board.
+
+**Main functions of the ESC:**
+- Receives signals from the flight controller
+- Supplies controlled power to the motors
+- Changes motor speed quickly during flight
+
+**Important ESC features:**
+- Current rating, such as 35A, 45A, or 60A
+- Voltage support, such as 4S or 6S battery systems
+
+## 6. Battery
+
+The **battery** provides electrical power to the whole drone. FPV drones usually use **LiPo batteries** because they can deliver high current quickly.
+
+**Main functions of the battery:**
+- Powers motors and electronics
+- Affects flight time and performance
+
+**Important battery specifications:**
+- **Cell count**: 4S, 6S, etc.
+- **Capacity**: measured in mAh
+- **C rating**: shows discharge ability
+
+A typical 5-inch FPV drone may use:
+- **4S 1500 mAh** or
+- **6S 1300 mAh**
+
+## 7. FPV Camera
+
+The **FPV camera** captures live video from the front of the drone. This lets the pilot see the flight view in real time through goggles.
+
+**Main functions of the FPV camera:**
+- Provides live video feed
+- Helps navigation and control
+- Affects image quality and low-light performance
+
+**Common camera types:**
+- Analog camera
+- Digital camera system camera
+
+## 8. Video Transmitter (VTX)
+
+The **video transmitter** sends video from the FPV camera to the pilot’s goggles or monitor.
+
+**Main functions of the VTX:**
+- Transmits real-time video signal
+- Supports different power levels for range
+
+**Typical VTX settings:**
+- 25 mW for racing or short range
+- Higher power for longer range, depending on local rules
+
+## 9. Antenna
+
+The **antenna** improves the transmission and reception of video signals. A good antenna is very important for a stable FPV link.
+
+**Main functions of the antenna:**
+- Sends and receives RF signal
+- Improves video quality and range
+
+**Common antenna types:**
+- Linear antenna
+- Circular polarized antenna
+
+Circular polarized antennas are very common in FPV systems because they reduce interference.
+
+## 10. Radio Receiver (RX)
+
+The **receiver** receives control commands from the pilot’s radio transmitter.
+
+**Main functions of the receiver:**
+- Receives throttle, roll, pitch, and yaw commands
+- Passes pilot input to the flight controller
+
+**Common receiver protocols:**
+- ELRS
+- Crossfire
+- FrSky SBUS
+
+ELRS is popular because it gives low latency and long range.
+
+## 11. GPS Module (Optional)
+
+A **GPS module** is optional, but useful for long-range or rescue features.
+
+**Main functions of GPS:**
+- Provides position data
+- Supports return-to-home in some setups
+- Helps location recovery after crash
+
+## 12. Buzzer (Optional)
+
+A **buzzer** helps locate the drone after a crash and can also warn about low battery.
+
+**Main functions of the buzzer:**
+- Makes sound for recovery
+- Gives warning signals
+
+## 13. Power Distribution and Wiring
+
+Power must be safely distributed from the battery to the ESC, flight controller, VTX, and other electronics. In many builds, this is done through the ESC board and wiring harness.
+
+**Important wiring points:**
+- Battery lead to ESC power pads
+- ESC signal wires to FC
+- Receiver to FC UART pad
+- Camera to VTX and FC OSD connection
+- VTX power and video signal connection
+
+Clean soldering is very important for safety and reliability.
+
+## 14. Build Process
+
+A simple FPV drone build usually follows these steps:
+
+### Step 1: Assemble the frame
+Install the bottom plate, arms, and standoffs.
+
+### Step 2: Mount the motors
+Attach the four motors to the frame arms using correct screw length.
+
+### Step 3: Install the ESC
+Mount the 4-in-1 ESC on the frame and solder the motor wires.
+
+### Step 4: Install the flight controller
+Mount the flight controller above the ESC using soft dampers if needed.
+
+### Step 5: Connect electronics
+Wire the FC, ESC, receiver, camera, and VTX.
+
+### Step 6: Solder battery lead
+Solder the XT60 or XT30 battery connector to the ESC.
+
+### Step 7: Install FPV system
+Mount the camera, VTX, and antenna.
+
+### Step 8: Configure software
+Connect the FC to Betaflight and set:
+- Receiver protocol
+- Motor direction
+- Flight modes
+- OSD
+- Failsafe
+
+### Step 9: Install propellers
+Install the propellers only after setup and testing are complete.
+
+### Step 10: Test and fly
+Check radio input, motor direction, video feed, and battery voltage before first flight.
+
+## 15. Example of Basic Part List for a 5-inch FPV Drone
+
+- 5-inch carbon fiber frame
+- 4 x brushless motors (2207 or 2306)
+- 4 x 5-inch propellers
+- F4 or F7 flight controller
+- 4-in-1 ESC
+- FPV camera
+- VTX
+- Antenna
+- ELRS receiver
+- 4S or 6S LiPo battery
+- XT60 connector
+- Buzzer and GPS optional
+
+## 16. Safety Notes
+
+When building an FPV drone, safety is very important.
+
+- Remove propellers during software setup
+- Check polarity before connecting battery
+- Use a smoke stopper for first power test
+- Do not over-tighten screws into motors
+- Keep LiPo batteries stored and charged safely
+
+## Conclusion
+
+An FPV drone build combines mechanical parts, power electronics, control systems, and wireless communication into one flying platform. The frame supports the structure, the motors and propellers create motion, the ESC and flight controller manage control, and the FPV system gives live video to the pilot. A successful build depends on correct part selection, careful wiring, safe soldering, and proper software setup.
