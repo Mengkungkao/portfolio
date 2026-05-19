@@ -12,8 +12,8 @@ const routes = {
 // Enable password protection on selected routes
 // Set password in the .env file, refer to .env.example
 const protectedRoutes = {
-  "/work/electrical-load-estimation-design": true,
-  "/work/autocad-electrical-system-in-a-building-design": true,
+  "/work/electrical-load-estimation-design": false,
+  "/work/autocad-electrical-system-in-a-building-design": false,
   "/work/malab-simulink-model-for-accumulator-heat-transfer-analysis": true,
 };
 
@@ -42,7 +42,7 @@ const font = {
 const style = {
   theme: "dark", // theme is not necessary when using ThemeProvider (default)
   neutral: "sand", // sand | gray | slate
-  brand: "blue", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
+  brand: "white", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
   accent: "red", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan
   solid: "color", // color | contrast
   solidStyle: "flat", // flat | plastic
