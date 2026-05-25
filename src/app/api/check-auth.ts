@@ -7,6 +7,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (cookies.authToken === "authenticated") {
     return res.status(200).json({ authenticated: true });
   } else {
-    return res.status(401).json({ authenticated: false });
+    return res.status(401).json({ authenticated: false }); //false from begining
+  
   }
 }
