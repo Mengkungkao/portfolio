@@ -2,8 +2,6 @@
 
 View the [demo here](https://demo.magic-portfolio.com).
 
-![Magic Portfolio](https://miniature-train-59xrxpgqvvpfp65v-3000.app.github.dev/_next/image?url=%2Fimages%2Fprojects%2Fproject-01%2Fwebsiteportfolio.jpg&w=1920&q=75)
-
 
 # **Getting started**
 
