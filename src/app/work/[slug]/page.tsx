@@ -8,6 +8,8 @@ import { formatDate } from "@/app/utils/formatDate";
 import ScrollToHash from "@/components/ScrollToHash";
 import { Metadata } from "next";
 import { Meta, Schema } from "@/once-ui/modules";
+import { ProjectTableOfContents } from "@/components/work/ProjectTableOfContents";
+import { getHeadingsFromMDX } from "@/app/utils/headings";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "work", "projects"]);
@@ -54,23 +56,24 @@ export default async function Project({
     post.metadata.team?.map((person) => ({
       src: person.avatar,
     })) || [];
-
+  const headings = getHeadingsFromMDX(post.content);
   return (
     <Column as="section" maxWidth="m" horizontal="center" gap="l">
-      <Schema
-        as="blogPosting"
-        baseURL={baseURL}
-        path={`${work.path}/${post.slug}`}
-        title={post.metadata.title}
-        description={post.metadata.summary}
-        datePublished={post.metadata.publishedAt}
-        dateModified={post.metadata.publishedAt}
-        image={`${baseURL}/og?title=${encodeURIComponent(post.metadata.title)}`}
-        author={{
-          name: person.name,
-          url: `${baseURL}${about.path}`,
-          image: `${baseURL}${person.avatar}`,
-        }}
+      <ProjectTableOfContents title="Project content" items={headings} />
+        <Schema
+          as="blogPosting"
+          baseURL={baseURL}
+          path={`${work.path}/${post.slug}`}
+          title={post.metadata.title}
+          description={post.metadata.summary}
+          datePublished={post.metadata.publishedAt}
+          dateModified={post.metadata.publishedAt}
+          image={`${baseURL}/og?title=${encodeURIComponent(post.metadata.title)}`}
+          author={{
+            name: person.name,
+            url: `${baseURL}${about.path}`,
+            image: `${baseURL}${person.avatar}`,
+          }}
       />
       <Column maxWidth="xs" gap="16">
         <Button data-border="rounded" href="/work" variant="tertiary" weight="default" size="s" prefixIcon="chevronLeft">

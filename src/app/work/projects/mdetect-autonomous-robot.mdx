@@ -37,115 +37,6 @@ team:
 
 **Unit Code: EAT80002**
 
-# Contents
-
-- [Executive Summary](#executive-summary)
-- [1. Introduction](#introduction)
-  - [1.1 Background](#background)
-  - [1.2 Industry Problem](#industry-problem)
-  - [1.3 Project Aim](#project-aim)
-  - [1.4 Project Objectives](#project-objectives)
-  - [1.5 Report Structure](#report-structure)
-- [2. Literature Review](#literature-review)
-  - [2.1 Mobile Robot Localisation Using Odometry](#mobile-robot-localisation-using-odometry)
-  - [2.2 Inertial Measurement Units for Navigation](#inertial-measurement-units-for-navigation)
-  - [2.3 Proportional Integral Derivative (PID) Control](#proportional-integral-derivative-pid-control)
-  - [2.4 Kalman Filtering for Sensor Noise Reduction](#kalman-filtering-for-sensor-noise-reduction)
-  - [2.5 LiDAR-Based Navigation and Obstacle Detection](#lidar-based-navigation-and-obstacle-detection)
-  - [2.6 Summary](#literature-review-summary)
-- [3. Project Plan and Methods](#project-plan-and-methods)
-  - [3.1 Project Directories Folder](#project-directories-folder)
-  - [3.2 Project Scope and System Overview](#project-scope-and-system-overview)
-  - [3.3 Hardware Components](#hardware-components)
-    - [3.3.1 Arduino Uno](#arduino-uno)
-    - [3.3.2 MPU6050 Inertial Momentum Unit](#mpu6050-inertial-momentum-unit)
-    - [3.3.3 Raspberry Pi 3B+](#raspberry-pi-3b)
-  - [3.4 Software Architecture](#software-architecture)
-    - [3.4.1 Arduino Software](#arduino-software)
-    - [3.4.2 Raspberry Pi Software](#raspberry-pi-software)
-  - [3.5 Project Management and Team Allocation](#project-management-and-team-allocation)
-  - [3.6 Methodology](#methodology)
-  - [3.7 Project Timeline](#project-timeline)
-- [4. Discussion - Odometry System Development](#discussion-odometry-system-development)
-  - [4.1 Encoder-Based Odometry Development](#encoder-based-odometry-development)
-  - [4.2 Position Estimation Using Odometry](#position-estimation-using-odometry)
-  - [4.3 IMU Integration and Heading Estimation](#imu-integration-and-heading-estimation)
-  - [4.4 World Frame Position Estimation](#world-frame-position-estimation)
-  - [4.5 Localisation Performance Evaluation](#localisation-performance-evaluation)
-  - [4.6 Summary](#odometry-summary)
-- [5. Discussion – System Challenges and Performance Improvements](#discussion-system-challenges-and-performance-improvements)
-  - [5.1 Challenge 1: Motion Stability](#challenge-1-motion-stability)
-  - [5.2 Challenge 2: Encoder Noise and Error Accumulation](#challenge-2-encoder-noise-and-error-accumulation)
-  - [5.3 Challenge 3: Accurate Motion Control](#challenge-3-accurate-motion-control)
-  - [5.4 Challenge 4: System Integration and Resource Constraints](#challenge-4-system-integration-and-resource-constraints)
-  - [5.5 Discussion](#system-challenges-discussion)
-  - [5.6 Summary](#system-challenges-summary)
-- [6. Results and Discussion – LiDAR Navigation System](#results-and-discussion-lidar-navigation-system)
-  - [6.1 Raspberry Pi High-Level Control Development](#raspberry-pi-high-level-control-development)
-  - [6.2 LiDAR Integration](#lidar-integration)
-  - [6.3 Obstacle Detection System](#obstacle-detection-system)
-  - [6.4 Advanced Navigation Development](#advanced-navigation-development)
-  - [6.5 Discussion](#lidar-discussion)
-  - [6.6 Summary](#lidar-summary)
-- [7. Summary and Conclusions](#summary-and-conclusions)
-  - [7.1 Summary](#final-summary)
-  - [7.2 Conclusions](#conclusions)
-  - [7.3 Project Limitations](#project-limitations)
-  - [7.4 Recommendations for Future Work](#recommendations-for-future-work)
-  - [7.5 Final Remarks](#final-remarks)
-- [8. Acknowledgements](#acknowledgements)
-- [9. References](#references)
-- [Appendices](#appendices)
-
-# List of Figures
-
-- [Figure 1.1.1 Muon Detector (Mdetect.com.au, 2025)](#fig-1-1-1)
-- [Figure 1.2.1 Four Mecanum Wheels Mechanical Part Assembly Robot](#fig-1-2-1)
-- [Figure 1.2.2 Robot Dimensions](#fig-1-2-2)
-- [Figure 2.1.1 Encoder Odometry Principle (Guo et al., 2025)](#fig-2-1-1)
-- [Figure 2.2.1 MPU6050 IMU Sensor and Heading Estimation (Last Minute Engineers, 2021)](#fig-2-2-1)
-- [Figure 2.4.1 Raw Encoder Data versus Kalman Filtered Data](#fig-2-4-1)
-- [Figure 2.5.1 COIN-D6 LiDAR Sensor (Witmotion, 2025)](#fig-2-5-1)
-- [Figure 3.1.1 Project Documentation Directories](#fig-3-1-1)
-- [Figure 3.2.1 Overall System Architecture](#fig-3-2-1)
-- [Figure 3.3.1 MPU6050](#fig-3-3-1)
-- [Figure 3.4.1 Arduino Software Architecture](#fig-3-4-1)
-- [Figure 3.4.2 Raspberry Pi Software Architecture](#fig-3-4-2)
-- [Figure 3.5 System Development Flowchart](#fig-3-5)
-- [Figure 3.7.1 Revised Project Gantt Chart](#fig-3-7-1)
-- [Figure 4.1.1 Encoder Integration and Testing Setup](#fig-4-1-1)
-- [Figure 4.1.2 Encoder Pulse Output from Oscilloscope](#fig-4-1-2)
-- [Figure 4.1.3 Print data of IMU MPU6050 Output](#fig-4-1-3)
-- [Figure 4.3.1 MPU6050 Wiring and Integration](#fig-4-3-1)
-- [Figure 4.3.2 MPU6050 Heading Output](#fig-4-3-2)
-- [Figure 4.4.1 Real-Time Position Output](#fig-4-4-1)
-- [Figure 5.1.1 Robot Drift During Straight-Line Motion](#fig-5-1-1)
-- [Figure 5.1.2 Encoder Scaling Calibration Process](#fig-5-1-2)
-- [Figure 5.2.1 Kalman Filter Algorithm (Borenstein and Liqiang Feng, 1996)](#fig-5-2-1)
-- [Figure 5.2.2 Encoder Data before Kalman Filtering](#fig-5-2-2)
-- [Figure 5.2.3 Encoder Data After Kalman Filtering](#fig-5-2-3)
-- [Figure 5.3.1 Navigation Performance After PID Implementation](#fig-5-3-1)
-- [Figure 6.1.1 Arduino–Raspberry Pi Communication Architecture (Duncan, 2019)](#fig-6-1-1)
-- [Figure 6.1.2 Python Monitoring Console](#fig-6-1-2)
-- [Figure 6.2.1 COIN-D6 LiDAR Mounted on Robot](#fig-6-2-1)
-- [Figure 6.2.2 LiDAR Data Processing Workflow](#fig-6-2-2)
-- [Figure 6.2.3 Real-Time LiDAR Scan Output](#fig-6-2-3)
-- [Figure 6.3.1 Obstacle Detection and Emergency Stop Flowchart](#fig-6-3-1)
-- [Figure 6.4.1 A Star Path Planning](#fig-6-4-1)
-- [Figure 6.4.2 Automatic Route Replanning Process](#fig-6-4-2)
-- [Figure 6.4.3 LiDAR Mapping and Localisation Concept](#fig-6-4-3)
-- [Figure 10.1.1 Arduino UNO R3 Datasheet](#fig-10-1-1)
-- [Figure 10.1.2 Raspberry Pi 3 Model B+](#fig-10-1-2)
-- [Figure 10.1.3 Wiring Circuit Diagram of PCA9685 as Motor Shield](#fig-10-1-3)
-- [Figure 10.1.4 MPU6050 Wiring diagram](#fig-10-1-4)
-- [Figure 10.1.5 DC Motor Model Specification](#fig-10-1-5)
-- [Figure 10.1.6 Encoder Specification](#fig-10-1-6)
-- [Figure 10.1.7 LiDAR Coin D6 Specifications](#fig-10-1-7)
-- [Figure 10.1.8 LiDAR Communication interface](#fig-10-1-8)
-- [Figure 10.2.1 Raspberry Pi Data Reading and CSV File Data Storing](#fig-10-2-1)
-- [Figure 10.2.2 CSV data output from robot](#fig-10-2-2)
-
-
 <a id="executive-summary" />
 # Executive Summary
 
@@ -220,10 +111,7 @@ the robot’s location and orientation at the time of measurement.
 Consequently, a reliable GPS-free localisation system is required to
 support future deployment of autonomous muon detection platforms.
 
-<figure id="fig-1-1-1" style={{ margin: "1rem auto", textAlign: "center", width: "50%" }} >
-  <img src="/images/projects/mdetect/image3.png" alt="Figure 1.1.1 Muon Detector (Mdetect.com.au, 2025)" style={{ width: "clamp(16rem, 50%, 16rem)", maxWidth: "50%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1", opacity: 0.78 }} >Figure 1.1.1 Muon Detector (Mdetect.com.au, 2025)</figcaption>
-</figure>
+![Muon Detector (Mdetect.com.au, 2025)](/images/projects/mdetect/image3.png)
 
 Robotic localisation in GPS-denied environments commonly relies on
 onboard sensors such as wheel encoders, inertial measurement units

@@ -1,0 +1,19 @@
+.navigation {
+  max-width: 232px;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-left: var(--static-space-12);
+  padding-right: var(--static-space-8);
+
+  z-index: 10;
+  white-space: nowrap;
+  scrollbar-width: thin;
+
+  direction: rtl;
+}
+
+.navigation > * {
+  direction: ltr;
+}
