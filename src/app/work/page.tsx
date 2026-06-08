@@ -30,7 +30,7 @@ export default function Work() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      
+      <Projects />
     </Column>
   );
 }

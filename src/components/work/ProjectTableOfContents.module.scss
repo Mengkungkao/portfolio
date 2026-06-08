@@ -1,19 +1,119 @@
-.navigation {
-  max-width: 232px;
-  max-height: calc(100vh - 160px);
+.toc {
+  position: sticky;
+  top: 112px;
+  align-self: flex-start;
+  flex: 0 0 248px;
+  width: 248px;
+  max-height: calc(100vh - 136px);
   overflow-y: auto;
   overflow-x: hidden;
-
-  padding-left: var(--static-space-12);
-  padding-right: var(--static-space-8);
-
-  z-index: 10;
-  white-space: nowrap;
-  scrollbar-width: thin;
-
+  padding-left: 8px;
   direction: rtl;
+  z-index: 2;
 }
 
-.navigation > * {
+.inner {
   direction: ltr;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.collapsed {
+  flex-basis: 112px;
+  width: 112px;
+  overflow: visible;
+}
+
+.toggle {
+  border: 1px solid rgba(128, 128, 128, 0.22);
+  background: rgba(128, 128, 128, 0.08);
+  color: inherit;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1;
+  text-align: left;
+  width: fit-content;
+}
+
+.toggleOpen {
+  width: 100%;
+}
+
+.panel {
+  border: 1px solid rgba(128, 128, 128, 0.18);
+  border-radius: 16px;
+  padding: 14px;
+  background: rgba(128, 128, 128, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.title {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  padding: 7px 8px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.35;
+  opacity: 0.68;
+  font-weight: 400;
+}
+
+.item:hover {
+  opacity: 1;
+  background: rgba(128, 128, 128, 0.12);
+}
+
+.active {
+  opacity: 1;
+  font-weight: 650;
+  background: rgba(128, 128, 128, 0.16);
+}
+
+.level3 {
+  padding-left: 22px;
+  font-size: 13px;
+}
+
+.level4 {
+  padding-left: 34px;
+  font-size: 13px;
+}
+
+@media (max-width: 1024px) {
+  .toc {
+    position: relative;
+    top: auto;
+    width: 100%;
+    flex: 1 1 100%;
+    max-height: none;
+    overflow: visible;
+    padding-left: 0;
+    margin-bottom: 12px;
+  }
+
+  .collapsed {
+    width: 100%;
+    flex-basis: 100%;
+  }
 }

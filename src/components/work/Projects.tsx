@@ -15,10 +15,7 @@ export function Projects({ range }: ProjectsProps) {
   const allProjects = getPosts(["src", "app", "work", "projects"]);
 
   const sortedProjects = allProjects.sort((a, b) => {
-    return (
-      new Date(b.metadata.publishedAt).getTime() -
-      new Date(a.metadata.publishedAt).getTime()
-    );
+    return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
   });
 
   const displayedProjects = range
@@ -43,9 +40,7 @@ export function Projects({ range }: ProjectsProps) {
         flexWrap: "wrap",
       }}
     >
-      {showTableOfContents && (
-        <ProjectTableOfContents title="Projects" items={tocItems} />
-      )}
+      {showTableOfContents && <ProjectTableOfContents title="Projects" items={tocItems} />}
 
       <Column
         fillWidth
@@ -72,11 +67,7 @@ export function Projects({ range }: ProjectsProps) {
               title={post.metadata.title}
               description={post.metadata.summary}
               content={post.content}
-              avatars={
-                post.metadata.team?.map((member) => ({
-                  src: member.avatar,
-                })) || []
-              }
+              avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}
               link={post.metadata.link || ""}
             />
           </div>

@@ -12,7 +12,6 @@ import { Meta, Schema } from "@/once-ui/modules";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "work", "projects"]);
-
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -24,13 +23,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string | string[] }>;
 }): Promise<Metadata> {
   const routeParams = await params;
+  const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
 
-  const slugPath = Array.isArray(routeParams.slug)
-    ? routeParams.slug.join("/")
-    : routeParams.slug || "";
-
-  const posts = getPosts(["src", "app", "work", "projects"]);
-  const post = posts.find((post) => post.slug === slugPath);
+  const posts = getPosts(["src", "app", "work", "projects"])
+  let post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
 
@@ -38,27 +34,18 @@ export async function generateMetadata({
     title: post.metadata.title,
     description: post.metadata.summary,
     baseURL: baseURL,
-    image: post.metadata.image
-      ? `${baseURL}${post.metadata.image}`
-      : `${baseURL}/og?title=${post.metadata.title}`,
+    image: post.metadata.image ? `${baseURL}${post.metadata.image}` : `${baseURL}/og?title=${post.metadata.title}`,
     path: `${work.path}/${post.slug}`,
   });
 }
 
 export default async function Project({
-  params,
-}: {
-  params: Promise<{ slug: string | string[] }>;
-}) {
+  params
+}: { params: Promise<{ slug: string | string[] }> }) {
   const routeParams = await params;
+  const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
 
-  const slugPath = Array.isArray(routeParams.slug)
-    ? routeParams.slug.join("/")
-    : routeParams.slug || "";
-
-  const post = getPosts(["src", "app", "work", "projects"]).find(
-    (post) => post.slug === slugPath
-  );
+  let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
 
   if (!post) {
     notFound();
@@ -86,24 +73,12 @@ export default async function Project({
           image: `${baseURL}${person.avatar}`,
         }}
       />
-
       <Column maxWidth="xs" gap="16">
-        <Button
-          data-border="rounded"
-          href="/work"
-          variant="tertiary"
-          weight="default"
-          size="s"
-          prefixIcon="chevronLeft"
-        >
+        <Button data-border="rounded" href="/work" variant="tertiary" weight="default" size="s" prefixIcon="chevronLeft">
           Projects
         </Button>
-
-        <Heading variant="display-strong-s">
-          {post.metadata.title}
-        </Heading>
+        <Heading variant="display-strong-s">{post.metadata.title}</Heading>
       </Column>
-
       {post.metadata.images.length > 0 && (
         <SmartImage
           priority
@@ -113,42 +88,38 @@ export default async function Project({
           src={post.metadata.images[0]}
         />
       )}
-
       <div
-  style={{
-    display: "flex",
-    width: "100%",
-    maxWidth: "1180px",
-    margin: "0 auto",
-    gap: "32px",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    flexWrap: "wrap",
-  }}
->
-  <ProjectTableOfContents />
+        style={{
+          display: "flex",
+          width: "100%",
+          maxWidth: "1024px",
+          margin: "0 auto",
+          gap: "32px",
+          alignItems: "flex-start",
+          justifyContent: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <ProjectTableOfContents />
 
-  <Column
-    style={{
-      margin: "0",
-      flex: "1 1 680px",
-      minWidth: 0,
-    }}
-    as="article"
-    maxWidth="s"
-  >
-    <Flex gap="12" marginBottom="24" vertical="center">
-      {post.metadata.team && <AvatarGroup reverse avatars={avatars} size="m" />}
-
-      <Text variant="body-default-s" onBackground="neutral-weak">
-        {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
-      </Text>
-    </Flex>
-
-    <CustomMDX source={post.content} />
-  </Column>
-</div>
-
+        <Column
+          style={{
+            margin: 0,
+            flex: "1 1 680px",
+            minWidth: 0,
+          }}
+          as="article"
+          maxWidth="s"
+        >
+          <Flex gap="12" marginBottom="24" vertical="center">
+            {post.metadata.team && <AvatarGroup reverse avatars={avatars} size="m" />}
+            <Text variant="body-default-s" onBackground="neutral-weak">
+              {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
+            </Text>
+          </Flex>
+          <CustomMDX source={post.content} />
+        </Column>
+      </div>
       <ScrollToHash />
     </Column>
   );
