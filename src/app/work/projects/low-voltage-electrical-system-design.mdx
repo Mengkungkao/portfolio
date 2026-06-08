@@ -1,23 +1,12 @@
 ---
-
 title: "Low Voltage Electrical Design for La Cozii TK Condominium"
-publishedAt: "2022-07-15"
+publishedAt: "2023-01-01"
 summary: "Bachelor thesis project on low-voltage electrical installation design, power demand estimation, equipment sizing, protection, and EcoStruxure Power Design - Ecodial verification."
 images: 
-  - "/images/projects/electricaldesign/lacoziitk.jpg"
+ - "/images/projects/electricaldesign/lacoziitk.jpg"
 tag: "Electrical Design"
-
 ---
 
-<FunctionTable
-  caption="Project overview"
-  columns={["Item", "Details"]}
-  rows={[
-    ["Project type", "Bachelor's thesis / electrical building services design"],
-    ["Building", "18-storey residential and commercial condominium"],
-    ["Location", "Tuol Kork District, Phnom Penh, Cambodia"]
-  ]}
-/>
 
 
 # ACKNOWLEDGEMENTS
@@ -263,13 +252,18 @@ This installed power is not the real power that will be delivered in
 practice. The installed power is calculated mathematically following
 Schneider Electric Installation Guide in reference \[1\].
 
-<MathEquation label={"Eq. 2.1"} formula={"P_installed Power = Σ_i = 1^m( n_i × P_n,i )"} />
 
-Where P_installed Power: Installed Power \[W\]
+<MathEquation
+  title="Installed power"
+  label="Eq. 2.1"
+  formula="Pinstalled = Σ(nᵢ × Pnᵢ)"
+  variables={[
+    { symbol: "Pinstalled", meaning: "total installed power", unit: "W" },
+    { symbol: "nᵢ", meaning: "number of each load type" },
+    { symbol: "Pnᵢ", meaning: "nominal power of each load type", unit: "W" }
+  ]}
+/>
 
-n_i:The number of each type of load
-
-P_n,i:Nominal Power of each type of load \[W\]
 
 ## Estimation of Actual Maximum Power Demand
 
@@ -286,15 +280,42 @@ of a utilization factor. To estimate the realistic value, this factor in
 factor according to circuit function
 
 <FunctionTable
-  caption="Table 2.1 Diversity factor according to circuit function"
-  columns={["Circuit function", "Column 2", "Diversity factor ku"]}
+  columns={[
+    "Circuit function",
+    "Column 2",
+    "Diversity factor ku"
+  ]}
   rows={[
-    ["Lighting", "", "1.00"],
-    ["Heating and Air conditioning", "", "1.00"],
-    ["Socket-outlets", "", "0.1 to 0.2 or higher"],
-    ["lifts and catering hoist", "for most power full motor", "1.00"],
-    ["", "for the second most powerful motor", "0.75"],
-    ["", "for all motors", "0.60"]
+    [
+      "Lighting",
+      "",
+      "1.00"
+    ],
+    [
+      "Heating and Air conditioning",
+      "",
+      "1.00"
+    ],
+    [
+      "Socket-outlets",
+      "",
+      "0.1 to 0.2 or higher"
+    ],
+    [
+      "lifts and catering hoist",
+      "for most power full motor",
+      "1.00"
+    ],
+    [
+      "",
+      "for the second most powerful motor",
+      "0.75"
+    ],
+    [
+      "",
+      "for all motors",
+      "0.60"
+    ]
   ]}
 />
 
@@ -311,16 +332,39 @@ shown in the **Table 2.2** below.
 diversity factor for distribution boards
 
 <FunctionTable
-  caption="Table 2.2 Rated diversity factor for distribution boards"
-  columns={["Type of load", "Assumed load factor"]}
+  columns={[
+    "Type of load",
+    "Assumed load factor"
+  ]}
   rows={[
-    ["Distribution 2 and 3 circuits", "0.90"],
-    ["Distribution 4 and 5 circuits", "0.80"],
-    ["Distribution 6 and 9 circuits", "0.70"],
-    ["Distribution 10 or more circuits", "0.60"],
-    ["Electric actuator", "0.20"],
-    ["Motor ≤ 100 kW", "0.80"],
-    ["Motor ≥ 100 kW", "1.00"]
+    [
+      "Distribution 2 and 3 circuits",
+      "0.90"
+    ],
+    [
+      "Distribution 4 and 5 circuits",
+      "0.80"
+    ],
+    [
+      "Distribution 6 and 9 circuits",
+      "0.70"
+    ],
+    [
+      "Distribution 10 or more circuits",
+      "0.60"
+    ],
+    [
+      "Electric actuator",
+      "0.20"
+    ],
+    [
+      "Motor ≤ 100 kW",
+      "0.80"
+    ],
+    [
+      "Motor ≥ 100 kW",
+      "1.00"
+    ]
   ]}
 />
 
@@ -336,33 +380,47 @@ power that will be supplied in practice following reference \[1\].
 
 - Estimated power demand of each type of load is given:
 
-<MathEquation label={"Eq. 2.2"} formula={"P_i = n_i × k_u,i × P_nom,i"} />
-
-Where k_u,i : Utilization factor of each type of load
-
-&gt; P_nom,i: Nominal power of each type of load \[W\]
-&gt;
-&gt; n_i : Number of loads
+<MathEquation
+  title="Estimated power demand of each load type"
+  label="Eq. 2.2"
+  formula="Pe = Ku × n × Pn"
+  variables={[
+    { symbol: "Pe", meaning: "estimated power demand", unit: "W" },
+    { symbol: "Ku", meaning: "utilisation factor" },
+    { symbol: "n", meaning: "number of loads" },
+    { symbol: "Pn", meaning: "nominal power", unit: "W" }
+  ]}
+/>
 
 - Estimated maximum power demand in a circuit is given:
 
-<MathEquation label={"Eq. 2.3"} formula={"P_circuit = Σ_i = 1^nP_i"} />
-
-Where k_s : Simultaneous factor of group of loads
-
-&gt; P_i : Estimated power demand of each type of load in a circuit
-&gt; \[W\]
+<MathEquation
+  title="Maximum power demand in a circuit"
+  label="Eq. 2.3"
+  formula="Pmax = Ks × ΣPe"
+  variables={[
+    { symbol: "Pmax", meaning: "maximum active power demand", unit: "W" },
+    { symbol: "Ks", meaning: "diversity factor" },
+    { symbol: "Pe", meaning: "estimated power demand of each load", unit: "W" }
+  ]}
+/>
 
 Noted: For DB, SDB, and MDB, Power Demand need to calculate with
 Diversity factor Ks.
 
 - The Estimated maximum reactive power demand in a circuit:
 
-<MathEquation label={"Eq. 2.4"} formula={"Q_circuit = P_circuit × tanφ"} />
+<MathEquation
+  title="Reactive power demand"
+  label="Eq. 2.4"
+  formula="Q = P × tan(cos⁻¹(PF))"
+  variables={[
+    { symbol: "Q", meaning: "reactive power demand", unit: "var" },
+    { symbol: "P", meaning: "active power demand", unit: "W" },
+    { symbol: "PF", meaning: "power factor" }
+  ]}
+/>
 
-Where tanφ: calculation through average power factor
-
-&gt; P_circuit:Estimated maximum power demand in a circuit \[W\]
 
 - Estimated maximum apparent power demand for a circuit by:
 
@@ -397,6 +455,18 @@ triangle after compensation
 
 Required reactive power of capacitor is calculated through:
 
+<MathEquation
+  title="Required capacitor bank reactive power"
+  label="Eq. 2.8"
+  formula="Qc = P × (tan φ₁ - tan φ₂)"
+  variables={[
+    { symbol: "Qc", meaning: "required capacitor bank reactive power", unit: "var" },
+    { symbol: "P", meaning: "active power demand", unit: "W" },
+    { symbol: "φ₁", meaning: "phase angle before correction" },
+    { symbol: "φ₂", meaning: "phase angle after correction" }
+  ]}
+/>
+
 <MathEquation label={"Eq. 2.8"} formula={"Q_c = Q − Q' = P(tanφ- tanφ^')"} />
 
 Where Q_c ;Required reactive power of capacitor bank to
@@ -422,12 +492,17 @@ core. We can calculate the rated apparent power of transformer that will
 be used in the electrical installation through the following formula
 following reference \[1\]:
 
-<MathEquation label={"Eq. 2.9"} formula={"S_Tr = S^' × k_e"} />
+<MathEquation
+  title="Transformer sizing"
+  label="Eq. 2.9"
+  formula="STr = S' × Ke"
+  variables={[
+    { symbol: "STr", meaning: "rated apparent power of transformer", unit: "kVA" },
+    { symbol: "S'", meaning: "apparent power after power factor correction", unit: "kVA" },
+    { symbol: "Ke", meaning: "extension factor" }
+  ]}
+/>
 
-Where S_Tr : Rated apparent power of transformer \[KVA\]
-
-S^' : Maximum apparent power demand after compensation \[KVA\]
-k_e : Extension factor
 
 ## Power Generator
 
@@ -517,6 +592,20 @@ take a high inrush current, is determined following reference \[1\]:
 <MathEquation label={"Eq. 2.12"} formula={"I_B = (P_n × 10^3) / (V × η × cosφ)"} />
 
 - For three phases motor
+
+<MathEquation
+  title="Three-phase maximum load current"
+  label="Eq. 2.13"
+  formula="Ib = P / (√3 × U × PF × η)"
+  variables={[
+    { symbol: "Ib", meaning: "maximum load current", unit: "A" },
+    { symbol: "P", meaning: "rated active power", unit: "W" },
+    { symbol: "U", meaning: "phase-to-phase voltage", unit: "V" },
+    { symbol: "PF", meaning: "power factor" },
+    { symbol: "η", meaning: "motor efficiency" }
+  ]}
+/>
+
 
 <MathEquation label={"Eq. 2.13"} formula={"I_B = (P_n × 10^3) / (√3 × V × η × cosφ)"} />
 
@@ -765,11 +854,25 @@ current calculations.
 impedance LV side of the MV network
 
 <FunctionTable
-  caption="Table 2.3 The impedance LV side of the MV network"
-  columns={["P_sc", "U_20", "Ra [mΩ]", "Xa [mΩ]"]}
+  columns={[
+    "P_sc",
+    "U_20",
+    "Ra \\[mΩ\\]",
+    "Xa \\[mΩ\\]"
+  ]}
   rows={[
-    ["250 MVA", "420", "0.07", "0.7"],
-    ["500 MVA", "420", "0.035", "0.351"]
+    [
+      "250 MVA",
+      "420",
+      "0.07",
+      "0.7"
+    ],
+    [
+      "500 MVA",
+      "420",
+      "0.035",
+      "0.351"
+    ]
   ]}
 />
 
@@ -1470,599 +1573,5912 @@ MCCB selection
 Distribution board parking 1 (DB-P1)
 
 <FunctionTable
-  caption="Distribution board parking 1 (DB-P1)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-P1", "AC01", "", "", "", "1.13", "1.05", "1.54", "0.73", "6.7"],
-    ["CASSETTE AC 2.0HP", "", "1", "1,500", "0.75", "", "", "", "", ""],
-    ["DB-P1", "AC01", "", "", "", "1.13", "1.05", "1.54", "0.73", "6.7"],
-    ["CASSETTE AC 2.0HP", "", "1", "1,500", "0.75", "", "", "", "", ""],
-    ["DB-P1", "S01", "", "", "", "0.75", "0.77", "1.07", "0.70", "4.7"],
-    ["POWER SOCKET", "", "4", "250", "0.75", "", "", "", "", ""],
-    ["DB-P1", "S02", "", "", "", "0.84", "0.86", "1.20", "0.70", "5.2"],
-    ["POWER SOCKET", "", "3", "350", "0.80", "", "", "", "", ""],
-    ["DB-P1", "S03", "", "", "", "0.56", "0.57", "0.80", "0.70", "3.5"],
-    ["POWER SOCKET", "", "2", "350", "0.80", "", "", "", "", ""],
-    ["DB-P1", "S04", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
-    ["POWER SOCKET", "", "4", "250", "0.80", "", "", "", "", ""],
-    ["DB-P1", "S05", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
-    ["POWER SOCKET", "", "4", "250", "0.80", "", "", "", "", ""],
-    ["DB-P1", "S06", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
-    ["POWER SOCKET", "", "4", "250", "0.80", "", "", "", "", ""],
-    ["DB-P1", "L01", "", "", "", "0.17", "0.08", "0.19", "0.90", "0.8"],
-    ["LED LIGHT 12W", "", "14", "12", "1.00", "", "", "", "", ""],
-    ["DB-P1", "L02", "", "", "", "0.29", "0.14", "0.32", "0.90", "1.4"],
-    ["LED PANEL 36W", "", "8", "36", "1.00", "", "", "", "", ""],
-    ["DB-P1", "L01", "", "", "", "0.25", "0.26", "0.36", "0.70", "1.6"],
-    ["SPARE SDB-5F TO RF", "", "1", "250", "1.00", "", "", "", "", ""],
-    ["DB-P1, Ks = 0.6", "", "", "", "", "4.50", "4.33", "6.25", "0.72", "9.02"]
+    [
+      "DB-P1",
+      "AC01",
+      "",
+      "",
+      "",
+      "1.13",
+      "1.05",
+      "1.54",
+      "0.73",
+      "6.7"
+    ],
+    [
+      "CASSETTE AC 2.0HP",
+      "",
+      "1",
+      "1,500",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "AC01",
+      "",
+      "",
+      "",
+      "1.13",
+      "1.05",
+      "1.54",
+      "0.73",
+      "6.7"
+    ],
+    [
+      "CASSETTE AC 2.0HP",
+      "",
+      "1",
+      "1,500",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "S01",
+      "",
+      "",
+      "",
+      "0.75",
+      "0.77",
+      "1.07",
+      "0.70",
+      "4.7"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "S02",
+      "",
+      "",
+      "",
+      "0.84",
+      "0.86",
+      "1.20",
+      "0.70",
+      "5.2"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "3",
+      "350",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "S03",
+      "",
+      "",
+      "",
+      "0.56",
+      "0.57",
+      "0.80",
+      "0.70",
+      "3.5"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "2",
+      "350",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "S04",
+      "",
+      "",
+      "",
+      "0.80",
+      "0.82",
+      "1.14",
+      "0.70",
+      "5.0"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "S05",
+      "",
+      "",
+      "",
+      "0.80",
+      "0.82",
+      "1.14",
+      "0.70",
+      "5.0"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "S06",
+      "",
+      "",
+      "",
+      "0.80",
+      "0.82",
+      "1.14",
+      "0.70",
+      "5.0"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "L01",
+      "",
+      "",
+      "",
+      "0.17",
+      "0.08",
+      "0.19",
+      "0.90",
+      "0.8"
+    ],
+    [
+      "LED LIGHT 12W",
+      "",
+      "14",
+      "12",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "L02",
+      "",
+      "",
+      "",
+      "0.29",
+      "0.14",
+      "0.32",
+      "0.90",
+      "1.4"
+    ],
+    [
+      "LED PANEL 36W",
+      "",
+      "8",
+      "36",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1",
+      "L01",
+      "",
+      "",
+      "",
+      "0.25",
+      "0.26",
+      "0.36",
+      "0.70",
+      "1.6"
+    ],
+    [
+      "SPARE SDB-5F TO RF",
+      "",
+      "1",
+      "250",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P1, Ks = 0.6",
+      "",
+      "",
+      "",
+      "",
+      "4.50",
+      "4.33",
+      "6.25",
+      "0.72",
+      "9.02"
+    ]
   ]}
 />
 
 Distribution board parking 2 (DB-P2)
 
 <FunctionTable
-  caption="Distribution board parking 2 (DB-P2)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-P2", "S01", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
-    ["POWER SOCKET", "", "4", "250", "0.60", "", "", "", "", ""],
-    ["DB-P2", "S02", "", "", "", "0.63", "0.64", "0.90", "0.70", "3.9"],
-    ["POWER SOCKET", "", "3", "350", "0.60", "", "", "", "", ""],
-    ["DB-P2", "L01", "", "", "", "0.35", "0.17", "0.38", "0.90", "1.7"],
-    ["LED LIGHTING 12W", "", "6", "12", "0.80", "", "", "", "", ""],
-    ["LED PANEL 36W", "", "10", "36", "0.80", "", "", "", "", ""],
-    ["DB-P2", "L02", "", "", "", "0.20", "0.10", "0.22", "0.90", "1.0"],
-    ["SPARE LIGHTING", "", "1", "250", "0.80", "", "", "", "", ""],
-    ["DB-P2, Ks = 0.9", "", "", "", "", "1.60", "1.37", "2.10", "0.76", "3.04"]
+    [
+      "DB-P2",
+      "S01",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70",
+      "3.7"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P2",
+      "S02",
+      "",
+      "",
+      "",
+      "0.63",
+      "0.64",
+      "0.90",
+      "0.70",
+      "3.9"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "3",
+      "350",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P2",
+      "L01",
+      "",
+      "",
+      "",
+      "0.35",
+      "0.17",
+      "0.38",
+      "0.90",
+      "1.7"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "6",
+      "12",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED PANEL 36W",
+      "",
+      "10",
+      "36",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P2",
+      "L02",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.10",
+      "0.22",
+      "0.90",
+      "1.0"
+    ],
+    [
+      "SPARE LIGHTING",
+      "",
+      "1",
+      "250",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P2, Ks = 0.9",
+      "",
+      "",
+      "",
+      "",
+      "1.60",
+      "1.37",
+      "2.10",
+      "0.76",
+      "3.04"
+    ]
   ]}
 />
 
 Distribution board parking 3 (DB-P3)
 
 <FunctionTable
-  caption="Distribution board parking 3 (DB-P3)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-P3", "S01", "", "", "", "1.08", "1.10", "1.54", "0.70", "6.7"],
-    ["POWER SOCKET", "", "6", "300", "0.60", "", "", "", "", ""],
-    ["DB-P3", "S02", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
-    ["POWER SOCKET", "", "4", "250", "0.60", "", "", "", "", ""],
-    ["DB-P3", "L01", "", "", "", "0.35", "0.17", "0.38", "0.90", "1.7"],
-    ["LED 12W", "", "6", "12", "0.80", "", "", "", "", ""],
-    ["LED PANEL 36W", "", "10", "36", "0.80", "", "", "", "", ""],
-    ["DB-P3", "L02", "", "", "", "0.20", "0.10", "0.22", "0.90", "1.0"],
-    ["SPARE", "", "1", "250", "0.80", "", "", "", "", ""],
-    ["DB-P3, Ks = 0.9", "", "", "", "", "2.00", "1.78", "2.68", "0.75", "3.87"]
+    [
+      "DB-P3",
+      "S01",
+      "",
+      "",
+      "",
+      "1.08",
+      "1.10",
+      "1.54",
+      "0.70",
+      "6.7"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "300",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P3",
+      "S02",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70",
+      "3.7"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P3",
+      "L01",
+      "",
+      "",
+      "",
+      "0.35",
+      "0.17",
+      "0.38",
+      "0.90",
+      "1.7"
+    ],
+    [
+      "LED 12W",
+      "",
+      "6",
+      "12",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED PANEL 36W",
+      "",
+      "10",
+      "36",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P3",
+      "L02",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.10",
+      "0.22",
+      "0.90",
+      "1.0"
+    ],
+    [
+      "SPARE",
+      "",
+      "1",
+      "250",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-P3, Ks = 0.9",
+      "",
+      "",
+      "",
+      "",
+      "2.00",
+      "1.78",
+      "2.68",
+      "0.75",
+      "3.87"
+    ]
   ]}
 />
 
 Distribution board 3 floor (DB-3F)
 
 <FunctionTable
-  caption="Distribution board 3 floor (DB-3F)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-3F", "", "", "", "", "", "", "", "", ""],
-    ["DB-3F", "AC01", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
-    ["DB-3F", "AC02", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
-    ["DB-3F", "AC03", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
-    ["DB-3F", "AC04", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
-    ["DB-3F", "AC05", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
-    ["DB-3F", "S01", "", "", "", "2.40", "2.45", "3.43", "0.70", "14.9"],
-    ["POWER SOCKET", "", "4", "1,000.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S02", "", "", "", "2.40", "2.45", "3.43", "0.70", "14.9"],
-    ["POWER SOCKET", "", "4", "1,000.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S03", "", "", "", "0.90", "0.92", "1.29", "0.70", "5.6"],
-    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S04", "", "", "", "1.05", "1.07", "1.50", "0.70", "6.5"],
-    ["POWER SOCKET", "", "7", "250.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S05", "", "", "", "0.90", "0.92", "1.29", "0.70", "5.6"],
-    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S06", "", "", "", "0.90", "0.92", "1.29", "0.70", "5.6"],
-    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S07", "", "", "", "0.90", "0.92", "1.29", "0.70", "5.6"],
-    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S08", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
-    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S09", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
-    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S10", "", "", "", "0.84", "0.86", "1.20", "0.70", "5.2"],
-    ["POWER SOCKET", "", "4", "350.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "S11", "", "", "", "1.05", "1.07", "1.50", "0.70", "6.5"],
-    ["POWER SOCKET", "", "5", "350.00", "0.60", "", "", "", "", ""],
-    ["DB-3F", "L01", "", "", "", "0.36", "0.17", "0.40", "0.90", "1.7"],
-    ["LED LIGHTING 12W", "", "30", "12.00", "1.00", "", "", "", "", ""],
-    ["DB-3F", "L02", "", "", "", "0.36", "0.17", "0.40", "0.90", "1.7"],
-    ["LED LIGHTING 12W", "", "30", "12.00", "1.00", "", "", "", "", ""],
-    ["DB-3F", "L02", "", "", "", "0.04", "0.02", "0.04", "0.90", "0.2"],
-    ["SPARE LIGHTING", "", "1", "36.00", "1.00", "", "", "", "", ""],
-    ["DB-3F, Ks = 0.6", "", "", "", "", "14.73", "14.22", "20.47", "0.72", "29.54"]
+    [
+      "DB-3F",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "AC01",
+      "",
+      "",
+      "",
+      "2.25",
+      "2.11",
+      "3.08",
+      "0.73",
+      "4.4"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "AC02",
+      "",
+      "",
+      "",
+      "2.25",
+      "2.11",
+      "3.08",
+      "0.73",
+      "4.4"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "AC03",
+      "",
+      "",
+      "",
+      "2.25",
+      "2.11",
+      "3.08",
+      "0.73",
+      "4.4"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "AC04",
+      "",
+      "",
+      "",
+      "2.25",
+      "2.11",
+      "3.08",
+      "0.73",
+      "4.4"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "AC05",
+      "",
+      "",
+      "",
+      "2.25",
+      "2.11",
+      "3.08",
+      "0.73",
+      "4.4"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S01",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.45",
+      "3.43",
+      "0.70",
+      "14.9"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "1,000.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S02",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.45",
+      "3.43",
+      "0.70",
+      "14.9"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "1,000.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S03",
+      "",
+      "",
+      "",
+      "0.90",
+      "0.92",
+      "1.29",
+      "0.70",
+      "5.6"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S04",
+      "",
+      "",
+      "",
+      "1.05",
+      "1.07",
+      "1.50",
+      "0.70",
+      "6.5"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "7",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S05",
+      "",
+      "",
+      "",
+      "0.90",
+      "0.92",
+      "1.29",
+      "0.70",
+      "5.6"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S06",
+      "",
+      "",
+      "",
+      "0.90",
+      "0.92",
+      "1.29",
+      "0.70",
+      "5.6"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S07",
+      "",
+      "",
+      "",
+      "0.90",
+      "0.92",
+      "1.29",
+      "0.70",
+      "5.6"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S08",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70",
+      "3.7"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S09",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70",
+      "3.7"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S10",
+      "",
+      "",
+      "",
+      "0.84",
+      "0.86",
+      "1.20",
+      "0.70",
+      "5.2"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "350.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "S11",
+      "",
+      "",
+      "",
+      "1.05",
+      "1.07",
+      "1.50",
+      "0.70",
+      "6.5"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "5",
+      "350.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "L01",
+      "",
+      "",
+      "",
+      "0.36",
+      "0.17",
+      "0.40",
+      "0.90",
+      "1.7"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "30",
+      "12.00",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "L02",
+      "",
+      "",
+      "",
+      "0.36",
+      "0.17",
+      "0.40",
+      "0.90",
+      "1.7"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "30",
+      "12.00",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F",
+      "L02",
+      "",
+      "",
+      "",
+      "0.04",
+      "0.02",
+      "0.04",
+      "0.90",
+      "0.2"
+    ],
+    [
+      "SPARE LIGHTING",
+      "",
+      "1",
+      "36.00",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3F, Ks = 0.6",
+      "",
+      "",
+      "",
+      "",
+      "14.73",
+      "14.22",
+      "20.47",
+      "0.72",
+      "29.54"
+    ]
   ]}
 />
 
 Distribution board 3A floor (DB-3FA)
 
 <FunctionTable
-  caption="Distribution board 3A floor (DB-3FA)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-3FA", "", "", "", "", "", "", "", ""],
-    ["DB-3FA", "AC01", "", "", "", "1.97", "1.84", "2.70", "0.73"],
-    ["CASSETTE AC 3.5HP", "", "1", "2,625.00", "0.75", "", "", "", ""],
-    ["DB-3FA", "AC02", "", "", "", "1.97", "1.84", "2.70", "0.73"],
-    ["CASSETTE AC 3.5HP", "", "1", "2,625.00", "0.75", "", "", "", ""],
-    ["DB-3FA", "AC03", "", "", "", "1.41", "1.32", "1.93", "0.73"],
-    ["CASSETTE AC 2.5HP", "", "1", "1,875.00", "0.75", "", "", "", ""],
-    ["DB-3FA", "AC04", "", "", "", "2.25", "2.11", "3.08", "0.73"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", ""],
-    ["DB-3FA", "AC05", "", "", "", "2.25", "2.11", "3.08", "0.73"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", ""],
-    ["DB-3FA", "S01", "", "", "", "2.40", "2.45", "3.43", "0.70"],
-    ["POWER SOCKET", "", "4", "1,000.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "S02", "", "", "", "0.60", "0.61", "0.86", "0.70"],
-    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "S03", "", "", "", "3.60", "3.67", "5.14", "0.70"],
-    ["POWER SOCKET", "", "6", "1,000.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "S04", "", "", "", "0.60", "0.61", "0.86", "0.70"],
-    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "S05", "", "", "", "0.90", "0.92", "1.29", "0.70"],
-    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "S06", "", "", "", "0.60", "0.61", "0.86", "0.70"],
-    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "S07", "", "", "", "0.90", "0.92", "1.29", "0.70"],
-    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "S08", "", "", "", "0.60", "0.61", "0.86", "0.70"],
-    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "S09", "", "", "", "0.60", "0.61", "0.86", "0.70"],
-    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "S10", "", "", "", "0.84", "0.86", "1.20", "0.70"],
-    ["POWER SOCKET", "", "4", "350.00", "0.60", "", "", "", ""],
-    ["DB-3FA", "L01", "", "", "", "0.84", "0.41", "0.93", "0.90"],
-    ["LED LIGHTING 12W", "", "70", "12.00", "1.00", "", "", "", ""],
-    ["DB-3FA", "L02", "", "", "", "0.22", "0.10", "0.24", "0.90"],
-    ["LED PANEL 36W", "", "6", "36.00", "1.00", "", "", "", ""],
-    ["DB-3FA", "SP01", "", "", "", "0.22", "0.10", "0.24", "0.90"],
-    ["SPARE LIGHTING", "", "6", "36.00", "1.00", "", "", "", ""],
-    ["DB-3FA, Ks = 0.6", "", "", "", "13.65", "13.02", "18.87", "0.72", "27.24"]
+    [
+      "DB-3FA",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "AC01",
+      "",
+      "",
+      "",
+      "1.97",
+      "1.84",
+      "2.70",
+      "0.73"
+    ],
+    [
+      "CASSETTE AC 3.5HP",
+      "",
+      "1",
+      "2,625.00",
+      "0.75",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "AC02",
+      "",
+      "",
+      "",
+      "1.97",
+      "1.84",
+      "2.70",
+      "0.73"
+    ],
+    [
+      "CASSETTE AC 3.5HP",
+      "",
+      "1",
+      "2,625.00",
+      "0.75",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "AC03",
+      "",
+      "",
+      "",
+      "1.41",
+      "1.32",
+      "1.93",
+      "0.73"
+    ],
+    [
+      "CASSETTE AC 2.5HP",
+      "",
+      "1",
+      "1,875.00",
+      "0.75",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "AC04",
+      "",
+      "",
+      "",
+      "2.25",
+      "2.11",
+      "3.08",
+      "0.73"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.75",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "AC05",
+      "",
+      "",
+      "",
+      "2.25",
+      "2.11",
+      "3.08",
+      "0.73"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.75",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S01",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.45",
+      "3.43",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "1,000.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S02",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S03",
+      "",
+      "",
+      "",
+      "3.60",
+      "3.67",
+      "5.14",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "1,000.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S04",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S05",
+      "",
+      "",
+      "",
+      "0.90",
+      "0.92",
+      "1.29",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S06",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S07",
+      "",
+      "",
+      "",
+      "0.90",
+      "0.92",
+      "1.29",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S08",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S09",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "S10",
+      "",
+      "",
+      "",
+      "0.84",
+      "0.86",
+      "1.20",
+      "0.70"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "350.00",
+      "0.60",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "L01",
+      "",
+      "",
+      "",
+      "0.84",
+      "0.41",
+      "0.93",
+      "0.90"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "70",
+      "12.00",
+      "1.00",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "L02",
+      "",
+      "",
+      "",
+      "0.22",
+      "0.10",
+      "0.24",
+      "0.90"
+    ],
+    [
+      "LED PANEL 36W",
+      "",
+      "6",
+      "36.00",
+      "1.00",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA",
+      "SP01",
+      "",
+      "",
+      "",
+      "0.22",
+      "0.10",
+      "0.24",
+      "0.90"
+    ],
+    [
+      "SPARE LIGHTING",
+      "",
+      "6",
+      "36.00",
+      "1.00",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-3FA, Ks = 0.6",
+      "",
+      "",
+      "",
+      "13.65",
+      "13.02",
+      "18.87",
+      "0.72",
+      "27.24"
+    ]
   ]}
 />
 
 Distribution board 1 in 5 floor (DB-5F-N01)
 
 <FunctionTable
-  caption="Distribution board 1 in 5 floor (DB-5F-N01)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-5F-N0(1)", "", "", "", "", "", "", "", "", ""],
-    ["DB-5F-N0(1)", "AC01", "", "", "", "0.56", "0.53", "0.77", "0.73", "3.4"],
-    ["WALL MOUNTED 1HP", "", "1", "750.00", "0.75", "", "", "", "", ""],
-    ["DB-5F-N0(1)", "AC02", "", "", "", "0.84", "0.79", "1.16", "0.73", "5.0"],
-    ["WALL MOUNTED 1.5HP", "", "1", "1,125.00", "0.75", "", "", "", "", ""],
-    ["DB-5F-N0(1)", "WH02", "", "", "", "2.50", "0.36", "2.53", "0.99", "11.0"],
-    ["WATER HEATER", "", "1", "2,500.00", "1.00", "", "", "", "", ""],
-    ["DB-5F-N0(1)", "ISO03", "", "", "", "3.00", "2.25", "3.75", "0.80", "16.3"],
-    ["ISOLATOR", "", "1", "3,000.00", "1.00", "", "", "", "", ""],
-    ["DB-5F-N0(1)", "S01", "", "", "", "2.25", "2.1065", "3.08", "0.73", "13.4"],
-    ["KITCHEN SOCKET", "", "4", "500.00", "0.75", "", "", "", "", ""],
-    ["DB-5F-N0(1)", "S02", "4", "250.00", "0.75", "", "", "", "", ""],
-    ["POWER SOCKET", "", "", "", "", "1.05", "1.07", "1.50", "0.70", "6.5"],
-    ["DB-5F-N0(1)", "SP01", "7", "250.00", "0.60", "", "", "", "", ""],
-    ["SPARE AC", "", "", "", "", "0.60", "0.45", "0.75", "0.80", "3.3"],
-    ["DB-5F-N0(1)", "L01", "1", "750.00", "0.80", "", "", "", "", ""],
-    ["EXHUSTING FAN", "", "", "", "", "0.12", "0.03", "0.12", "0.97", "0.5"],
-    ["LED LIGHTING 12W", "", "1", "20.00", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 18W", "", "6", "12.00", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(1), Ks = 0.7", "", "", "", "", "7.65", "5.31", "9.31", "0.82", "13.43"]
+    [
+      "DB-5F-N0(1)",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(1)",
+      "AC01",
+      "",
+      "",
+      "",
+      "0.56",
+      "0.53",
+      "0.77",
+      "0.73",
+      "3.4"
+    ],
+    [
+      "WALL MOUNTED 1HP",
+      "",
+      "1",
+      "750.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(1)",
+      "AC02",
+      "",
+      "",
+      "",
+      "0.84",
+      "0.79",
+      "1.16",
+      "0.73",
+      "5.0"
+    ],
+    [
+      "WALL MOUNTED 1.5HP",
+      "",
+      "1",
+      "1,125.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(1)",
+      "WH02",
+      "",
+      "",
+      "",
+      "2.50",
+      "0.36",
+      "2.53",
+      "0.99",
+      "11.0"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500.00",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(1)",
+      "ISO03",
+      "",
+      "",
+      "",
+      "3.00",
+      "2.25",
+      "3.75",
+      "0.80",
+      "16.3"
+    ],
+    [
+      "ISOLATOR",
+      "",
+      "1",
+      "3,000.00",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(1)",
+      "S01",
+      "",
+      "",
+      "",
+      "2.25",
+      "2.1065",
+      "3.08",
+      "0.73",
+      "13.4"
+    ],
+    [
+      "KITCHEN SOCKET",
+      "",
+      "4",
+      "500.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(1)",
+      "S02",
+      "4",
+      "250.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "",
+      "",
+      "",
+      "1.05",
+      "1.07",
+      "1.50",
+      "0.70",
+      "6.5"
+    ],
+    [
+      "DB-5F-N0(1)",
+      "SP01",
+      "7",
+      "250.00",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SPARE AC",
+      "",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.45",
+      "0.75",
+      "0.80",
+      "3.3"
+    ],
+    [
+      "DB-5F-N0(1)",
+      "L01",
+      "1",
+      "750.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "EXHUSTING FAN",
+      "",
+      "",
+      "",
+      "",
+      "0.12",
+      "0.03",
+      "0.12",
+      "0.97",
+      "0.5"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "1",
+      "20.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 18W",
+      "",
+      "6",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(1), Ks = 0.7",
+      "",
+      "",
+      "",
+      "",
+      "7.65",
+      "5.31",
+      "9.31",
+      "0.82",
+      "13.43"
+    ]
   ]}
 />
 
 Distribution board 2 in 5 floor (DB-5F-N02)
 
 <FunctionTable
-  caption="Distribution board 2 in 5 floor (DB-5F-N02)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-5F-N0(2)", "", "", "", "", "", "", "", "", ""],
-    ["DB-5F-N0(2)", "AC01", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
-    ["WALL MOUNT 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(2)", "AC02", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
-    ["WALL MOUNT 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(2)", "AC03", "", "", "", "0.90", "0.84", "1.23", "0.73", "5.4"],
-    ["WALL MOUNT 1.5HP", "", "1", "1,125.00", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(2)", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(2)", "WH02", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(2)", "ISO03", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
-    ["ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(2)", "S01", "", "", "", "1.50", "1.40", "2.05", "0.73", "8.9"],
-    ["KICHEN SOCKET", "", "4", "500", "0.75", "", "", "", "", ""],
-    ["DB-5F-N0(2)", "S02", "", "", "", "2.40", "2.45", "3.43", "0.70", "14.9"],
-    ["SOCKET", "", "12", "250", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(2)", "L01", "", "", "", "0.24", "0.12", "0.27", "0.90", "1.2"],
-    ["EXHUSTING FAN", "", "1", "20", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 12W", "", "19", "12", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 18W", "", "3", "18", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(2), Ks = 0.7", "", "", "", "", "8.85", "5.81", "10.59", "0.84", "15.28"]
+    [
+      "DB-5F-N0(2)",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2)",
+      "AC01",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.56",
+      "0.82",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "WALL MOUNT 1HP",
+      "",
+      "1",
+      "750.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2)",
+      "AC02",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.56",
+      "0.82",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "WALL MOUNT 1HP",
+      "",
+      "1",
+      "750.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2)",
+      "AC03",
+      "",
+      "",
+      "",
+      "0.90",
+      "0.84",
+      "1.23",
+      "0.73",
+      "5.4"
+    ],
+    [
+      "WALL MOUNT 1.5HP",
+      "",
+      "1",
+      "1,125.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2)",
+      "WH01",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2)",
+      "WH02",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2)",
+      "ISO03",
+      "",
+      "",
+      "",
+      "2.40",
+      "1.80",
+      "3.00",
+      "0.80",
+      "13.0"
+    ],
+    [
+      "ISOLATOR",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2)",
+      "S01",
+      "",
+      "",
+      "",
+      "1.50",
+      "1.40",
+      "2.05",
+      "0.73",
+      "8.9"
+    ],
+    [
+      "KICHEN SOCKET",
+      "",
+      "4",
+      "500",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2)",
+      "S02",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.45",
+      "3.43",
+      "0.70",
+      "14.9"
+    ],
+    [
+      "SOCKET",
+      "",
+      "12",
+      "250",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2)",
+      "L01",
+      "",
+      "",
+      "",
+      "0.24",
+      "0.12",
+      "0.27",
+      "0.90",
+      "1.2"
+    ],
+    [
+      "EXHUSTING FAN",
+      "",
+      "1",
+      "20",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "19",
+      "12",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 18W",
+      "",
+      "3",
+      "18",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(2), Ks = 0.7",
+      "",
+      "",
+      "",
+      "",
+      "8.85",
+      "5.81",
+      "10.59",
+      "0.84",
+      "15.28"
+    ]
   ]}
 />
 
 Distribution board 3 in 5 floor (DB-5F-N03)
 
 <FunctionTable
-  caption="Distribution board 3 in 5 floor (DB-5F-N03)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-5F-N0(3)", "", "", "", "", "", "", "", "", ""],
-    ["DB-5F-N0(3)", "AC01", "", "", "", "0.90", "0.84", "1.23", "0.73", "5.4"],
-    ["WALL MOUNTED 1.5HP", "", "1", "1,125", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(3)", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["WATER HEATER", "", "1", "2,500", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(3)", "S03", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
-    ["ISOLATOR", "", "1", "3,000", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(3)", "S02", "", "", "", "1.60", "1.50", "2.19", "0.73", "9.5"],
-    ["KITCHEN SOCKET", "", "4", "500", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(3)", "S01", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
-    ["POWER SOCKET", "", "4", "250", "0.80", "", "", "", "", ""],
-    ["DB-5F-N0(3)", "L01", "", "", "", "0.10", "0.05", "0.11", "0.90", "0.5"],
-    ["EXHUSTING FAN", "", "1", "20", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 12W", "", "7", "12", "1.00", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", "", ""],
-    ["DB-5F-N0(3), Ks = 0.7", "", "", "", "", "5.460", "3.70", "6.60", "0.83", "9.52"]
+    [
+      "DB-5F-N0(3)",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(3)",
+      "AC01",
+      "",
+      "",
+      "",
+      "0.90",
+      "0.84",
+      "1.23",
+      "0.73",
+      "5.4"
+    ],
+    [
+      "WALL MOUNTED 1.5HP",
+      "",
+      "1",
+      "1,125",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(3)",
+      "WH01",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(3)",
+      "S03",
+      "",
+      "",
+      "",
+      "2.40",
+      "1.80",
+      "3.00",
+      "0.80",
+      "13.0"
+    ],
+    [
+      "ISOLATOR",
+      "",
+      "1",
+      "3,000",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(3)",
+      "S02",
+      "",
+      "",
+      "",
+      "1.60",
+      "1.50",
+      "2.19",
+      "0.73",
+      "9.5"
+    ],
+    [
+      "KITCHEN SOCKET",
+      "",
+      "4",
+      "500",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(3)",
+      "S01",
+      "",
+      "",
+      "",
+      "0.80",
+      "0.82",
+      "1.14",
+      "0.70",
+      "5.0"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(3)",
+      "L01",
+      "",
+      "",
+      "",
+      "0.10",
+      "0.05",
+      "0.11",
+      "0.90",
+      "0.5"
+    ],
+    [
+      "EXHUSTING FAN",
+      "",
+      "1",
+      "20",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "7",
+      "12",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-5F-N0(3), Ks = 0.7",
+      "",
+      "",
+      "",
+      "",
+      "5.460",
+      "3.70",
+      "6.60",
+      "0.83",
+      "9.52"
+    ]
   ]}
 />
 
 Sub-distribution board floor (SDB-5F)
 
 <FunctionTable
-  caption="Sub-distribution board floor (SDB-5F)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["SDB-5F", "", "", "", "", "", "", "", "", ""],
-    ["SDB-5F", "DB01", "", "", "", "7.65", "5.31", "9.31", "0.82", "40.5"],
-    ["DB-5F-N0 (1)", "", "1", "7,646", "1.00", "", "", "", "", ""],
-    ["SDB-5F", "DB02", "", "", "", "8.85", "5.81", "10.59", "0.84", "46.0"],
-    ["DB-5F-N0 (2)", "", "1", "8,849", "1.00", "", "", "", "", ""],
-    ["SDB-5F", "DB03", "", "", "", "5.46", "3.70", "6.60", "0.83", "28.7"],
-    ["DB-5F-N0 (3)", "", "1", "5,460", "1.00", "", "", "", "", ""],
-    ["SDB-5F", "DB04", "", "", "", "7.65", "5.31", "9.31", "0.82", "40.5"],
-    ["DB-5F-N0 (4)", "", "1", "7,646", "1.00", "", "", "", "", ""],
-    ["SDB-5F", "DB05", "", "", "", "5.46", "3.70", "6.60", "0.83", "28.7"],
-    ["DB-5F-N0 (5)", "", "1", "5,460", "1.00", "", "", "", "", ""],
-    ["SDB-5F", "DB06", "", "", "", "5.46", "3.70", "6.60", "0.83", "28.7"],
-    ["DB-5F-N0 (6)", "", "1", "5,460", "1.00", "", "", "", "", ""],
-    ["SDB-5F", "DB07", "", "", "", "8.85", "5.81", "10.59", "0.84", "46.0"],
-    ["DB-5F-N0 (7)", "", "1", "8,849", "1.00", "", "", "", "", ""],
-    ["SDB-5F", "DB08", "", "", "", "8.85", "5.81", "10.59", "0.84", "46.0"],
-    ["DB-5F-N0 (8)", "", "1", "8,849", "1.00", "", "", "", "", ""],
-    ["SDB-5F", "S01", "", "", "", "1.08", "1.10", "1.54", "0.70", "6.7"],
-    ["POWER SOCKET", "", "6", "300", "0.60", "", "", "", "", ""],
-    ["SDB-5F", "L01", "", "", "", "0.16", "0.08", "0.17", "0.90", "0.8"],
-    ["LED LIGHTING 12W", "", "13", "12", "1.00", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", "", ""],
-    ["SDB-5F, Ks = 0.6", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"]
+    [
+      "SDB-5F",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "DB01",
+      "",
+      "",
+      "",
+      "7.65",
+      "5.31",
+      "9.31",
+      "0.82",
+      "40.5"
+    ],
+    [
+      "DB-5F-N0 (1)",
+      "",
+      "1",
+      "7,646",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "DB02",
+      "",
+      "",
+      "",
+      "8.85",
+      "5.81",
+      "10.59",
+      "0.84",
+      "46.0"
+    ],
+    [
+      "DB-5F-N0 (2)",
+      "",
+      "1",
+      "8,849",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "DB03",
+      "",
+      "",
+      "",
+      "5.46",
+      "3.70",
+      "6.60",
+      "0.83",
+      "28.7"
+    ],
+    [
+      "DB-5F-N0 (3)",
+      "",
+      "1",
+      "5,460",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "DB04",
+      "",
+      "",
+      "",
+      "7.65",
+      "5.31",
+      "9.31",
+      "0.82",
+      "40.5"
+    ],
+    [
+      "DB-5F-N0 (4)",
+      "",
+      "1",
+      "7,646",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "DB05",
+      "",
+      "",
+      "",
+      "5.46",
+      "3.70",
+      "6.60",
+      "0.83",
+      "28.7"
+    ],
+    [
+      "DB-5F-N0 (5)",
+      "",
+      "1",
+      "5,460",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "DB06",
+      "",
+      "",
+      "",
+      "5.46",
+      "3.70",
+      "6.60",
+      "0.83",
+      "28.7"
+    ],
+    [
+      "DB-5F-N0 (6)",
+      "",
+      "1",
+      "5,460",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "DB07",
+      "",
+      "",
+      "",
+      "8.85",
+      "5.81",
+      "10.59",
+      "0.84",
+      "46.0"
+    ],
+    [
+      "DB-5F-N0 (7)",
+      "",
+      "1",
+      "8,849",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "DB08",
+      "",
+      "",
+      "",
+      "8.85",
+      "5.81",
+      "10.59",
+      "0.84",
+      "46.0"
+    ],
+    [
+      "DB-5F-N0 (8)",
+      "",
+      "1",
+      "8,849",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "S01",
+      "",
+      "",
+      "",
+      "1.08",
+      "1.10",
+      "1.54",
+      "0.70",
+      "6.7"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "300",
+      "0.60",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F",
+      "L01",
+      "",
+      "",
+      "",
+      "0.16",
+      "0.08",
+      "0.17",
+      "0.90",
+      "0.8"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "13",
+      "12",
+      "1.00",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-5F, Ks = 0.6",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ]
   ]}
 />
 
 Distribution board 14 floor (DB-14F)
 
 <FunctionTable
-  caption="Distribution board 14 floor (DB-14F)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-14F", "AC01", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
-    ["WALL MOUNT AC 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "AC02", "", "", "", "1.20", "1.12", "1.64", "0.73", "7.1"],
-    ["WALL MOUNT AC 2HP", "", "1", "1,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "AC03", "", "", "", "1.50", "1.40", "2.05", "0.73", "8.9"],
-    ["WALL MOUNT AC 2.5HP", "", "1", "1,875.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "AC04", "", "", "", "1.20", "1.12", "1.64", "0.73", "7.1"],
-    ["WALL MOUNT AC 2HP", "", "1", "1,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "AC05", "", "", "", "1.20", "1.12", "1.64", "0.73", "7.1"],
-    ["WALL MOUNT AC 2HP", "", "1", "1,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "AC06", "", "", "", "1.50", "1.40", "2.05", "0.73", "8.9"],
-    ["WALL MOUNT AC 2.5HP", "", "1", "1,875.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "AC07", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "AC08", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
-    ["15F CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "AC09", "", "", "", "1.20", "1.12", "1.64", "0.73", "2.4"],
-    ["15MF CASSETTE 2.0HP", "", "1", "1,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "AC10", "", "", "", "1.80", "1.69", "2.47", "0.73", "3.6"],
-    ["15MF CASSETTE 3.0HP", "", "1", "2,250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "SP01", "", "", "", "0.40", "0.30", "0.50", "0.80", "2.2"],
-    ["SPARE", "", "2", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "SP02", "", "", "", "0.40", "0.30", "0.50", "0.80", "2.2"],
-    ["SPARE", "", "2", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "WH02", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "WH03", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "WH04", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "ISO01", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
-    ["ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S01", "", "", "", "2.25", "1.69", "2.81", "0.80", "12.2"],
-    ["KITCHEN SOCKET", "", "6", "500.00", "0.75", "", "", "", "", ""],
-    ["DB-14F", "S02", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
-    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S03", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
-    ["POWER SOCKET", "", "3", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S04", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
-    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S05", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
-    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S06", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
-    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S07", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
-    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S08", "", "", "", "0.40", "0.41", "0.57", "0.70", "2.5"],
-    ["15F POWER SOCKET", "", "2", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S09", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["15F POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "ISO01", "", "", "", "2.40", "2.45", "3.43", "0.70", "14.9"],
-    ["15F ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S10", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["15F POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S11", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["15F POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S12", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["15MF POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["15MF WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "WH02", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["15MF WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "S13", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["15F POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "SP03", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["SPARE", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "SP04", "", "", "", "2.03", "1.09", "2.30", "0.88", "10.0"],
-    ["SPARE", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "L01", "", "", "", "0.04", "0.02", "0.04", "0.90", "0.2"],
-    ["LED LIGHTING 12W", "", "4", "12.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "L02", "", "", "", "0.35", "0.17", "0.39", "0.90", "1.7"],
-    ["EXHUASTING FAN", "", "2", "20.00", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 12W", "", "27", "12.00", "0.80", "", "", "", "", ""],
-    ["DÉCOR LIGHTING 36W", "", "2", "36.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "L03", "", "", "", "0.53", "0.26", "0.59", "0.90", "2.6"],
-    ["EXHUASTING FAN", "", "1", "20.00", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 12W", "", "45", "12.00", "0.80", "", "", "", "", ""],
-    ["DÉCOR LIGHTING 36W", "", "3", "36.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "L01", "", "", "", "0.21", "0.10", "0.23", "0.90", "1.0"],
-    ["15F LED LIGHTING 12W", "", "20", "12.00", "0.80", "", "", "", "", ""],
-    ["15F EXHUASTING FAN", "", "1", "20.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "L01", "", "", "", "0.47", "0.23", "0.52", "0.90", "2.3"],
-    ["15MZ EXHUASTING FAN", "", "1", "20.00", "0.80", "", "", "", "", ""],
-    ["15MZ LED LIGHTING 12W", "", "38", "12.00", "0.80", "", "", "", "", ""],
-    ["15MZ DESIGN LED 36W", "", "3", "36.00", "0.80", "", "", "", "", ""],
-    ["DB-14F", "L06", "", "", "", "0.23", "0.11", "0.26", "0.90", "1.1"],
-    ["16F LED LIGHTING 12W", "", "24", "12.00", "0.80", "", "", "", "", ""],
-    ["DB-14F, Ks = 0.6", "", "", "", "", "28.14", "19.58", "34.28", "0.82", "49.48"]
+    [
+      "DB-14F",
+      "AC01",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.56",
+      "0.82",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "WALL MOUNT AC 1HP",
+      "",
+      "1",
+      "750.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "AC02",
+      "",
+      "",
+      "",
+      "1.20",
+      "1.12",
+      "1.64",
+      "0.73",
+      "7.1"
+    ],
+    [
+      "WALL MOUNT AC 2HP",
+      "",
+      "1",
+      "1,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "AC03",
+      "",
+      "",
+      "",
+      "1.50",
+      "1.40",
+      "2.05",
+      "0.73",
+      "8.9"
+    ],
+    [
+      "WALL MOUNT AC 2.5HP",
+      "",
+      "1",
+      "1,875.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "AC04",
+      "",
+      "",
+      "",
+      "1.20",
+      "1.12",
+      "1.64",
+      "0.73",
+      "7.1"
+    ],
+    [
+      "WALL MOUNT AC 2HP",
+      "",
+      "1",
+      "1,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "AC05",
+      "",
+      "",
+      "",
+      "1.20",
+      "1.12",
+      "1.64",
+      "0.73",
+      "7.1"
+    ],
+    [
+      "WALL MOUNT AC 2HP",
+      "",
+      "1",
+      "1,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "AC06",
+      "",
+      "",
+      "",
+      "1.50",
+      "1.40",
+      "2.05",
+      "0.73",
+      "8.9"
+    ],
+    [
+      "WALL MOUNT AC 2.5HP",
+      "",
+      "1",
+      "1,875.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "AC07",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.25",
+      "3.29",
+      "0.73",
+      "4.7"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "AC08",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.25",
+      "3.29",
+      "0.73",
+      "4.7"
+    ],
+    [
+      "15F CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "AC09",
+      "",
+      "",
+      "",
+      "1.20",
+      "1.12",
+      "1.64",
+      "0.73",
+      "2.4"
+    ],
+    [
+      "15MF CASSETTE 2.0HP",
+      "",
+      "1",
+      "1,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "AC10",
+      "",
+      "",
+      "",
+      "1.80",
+      "1.69",
+      "2.47",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "15MF CASSETTE 3.0HP",
+      "",
+      "1",
+      "2,250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "SP01",
+      "",
+      "",
+      "",
+      "0.40",
+      "0.30",
+      "0.50",
+      "0.80",
+      "2.2"
+    ],
+    [
+      "SPARE",
+      "",
+      "2",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "SP02",
+      "",
+      "",
+      "",
+      "0.40",
+      "0.30",
+      "0.50",
+      "0.80",
+      "2.2"
+    ],
+    [
+      "SPARE",
+      "",
+      "2",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "WH01",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "WH02",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "WH03",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "WH04",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "ISO01",
+      "",
+      "",
+      "",
+      "2.40",
+      "1.80",
+      "3.00",
+      "0.80",
+      "13.0"
+    ],
+    [
+      "ISOLATOR",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S01",
+      "",
+      "",
+      "",
+      "2.25",
+      "1.69",
+      "2.81",
+      "0.80",
+      "12.2"
+    ],
+    [
+      "KITCHEN SOCKET",
+      "",
+      "6",
+      "500.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S02",
+      "",
+      "",
+      "",
+      "1.20",
+      "1.22",
+      "1.71",
+      "0.70",
+      "7.5"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S03",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70",
+      "3.7"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "3",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S04",
+      "",
+      "",
+      "",
+      "1.20",
+      "1.22",
+      "1.71",
+      "0.70",
+      "7.5"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S05",
+      "",
+      "",
+      "",
+      "1.20",
+      "1.22",
+      "1.71",
+      "0.70",
+      "7.5"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S06",
+      "",
+      "",
+      "",
+      "1.20",
+      "1.22",
+      "1.71",
+      "0.70",
+      "7.5"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S07",
+      "",
+      "",
+      "",
+      "1.20",
+      "1.22",
+      "1.71",
+      "0.70",
+      "7.5"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "6",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S08",
+      "",
+      "",
+      "",
+      "0.40",
+      "0.41",
+      "0.57",
+      "0.70",
+      "2.5"
+    ],
+    [
+      "15F POWER SOCKET",
+      "",
+      "2",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S09",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "15F POWER SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "ISO01",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.45",
+      "3.43",
+      "0.70",
+      "14.9"
+    ],
+    [
+      "15F ISOLATOR",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S10",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "15F POWER SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S11",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "15F POWER SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S12",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "15MF POWER SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "WH01",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "15MF WATER HEATER",
+      "",
+      "1",
+      "2,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "WH02",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "15MF WATER HEATER",
+      "",
+      "1",
+      "2,500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "S13",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "15F POWER SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "SP03",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "SPARE",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "SP04",
+      "",
+      "",
+      "",
+      "2.03",
+      "1.09",
+      "2.30",
+      "0.88",
+      "10.0"
+    ],
+    [
+      "SPARE",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "L01",
+      "",
+      "",
+      "",
+      "0.04",
+      "0.02",
+      "0.04",
+      "0.90",
+      "0.2"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "4",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "L02",
+      "",
+      "",
+      "",
+      "0.35",
+      "0.17",
+      "0.39",
+      "0.90",
+      "1.7"
+    ],
+    [
+      "EXHUASTING FAN",
+      "",
+      "2",
+      "20.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "27",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DÉCOR LIGHTING 36W",
+      "",
+      "2",
+      "36.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "L03",
+      "",
+      "",
+      "",
+      "0.53",
+      "0.26",
+      "0.59",
+      "0.90",
+      "2.6"
+    ],
+    [
+      "EXHUASTING FAN",
+      "",
+      "1",
+      "20.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "45",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DÉCOR LIGHTING 36W",
+      "",
+      "3",
+      "36.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "L01",
+      "",
+      "",
+      "",
+      "0.21",
+      "0.10",
+      "0.23",
+      "0.90",
+      "1.0"
+    ],
+    [
+      "15F LED LIGHTING 12W",
+      "",
+      "20",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "15F EXHUASTING FAN",
+      "",
+      "1",
+      "20.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "L01",
+      "",
+      "",
+      "",
+      "0.47",
+      "0.23",
+      "0.52",
+      "0.90",
+      "2.3"
+    ],
+    [
+      "15MZ EXHUASTING FAN",
+      "",
+      "1",
+      "20.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "15MZ LED LIGHTING 12W",
+      "",
+      "38",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "15MZ DESIGN LED 36W",
+      "",
+      "3",
+      "36.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F",
+      "L06",
+      "",
+      "",
+      "",
+      "0.23",
+      "0.11",
+      "0.26",
+      "0.90",
+      "1.1"
+    ],
+    [
+      "16F LED LIGHTING 12W",
+      "",
+      "24",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-14F, Ks = 0.6",
+      "",
+      "",
+      "",
+      "",
+      "28.14",
+      "19.58",
+      "34.28",
+      "0.82",
+      "49.48"
+    ]
   ]}
 />
 
 Distribution board 1 in 15 floor (DB-15F-N01)
 
 <FunctionTable
-  caption="Distribution board 1 in 15 floor (DB-15F-N01)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-15F-N0(1)", "", "", "", "", "", "", "", "", ""],
-    ["DB-15F-N0(1)", "AC01", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
-    ["WALL MOUNT 1HP", "", "1", "750", "0.80", "", "", "", "", ""],
-    ["DB-15F-N0(1)", "AC02", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
-    ["WALL MOUNT 1HP", "", "1", "750", "0.80", "", "", "", "", ""],
-    ["DB-15F-N0(1)", "AC02", "", "", "", "0.90", "0.84", "1.23", "0.73", "5.4"],
-    ["WALL MOUNT 1.5HP", "", "1", "1,125", "0.80", "", "", "", "", ""],
-    ["DB-15F-N0(1)", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["WATER HEATER", "", "1", "2,500", "0.80", "", "", "", "", ""],
-    ["DB-15F-N0(1)", "WH02", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
-    ["WATER HEATER", "", "1", "2,500", "0.80", "", "", "", "", ""],
-    ["DB-15F-N0(1)", "ISO01", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
-    ["ISOLATOR", "", "1", "3,000", "0.80", "", "", "", "", ""],
-    ["DB-15F-N0(1)", "S01", "", "", "", "2.25", "1.69", "2.81", "0.80", "12.2"],
-    ["KICTCHEN SOCKET", "", "6", "500", "0.75", "", "", "", "", ""],
-    ["DB-15F-N0(1)", "S02", "", "", "", "2.00", "2.04", "2.86", "0.70", "12.4"],
-    ["POWER SOCKET", "", "10", "250", "0.80", "", "", "", "", ""],
-    ["DB-15F-N0(1)", "L01", "", "", "", "0.26", "0.13", "0.29", "0.90", "1.3"],
-    ["EXHUASTING FAN", "", "2", "20", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 12W", "", "18", "12", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 18W", "", "2", "18", "0.80", "", "", "", "", ""],
-    ["DECOR LED 36W", "", "1", "36", "0.80", "", "", "", "", ""],
-    ["DB-15F-N0(1), Ks = 0.7", "", "", "", "", "9.11", "5.73", "10.76", "0.85", "15.54"]
+    [
+      "DB-15F-N0(1)",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1)",
+      "AC01",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.56",
+      "0.82",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "WALL MOUNT 1HP",
+      "",
+      "1",
+      "750",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1)",
+      "AC02",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.56",
+      "0.82",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "WALL MOUNT 1HP",
+      "",
+      "1",
+      "750",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1)",
+      "AC02",
+      "",
+      "",
+      "",
+      "0.90",
+      "0.84",
+      "1.23",
+      "0.73",
+      "5.4"
+    ],
+    [
+      "WALL MOUNT 1.5HP",
+      "",
+      "1",
+      "1,125",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1)",
+      "WH01",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1)",
+      "WH02",
+      "",
+      "",
+      "",
+      "2.00",
+      "0.28",
+      "2.02",
+      "0.99",
+      "8.8"
+    ],
+    [
+      "WATER HEATER",
+      "",
+      "1",
+      "2,500",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1)",
+      "ISO01",
+      "",
+      "",
+      "",
+      "2.40",
+      "1.80",
+      "3.00",
+      "0.80",
+      "13.0"
+    ],
+    [
+      "ISOLATOR",
+      "",
+      "1",
+      "3,000",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1)",
+      "S01",
+      "",
+      "",
+      "",
+      "2.25",
+      "1.69",
+      "2.81",
+      "0.80",
+      "12.2"
+    ],
+    [
+      "KICTCHEN SOCKET",
+      "",
+      "6",
+      "500",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1)",
+      "S02",
+      "",
+      "",
+      "",
+      "2.00",
+      "2.04",
+      "2.86",
+      "0.70",
+      "12.4"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "10",
+      "250",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1)",
+      "L01",
+      "",
+      "",
+      "",
+      "0.26",
+      "0.13",
+      "0.29",
+      "0.90",
+      "1.3"
+    ],
+    [
+      "EXHUASTING FAN",
+      "",
+      "2",
+      "20",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "18",
+      "12",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 18W",
+      "",
+      "2",
+      "18",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DECOR LED 36W",
+      "",
+      "1",
+      "36",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-15F-N0(1), Ks = 0.7",
+      "",
+      "",
+      "",
+      "",
+      "9.11",
+      "5.73",
+      "10.76",
+      "0.85",
+      "15.54"
+    ]
   ]}
 />
 
 Sub-distribution board 15 floor (SDB-15F)
 
 <FunctionTable
-  caption="Sub-distribution board 15 floor (SDB-15F)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["SDB-15F", "", "", "", "", "", "", "", "", ""],
-    ["SDB-15F", "DB01", "", "", "", "8.33", "5.24", "9.85", "0.85", "42.8"],
-    ["DB-15F-N0 (1)", "", "1", "10,414.69", "0.80", "", "", "", "", ""],
-    ["SDB-15F", "DB02", "", "", "", "8.33", "5.24", "9.85", "0.85", "42.8"],
-    ["DB-15F-N0 (2)", "", "1", "10,414.69", "0.80", "", "", "", "", ""],
-    ["SDB-15F", "DB03", "", "", "", "8.33", "5.24", "9.85", "0.85", "42.8"],
-    ["DB-15F-N0 (3)", "", "1", "10,414.69", "0.80", "", "", "", "", ""],
-    ["SDB-15F", "L01", "", "", "", "0.10", "0.05", "0.11", "0.90", "0.5"],
-    ["LED LIGHTING 12W", "", "10", "12.00", "0.80", "", "", "", "", ""],
-    ["SDB-15F", "S01", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["SDB-15F", "L02", "", "", "", "0.20", "0.10", "0.22", "0.90", "1.0"],
-    ["SPARE LIGHTING", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["SDB-15F, Ks = 0.7", "", "", "", "", "15.29", "9.65", "18.08", "0.85", "26.10"]
+    [
+      "SDB-15F",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-15F",
+      "DB01",
+      "",
+      "",
+      "",
+      "8.33",
+      "5.24",
+      "9.85",
+      "0.85",
+      "42.8"
+    ],
+    [
+      "DB-15F-N0 (1)",
+      "",
+      "1",
+      "10,414.69",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-15F",
+      "DB02",
+      "",
+      "",
+      "",
+      "8.33",
+      "5.24",
+      "9.85",
+      "0.85",
+      "42.8"
+    ],
+    [
+      "DB-15F-N0 (2)",
+      "",
+      "1",
+      "10,414.69",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-15F",
+      "DB03",
+      "",
+      "",
+      "",
+      "8.33",
+      "5.24",
+      "9.85",
+      "0.85",
+      "42.8"
+    ],
+    [
+      "DB-15F-N0 (3)",
+      "",
+      "1",
+      "10,414.69",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-15F",
+      "L01",
+      "",
+      "",
+      "",
+      "0.10",
+      "0.05",
+      "0.11",
+      "0.90",
+      "0.5"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "10",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-15F",
+      "S01",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-15F",
+      "L02",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.10",
+      "0.22",
+      "0.90",
+      "1.0"
+    ],
+    [
+      "SPARE LIGHTING",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "SDB-15F, Ks = 0.7",
+      "",
+      "",
+      "",
+      "",
+      "15.29",
+      "9.65",
+      "18.08",
+      "0.85",
+      "26.10"
+    ]
   ]}
 />
 
 Distribution board 16 floor (DB-16F)
 
 <FunctionTable
-  caption="Distribution board 16 floor (DB-16F)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-16F", "", "", "", "", "", "", "", "", ""],
-    ["DB-16F", "AC01", "", "", "", "1.80", "1.69", "2.47", "0.73", "3.6"],
-    ["CASSETTE AC 3.0HP", "", "1", "2,250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "AC02", "", "", "", "1.80", "1.69", "2.47", "0.73", "3.6"],
-    ["CASSETTE AC 3.0HP", "", "1", "2,250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "AC03", "", "", "", "1.80", "1.69", "2.47", "0.73", "3.6"],
-    ["CASSETTE AC 3.0HP", "", "1", "2,250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "AC04", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
-    ["WALL MOUNT AC 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "AC05", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
-    ["WALL MOUNT AC 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "AC06", "", "", "", "0.60", "0.45", "0.75", "0.80", "3.3"],
-    ["SPARE AC", "", "1", "750.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "AC07", "", "", "", "0.60", "0.45", "0.75", "0.80", "3.3"],
-    ["SPARE AC", "", "1", "750.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "ISO01", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
-    ["ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "S01", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
-    ["POWER SOCKET", "", "3", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "S02", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
-    ["POWER SOCKET", "", "4", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "S03", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
-    ["POWER SOCKET", "", "4", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "S04", "", "", "", "1.00", "1.02", "1.43", "0.70", "6.2"],
-    ["POWER SOCKET", "", "5", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "S05", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "S06", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "S07", "", "", "", "2.25", "1.69", "2.81", "0.80", "12.2"],
-    ["KICTCHEN SOCKET", "", "6", "500.00", "0.75", "", "", "", "", ""],
-    ["DB-16F", "L01", "", "", "", "0.39", "0.19", "0.44", "0.90", "1.9"],
-    ["LED LIGHTING 12W", "", "41", "12.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "L02", "", "", "", "0.09", "0.04", "0.10", "0.90", "0.4"],
-    ["LED LIGHTING 18W", "", "6", "18.00", "0.80", "", "", "", "", ""],
-    ["DB-16F", "L02", "", "", "", "0.20", "0.10", "0.22", "0.90", "1.0"],
-    ["SPARE LIGHTING", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-16F, Ks = 0.6", "", "", "", "", "10.04", "8.74", "13.31", "0.75", "19.21"]
+    [
+      "DB-16F",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "AC01",
+      "",
+      "",
+      "",
+      "1.80",
+      "1.69",
+      "2.47",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "CASSETTE AC 3.0HP",
+      "",
+      "1",
+      "2,250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "AC02",
+      "",
+      "",
+      "",
+      "1.80",
+      "1.69",
+      "2.47",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "CASSETTE AC 3.0HP",
+      "",
+      "1",
+      "2,250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "AC03",
+      "",
+      "",
+      "",
+      "1.80",
+      "1.69",
+      "2.47",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "CASSETTE AC 3.0HP",
+      "",
+      "1",
+      "2,250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "AC04",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.56",
+      "0.82",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "WALL MOUNT AC 1HP",
+      "",
+      "1",
+      "750.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "AC05",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.56",
+      "0.82",
+      "0.73",
+      "3.6"
+    ],
+    [
+      "WALL MOUNT AC 1HP",
+      "",
+      "1",
+      "750.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "AC06",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.45",
+      "0.75",
+      "0.80",
+      "3.3"
+    ],
+    [
+      "SPARE AC",
+      "",
+      "1",
+      "750.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "AC07",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.45",
+      "0.75",
+      "0.80",
+      "3.3"
+    ],
+    [
+      "SPARE AC",
+      "",
+      "1",
+      "750.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "ISO01",
+      "",
+      "",
+      "",
+      "2.40",
+      "1.80",
+      "3.00",
+      "0.80",
+      "13.0"
+    ],
+    [
+      "ISOLATOR",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "S01",
+      "",
+      "",
+      "",
+      "0.60",
+      "0.61",
+      "0.86",
+      "0.70",
+      "3.7"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "3",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "S02",
+      "",
+      "",
+      "",
+      "0.80",
+      "0.82",
+      "1.14",
+      "0.70",
+      "5.0"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "S03",
+      "",
+      "",
+      "",
+      "0.80",
+      "0.82",
+      "1.14",
+      "0.70",
+      "5.0"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "4",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "S04",
+      "",
+      "",
+      "",
+      "1.00",
+      "1.02",
+      "1.43",
+      "0.70",
+      "6.2"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "5",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "S05",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "S06",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "S07",
+      "",
+      "",
+      "",
+      "2.25",
+      "1.69",
+      "2.81",
+      "0.80",
+      "12.2"
+    ],
+    [
+      "KICTCHEN SOCKET",
+      "",
+      "6",
+      "500.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "L01",
+      "",
+      "",
+      "",
+      "0.39",
+      "0.19",
+      "0.44",
+      "0.90",
+      "1.9"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "41",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "L02",
+      "",
+      "",
+      "",
+      "0.09",
+      "0.04",
+      "0.10",
+      "0.90",
+      "0.4"
+    ],
+    [
+      "LED LIGHTING 18W",
+      "",
+      "6",
+      "18.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F",
+      "L02",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.10",
+      "0.22",
+      "0.90",
+      "1.0"
+    ],
+    [
+      "SPARE LIGHTING",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-16F, Ks = 0.6",
+      "",
+      "",
+      "",
+      "",
+      "10.04",
+      "8.74",
+      "13.31",
+      "0.75",
+      "19.21"
+    ]
   ]}
 />
 
 Distribution board 17 floor (DB-17F)
 
 <FunctionTable
-  caption="Distribution board 17 floor (DB-17F)"
-  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Qty",
+    "Pn (W)",
+    "Ku",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "I (A)"
+  ]}
   rows={[
-    ["DB-17F", "", "", "", "", "", "", "", "", ""],
-    ["DB-17F", "SP01", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
-    ["SPARE 3PH LOAD", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "SP02", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
-    ["SPARE 3PH LOAD", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "AC01", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "AC02", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "AC03", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "AC04", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "AC05", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
-    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "SP03", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["SPARE SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "SP04", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["SPARE SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "SP05", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
-    ["SPARE SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "SP06", "", "", "", "0.40", "0.41", "0.57", "0.70", "2.5"],
-    ["SPARE SOCKET", "", "2", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "S04", "", "", "", "0.40", "0.41", "0.57", "0.70", "2.5"],
-    ["POWER SOCKET", "", "2", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "ISO01", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
-    ["18F ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "S01", "", "", "", "2.25", "1.69", "2.81", "0.80", "12.2"],
-    ["18F KITCHEN SOCKET", "", "6", "500.00", "0.75", "", "", "", "", ""],
-    ["DB-17F", "S02", "", "", "", "0.40", "0.30", "0.50", "0.80", "2.2"],
-    ["18F POWER SOCKET", "", "2", "250.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "S03", "", "", "", "0.80", "0.60", "1.00", "0.80", "4.3"],
-    ["18F SOCKET WM", "", "2", "500.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "L01", "", "", "", "0.35", "0.17", "0.39", "0.90", "1.7"],
-    ["EXHUASTING FAN", "", "2", "20.00", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 12W", "", "30", "12.00", "0.80", "", "", "", "", ""],
-    ["LED LIGHTING 36W", "", "1", "36.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "L02", "", "", "", "0.27", "0.13", "0.30", "0.90", "1.3"],
-    ["LED LIGHTING 12W", "", "28", "12.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "L03", "", "", "", "0.33", "0.16", "0.37", "0.90", "1.6"],
-    ["18F EXHUASTING FAN", "", "1", "20.00", "0.80", "", "", "", "", ""],
-    ["18F LED 12W", "", "30", "12.00", "0.80", "", "", "", "", ""],
-    ["18F LED 36W", "", "1", "36.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "L04", "", "", "", "0.06", "0.03", "0.06", "0.90", "0.3"],
-    ["19F LED 12W", "", "6", "12.00", "0.80", "", "", "", "", ""],
-    ["DB-17F", "L05", "", "", "", "0.02", "0.01", "0.02", "0.90", "0.1"],
-    ["20F LED 12W", "", "2", "12.00", "0.80", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", "", ""],
-    ["DB-17F, Ks = 0.6", "", "", "", "", "15.05", "13.23", "20.03", "0.75", "28.91"]
+    [
+      "DB-17F",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "SP01",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.25",
+      "3.29",
+      "0.73",
+      "4.7"
+    ],
+    [
+      "SPARE 3PH LOAD",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "SP02",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.25",
+      "3.29",
+      "0.73",
+      "4.7"
+    ],
+    [
+      "SPARE 3PH LOAD",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "AC01",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.25",
+      "3.29",
+      "0.73",
+      "4.7"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "AC02",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.25",
+      "3.29",
+      "0.73",
+      "4.7"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "AC03",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.25",
+      "3.29",
+      "0.73",
+      "4.7"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "AC04",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.25",
+      "3.29",
+      "0.73",
+      "4.7"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "AC05",
+      "",
+      "",
+      "",
+      "2.40",
+      "2.25",
+      "3.29",
+      "0.73",
+      "4.7"
+    ],
+    [
+      "CASSETTE AC 4.0HP",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "SP03",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "SPARE SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "SP04",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "SPARE SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "SP05",
+      "",
+      "",
+      "",
+      "0.20",
+      "0.20",
+      "0.29",
+      "0.70",
+      "1.2"
+    ],
+    [
+      "SPARE SOCKET",
+      "",
+      "1",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "SP06",
+      "",
+      "",
+      "",
+      "0.40",
+      "0.41",
+      "0.57",
+      "0.70",
+      "2.5"
+    ],
+    [
+      "SPARE SOCKET",
+      "",
+      "2",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "S04",
+      "",
+      "",
+      "",
+      "0.40",
+      "0.41",
+      "0.57",
+      "0.70",
+      "2.5"
+    ],
+    [
+      "POWER SOCKET",
+      "",
+      "2",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "ISO01",
+      "",
+      "",
+      "",
+      "2.40",
+      "1.80",
+      "3.00",
+      "0.80",
+      "13.0"
+    ],
+    [
+      "18F ISOLATOR",
+      "",
+      "1",
+      "3,000.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "S01",
+      "",
+      "",
+      "",
+      "2.25",
+      "1.69",
+      "2.81",
+      "0.80",
+      "12.2"
+    ],
+    [
+      "18F KITCHEN SOCKET",
+      "",
+      "6",
+      "500.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "S02",
+      "",
+      "",
+      "",
+      "0.40",
+      "0.30",
+      "0.50",
+      "0.80",
+      "2.2"
+    ],
+    [
+      "18F POWER SOCKET",
+      "",
+      "2",
+      "250.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "S03",
+      "",
+      "",
+      "",
+      "0.80",
+      "0.60",
+      "1.00",
+      "0.80",
+      "4.3"
+    ],
+    [
+      "18F SOCKET WM",
+      "",
+      "2",
+      "500.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "L01",
+      "",
+      "",
+      "",
+      "0.35",
+      "0.17",
+      "0.39",
+      "0.90",
+      "1.7"
+    ],
+    [
+      "EXHUASTING FAN",
+      "",
+      "2",
+      "20.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "30",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "LED LIGHTING 36W",
+      "",
+      "1",
+      "36.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "L02",
+      "",
+      "",
+      "",
+      "0.27",
+      "0.13",
+      "0.30",
+      "0.90",
+      "1.3"
+    ],
+    [
+      "LED LIGHTING 12W",
+      "",
+      "28",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "L03",
+      "",
+      "",
+      "",
+      "0.33",
+      "0.16",
+      "0.37",
+      "0.90",
+      "1.6"
+    ],
+    [
+      "18F EXHUASTING FAN",
+      "",
+      "1",
+      "20.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "18F LED 12W",
+      "",
+      "30",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "18F LED 36W",
+      "",
+      "1",
+      "36.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "L04",
+      "",
+      "",
+      "",
+      "0.06",
+      "0.03",
+      "0.06",
+      "0.90",
+      "0.3"
+    ],
+    [
+      "19F LED 12W",
+      "",
+      "6",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F",
+      "L05",
+      "",
+      "",
+      "",
+      "0.02",
+      "0.01",
+      "0.02",
+      "0.90",
+      "0.1"
+    ],
+    [
+      "20F LED 12W",
+      "",
+      "2",
+      "12.00",
+      "0.80",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DB-17F, Ks = 0.6",
+      "",
+      "",
+      "",
+      "",
+      "15.05",
+      "13.23",
+      "20.03",
+      "0.75",
+      "28.91"
+    ]
   ]}
 />
 
 MDB Power Demand Calculation
 
 <FunctionTable
-  caption="MDB Power Demand Calculation"
-  columns={["CIRCUIT LABEL", "Column 2", "Ph", "Qty", "Pn (kW)", "Ku", "PF", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "Ib (A)"]}
+  columns={[
+    "CIRCUIT LABEL",
+    "Column 2",
+    "Ph",
+    "Qty",
+    "Pn (kW)",
+    "Ku",
+    "PF",
+    "Pavg,t (kW)",
+    "Qavg,t (kVAR)",
+    "Savg,t (kVA)",
+    "PF",
+    "Ib (A)"
+  ]}
   rows={[
-    ["MDB", "P1", "3", "", "", "", "", "4.50", "4.33", "6.25", "0.72", "9.02"],
-    ["DB-P1", "", "", "1", "4.50", "1.00", "0.72", "", "", "", "", ""],
-    ["MDB", "P2", "3", "", "", "", "", "1.60", "1.37", "2.10", "0.76", "3.04"],
-    ["DB-P2", "", "", "1", "1.60", "1.00", "0.76", "", "", "", "", ""],
-    ["MDB", "P3", "3", "", "", "", "", "2.00", "1.78", "2.68", "0.75", "3.87"],
-    ["DB-P3", "", "", "1", "2.00", "1.00", "0.75", "", "", "", "", ""],
-    ["MDB", "3F", "3", "", "", "", "", "14.73", "14.22", "20.47", "0.72", "29.54"],
-    ["DB-3F", "", "", "1", "14.73", "1.00", "0.72", "", "", "", "", ""],
-    ["MDB", "3FA", "3", "", "", "", "", "13.65", "13.02", "18.87", "0.72", "27.24"],
-    ["DB-3FA", "", "", "1", "13.65", "1.00", "0.72", "", "", "", "", ""],
-    ["MDB", "5F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
-    ["SDB-5F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
-    ["MDB", "6F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
-    ["SDB-6F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
-    ["MDB", "7F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
-    ["SDB-7F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
-    ["MDB", "8F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
-    ["SDB-8F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
-    ["MDB", "9F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
-    ["SDB-9F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
-    ["MDB", "9FA", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
-    ["SDB-9A", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
-    ["MDB", "11F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
-    ["SDB-11F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
-    ["MDB", "12F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
-    ["SDB-12F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
-    ["MDB", "12FA", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
-    ["SDB-12A", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
-    ["MDB", "14F", "3", "", "", "", "", "28.14", "19.58", "34.28", "0.82", "49.48"],
-    ["DB-14F", "", "", "1", "28.14", "1.00", "0.82", "", "", "", "", ""],
-    ["MDB", "15F", "3", "", "", "", "", "15.29", "9.65", "18.08", "0.85", "26.10"],
-    ["SDB-15F", "", "", "1", "15.29", "1.00", "0.85", "", "", "", "", ""],
-    ["MDB", "16F", "3", "", "", "", "", "10.04", "8.74", "13.31", "0.75", "19.21"],
-    ["DB-16F", "", "", "1", "10.04", "1.00", "0.75", "", "", "", "", ""],
-    ["MDB", "17F", "3", "", "", "", "", "15.05", "13.23", "20.03", "0.75", "28.91"],
-    ["DB-17F", "", "", "1", "15.05", "1.00", "0.75", "", "", "", "", ""],
-    ["MDB", "PL", "3", "", "", "", "", "16.50", "15.45", "22.60", "0.73", "32.62"],
-    ["P- LIFT", "", "", "2", "11.00", "0.75", "0.73", "", "", "", "", ""],
-    ["MDB", "CL", "3", "", "", "", "", "22.50", "21.07", "30.82", "0.73", "44.49"],
-    ["C- LIFT", "", "", "2", "15.00", "0.75", "0.73", "", "", "", "", ""],
-    ["MDB", "TP", "3", "", "", "", "", "8.25", "7.72", "11.30", "0.73", "16.31"],
-    ["T- PUMP", "", "", "1", "11.00", "0.75", "0.73", "", "", "", "", ""],
-    ["MDB", "FP", "3", "", "", "", "", "11.25", "10.53", "15.41", "0.73", "22.24"],
-    ["F-PUMP", "", "", "1", "15.00", "0.75", "0.73", "", "", "", "", ""],
-    ["MDB", "BP", "3", "", "", "", "", "5.63", "5.27", "7.71", "0.73", "11.12"],
-    ["B-PUMP", "", "", "1", "7.50", "0.75", "0.73", "", "", "", "", ""],
-    ["MDB, Ks = 0.8", "", "3", "Tr (kVA)", "", "630", "", "392.15", "291.03", "488.35", "0.80", "704.87"],
-    ["Capacitor bank (kVAR)", "", "", "", "", "175", "", "", "", "", "", ""]
+    [
+      "MDB",
+      "P1",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "4.50",
+      "4.33",
+      "6.25",
+      "0.72",
+      "9.02"
+    ],
+    [
+      "DB-P1",
+      "",
+      "",
+      "1",
+      "4.50",
+      "1.00",
+      "0.72",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "P2",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "1.60",
+      "1.37",
+      "2.10",
+      "0.76",
+      "3.04"
+    ],
+    [
+      "DB-P2",
+      "",
+      "",
+      "1",
+      "1.60",
+      "1.00",
+      "0.76",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "P3",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "2.00",
+      "1.78",
+      "2.68",
+      "0.75",
+      "3.87"
+    ],
+    [
+      "DB-P3",
+      "",
+      "",
+      "1",
+      "2.00",
+      "1.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "3F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "14.73",
+      "14.22",
+      "20.47",
+      "0.72",
+      "29.54"
+    ],
+    [
+      "DB-3F",
+      "",
+      "",
+      "1",
+      "14.73",
+      "1.00",
+      "0.72",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "3FA",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "13.65",
+      "13.02",
+      "18.87",
+      "0.72",
+      "27.24"
+    ],
+    [
+      "DB-3FA",
+      "",
+      "",
+      "1",
+      "13.65",
+      "1.00",
+      "0.72",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "5F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ],
+    [
+      "SDB-5F",
+      "",
+      "",
+      "1",
+      "35.67",
+      "1.00",
+      "0.83",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "6F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ],
+    [
+      "SDB-6F",
+      "",
+      "",
+      "1",
+      "35.67",
+      "1.00",
+      "0.83",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "7F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ],
+    [
+      "SDB-7F",
+      "",
+      "",
+      "1",
+      "35.67",
+      "1.00",
+      "0.83",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "8F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ],
+    [
+      "SDB-8F",
+      "",
+      "",
+      "1",
+      "35.67",
+      "1.00",
+      "0.83",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "9F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ],
+    [
+      "SDB-9F",
+      "",
+      "",
+      "1",
+      "35.67",
+      "1.00",
+      "0.83",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "9FA",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ],
+    [
+      "SDB-9A",
+      "",
+      "",
+      "1",
+      "35.67",
+      "1.00",
+      "0.83",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "11F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ],
+    [
+      "SDB-11F",
+      "",
+      "",
+      "1",
+      "35.67",
+      "1.00",
+      "0.83",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "12F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ],
+    [
+      "SDB-12F",
+      "",
+      "",
+      "1",
+      "35.67",
+      "1.00",
+      "0.83",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "12FA",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "35.67",
+      "24.20",
+      "43.11",
+      "0.83",
+      "62.22"
+    ],
+    [
+      "SDB-12A",
+      "",
+      "",
+      "1",
+      "35.67",
+      "1.00",
+      "0.83",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "14F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "28.14",
+      "19.58",
+      "34.28",
+      "0.82",
+      "49.48"
+    ],
+    [
+      "DB-14F",
+      "",
+      "",
+      "1",
+      "28.14",
+      "1.00",
+      "0.82",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "15F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "15.29",
+      "9.65",
+      "18.08",
+      "0.85",
+      "26.10"
+    ],
+    [
+      "SDB-15F",
+      "",
+      "",
+      "1",
+      "15.29",
+      "1.00",
+      "0.85",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "16F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "10.04",
+      "8.74",
+      "13.31",
+      "0.75",
+      "19.21"
+    ],
+    [
+      "DB-16F",
+      "",
+      "",
+      "1",
+      "10.04",
+      "1.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "17F",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "15.05",
+      "13.23",
+      "20.03",
+      "0.75",
+      "28.91"
+    ],
+    [
+      "DB-17F",
+      "",
+      "",
+      "1",
+      "15.05",
+      "1.00",
+      "0.75",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "PL",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "16.50",
+      "15.45",
+      "22.60",
+      "0.73",
+      "32.62"
+    ],
+    [
+      "P- LIFT",
+      "",
+      "",
+      "2",
+      "11.00",
+      "0.75",
+      "0.73",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "CL",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "22.50",
+      "21.07",
+      "30.82",
+      "0.73",
+      "44.49"
+    ],
+    [
+      "C- LIFT",
+      "",
+      "",
+      "2",
+      "15.00",
+      "0.75",
+      "0.73",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "TP",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "8.25",
+      "7.72",
+      "11.30",
+      "0.73",
+      "16.31"
+    ],
+    [
+      "T- PUMP",
+      "",
+      "",
+      "1",
+      "11.00",
+      "0.75",
+      "0.73",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "FP",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "11.25",
+      "10.53",
+      "15.41",
+      "0.73",
+      "22.24"
+    ],
+    [
+      "F-PUMP",
+      "",
+      "",
+      "1",
+      "15.00",
+      "0.75",
+      "0.73",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB",
+      "BP",
+      "3",
+      "",
+      "",
+      "",
+      "",
+      "5.63",
+      "5.27",
+      "7.71",
+      "0.73",
+      "11.12"
+    ],
+    [
+      "B-PUMP",
+      "",
+      "",
+      "1",
+      "7.50",
+      "0.75",
+      "0.73",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "MDB, Ks = 0.8",
+      "",
+      "3",
+      "Tr (kVA)",
+      "",
+      "630",
+      "",
+      "392.15",
+      "291.03",
+      "488.35",
+      "0.80",
+      "704.87"
+    ],
+    [
+      "Capacitor bank (kVAR)",
+      "",
+      "",
+      "",
+      "",
+      "175",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
   ]}
 />
 
@@ -2071,100 +7487,946 @@ Cable sizing & Voltage drop
 **CABLE SIZING TERM**
 
 <FunctionTable
-  caption="CABLE SIZING TERM"
-  columns={["Des", "MAT", "k1", "k4", "Iz", "I'z", "Ib", "c.s.a 1x4C", "L(m)", "R (mΩ/m)", "X (mΩ/m)", "∆U", "V End", "∆U (%)"]}
+  columns={[
+    "Des",
+    "MAT",
+    "k1",
+    "k4",
+    "Iz",
+    "I'z",
+    "Ib",
+    "c.s.a 1x4C",
+    "L(m)",
+    "R (mΩ/m)",
+    "X (mΩ/m)",
+    "∆U",
+    "V End",
+    "∆U (%)"
+  ]}
   rows={[
-    ["DB-P1", "Cu", "0.94", "0.98", "46", "42.38", "9.02", "6", "5", "3.95", "-", "7.08", "392.92", "1.77"],
-    ["DB-P2", "Cu", "0.94", "0.87", "46", "37.62", "3.04", "6", "5", "3.95", "-", "6.93", "393.07", "1.73"],
-    ["DB-P3", "Cu", "0.94", "0.98", "46", "42.38", "3.87", "6", "5", "3.95", "-", "6.95", "393.05", "1.74"],
-    ["DB-3F", "Cu", "0.94", "0.98", "110", "101.33", "29.54", "25", "5", "0.948", "-", "7.03", "392.97", "1.76"],
-    ["DB-3FA", "Cu", "0.94", "0.98", "110", "101.33", "27.24", "25", "5", "0.948", "-", "7.01", "392.99", "1.75"],
-    ["SDB-5F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
-    ["SDB-6F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
-    ["SDB-7F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
-    ["SDB-8F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
-    ["SDB-9F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
-    ["SDB-9A", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
-    ["SDB-11F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
-    ["SDB-12F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
-    ["SDB-12A", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
-    ["DB-14F", "Cu", "0.94", "0.98", "110", "101.33", "49.48", "25", "5", "0.948", "-", "7.19", "392.81", "1.80"],
-    ["SDB-15F", "Cu", "0.94", "0.98", "110", "101.33", "26.10", "25", "5", "0.948", "-", "7.03", "392.97", "1.76"],
-    ["DB-16F", "Cu", "0.94", "0.98", "110", "101.33", "19.21", "25", "5", "0.948", "-", "6.97", "393.03", "1.74"],
-    ["DB-17F", "Cu", "0.94", "0.87", "110", "89.96", "28.91", "25", "5", "0.948", "-", "7.03", "392.97", "1.76"],
-    ["P- LIFT", "Cu", "0.94", "0.87", "110", "89.96", "32.62", "25", "5", "0.948", "-", "7.05", "392.95", "1.76"],
-    ["C-LIFT", "Cu", "0.94", "0.87", "110", "89.96", "44.49", "25", "10", "0.948", "-", "7.39", "392.61", "1.85"],
-    ["B- PUMP", "Cu", "0.94", "0.87", "85", "69.51", "16.31", "25", "10", "0.948", "-", "7.16", "392.84", "1.79"],
-    ["F-PUMP", "Cu", "0.94", "0.87", "85", "69.51", "22.24", "16", "10", "1.48125", "-", "7.27", "392.73", "1.82"],
-    ["T-PUMP", "Cu", "0.94", "0.87", "85", "69.51", "11.12", "16", "10", "1.48125", "-", "7.06", "392.94", "1.77"],
-    ["Busway", "AL", "Max Load Current", "909.33", "704.87", "210.00", "67", "0.069", "0.016", "6.95", "393.05", "6.85", "", ""]
+    [
+      "DB-P1",
+      "Cu",
+      "0.94",
+      "0.98",
+      "46",
+      "42.38",
+      "9.02",
+      "6",
+      "5",
+      "3.95",
+      "-",
+      "7.08",
+      "392.92",
+      "1.77"
+    ],
+    [
+      "DB-P2",
+      "Cu",
+      "0.94",
+      "0.87",
+      "46",
+      "37.62",
+      "3.04",
+      "6",
+      "5",
+      "3.95",
+      "-",
+      "6.93",
+      "393.07",
+      "1.73"
+    ],
+    [
+      "DB-P3",
+      "Cu",
+      "0.94",
+      "0.98",
+      "46",
+      "42.38",
+      "3.87",
+      "6",
+      "5",
+      "3.95",
+      "-",
+      "6.95",
+      "393.05",
+      "1.74"
+    ],
+    [
+      "DB-3F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "29.54",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.03",
+      "392.97",
+      "1.76"
+    ],
+    [
+      "DB-3FA",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "27.24",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.01",
+      "392.99",
+      "1.75"
+    ],
+    [
+      "SDB-5F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "62.22",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.28",
+      "392.72",
+      "1.82"
+    ],
+    [
+      "SDB-6F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "62.22",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.28",
+      "392.72",
+      "1.82"
+    ],
+    [
+      "SDB-7F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "62.22",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.28",
+      "392.72",
+      "1.82"
+    ],
+    [
+      "SDB-8F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "62.22",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.28",
+      "392.72",
+      "1.82"
+    ],
+    [
+      "SDB-9F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "62.22",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.28",
+      "392.72",
+      "1.82"
+    ],
+    [
+      "SDB-9A",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "62.22",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.28",
+      "392.72",
+      "1.82"
+    ],
+    [
+      "SDB-11F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "62.22",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.28",
+      "392.72",
+      "1.82"
+    ],
+    [
+      "SDB-12F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "62.22",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.28",
+      "392.72",
+      "1.82"
+    ],
+    [
+      "SDB-12A",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "62.22",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.28",
+      "392.72",
+      "1.82"
+    ],
+    [
+      "DB-14F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "49.48",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.19",
+      "392.81",
+      "1.80"
+    ],
+    [
+      "SDB-15F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "26.10",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.03",
+      "392.97",
+      "1.76"
+    ],
+    [
+      "DB-16F",
+      "Cu",
+      "0.94",
+      "0.98",
+      "110",
+      "101.33",
+      "19.21",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "6.97",
+      "393.03",
+      "1.74"
+    ],
+    [
+      "DB-17F",
+      "Cu",
+      "0.94",
+      "0.87",
+      "110",
+      "89.96",
+      "28.91",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.03",
+      "392.97",
+      "1.76"
+    ],
+    [
+      "P- LIFT",
+      "Cu",
+      "0.94",
+      "0.87",
+      "110",
+      "89.96",
+      "32.62",
+      "25",
+      "5",
+      "0.948",
+      "-",
+      "7.05",
+      "392.95",
+      "1.76"
+    ],
+    [
+      "C-LIFT",
+      "Cu",
+      "0.94",
+      "0.87",
+      "110",
+      "89.96",
+      "44.49",
+      "25",
+      "10",
+      "0.948",
+      "-",
+      "7.39",
+      "392.61",
+      "1.85"
+    ],
+    [
+      "B- PUMP",
+      "Cu",
+      "0.94",
+      "0.87",
+      "85",
+      "69.51",
+      "16.31",
+      "25",
+      "10",
+      "0.948",
+      "-",
+      "7.16",
+      "392.84",
+      "1.79"
+    ],
+    [
+      "F-PUMP",
+      "Cu",
+      "0.94",
+      "0.87",
+      "85",
+      "69.51",
+      "22.24",
+      "16",
+      "10",
+      "1.48125",
+      "-",
+      "7.27",
+      "392.73",
+      "1.82"
+    ],
+    [
+      "T-PUMP",
+      "Cu",
+      "0.94",
+      "0.87",
+      "85",
+      "69.51",
+      "11.12",
+      "16",
+      "10",
+      "1.48125",
+      "-",
+      "7.06",
+      "392.94",
+      "1.77"
+    ],
+    [
+      "Busway",
+      "AL",
+      "Max Load Current",
+      "909.33",
+      "704.87",
+      "210.00",
+      "67",
+      "0.069",
+      "0.016",
+      "6.95",
+      "393.05",
+      "6.85",
+      "",
+      ""
+    ]
   ]}
 />
 
 Short-circuit & Circuit-breaker
 
 <FunctionTable
-  caption="Short-circuit &amp; Circuit-breaker"
-  columns={["SHORT-CIRCUIT CURRENT", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8", "CB RATING", "Column 10", "Column 11"]}
+  columns={[
+    "SHORT-CIRCUIT CURRENT",
+    "Column 2",
+    "Column 3",
+    "Column 4",
+    "Column 5",
+    "Column 6",
+    "Column 7",
+    "Column 8",
+    "CB RATING",
+    "Column 10",
+    "Column 11"
+  ]}
   rows={[
-    ["Description", "c.s.a(mm2)", "L(m)", "R(mΩ)", "X(mΩ)", "Rt(mΩ)", "Xt(mΩ)", "Isc(kA)", "Ib(A)", "In (A)", "Isc,cb(kA)"],
-    ["MV Network", "", "", "0.04", "0.35", "0.04", "0.35", "264.08", "", "", ""],
-    ["Transformer", "", "", "2.38", "10.94", "2.38", "10.94", "20.62", "688.14", "909", "40"],
-    ["DB-P1", "6", "5", "15.43", "0", "17.81", "10.94", "11.05", "9.02", "32", "25"],
-    ["DB-P2", "6", "5", "15.43", "0", "17.81", "10.94", "11.05", "3.04", "25", "25"],
-    ["DB-P3", "6", "5", "15.43", "0", "17.81", "10.94", "11.05", "3.87", "25", "25"],
-    ["SDB-3F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "26.57", "80", "25"],
-    ["SDB-3FA", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "21.90", "80", "25"],
-    ["SDB-5F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
-    ["SDB-6F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
-    ["SDB-7F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
-    ["SDB-8F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
-    ["SDB-9F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
-    ["SDB-9FA", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
-    ["SDB-11F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
-    ["SDB-12F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
-    ["SDB-12FA", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
-    ["DB-14F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "48.77", "100", "25"],
-    ["SDB-15F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "26.10", "63", "25"],
-    ["DB-16F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "18.65", "100", "25"],
-    ["DB-17F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "27.20", "63", "25"],
-    ["P-LIFT", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "29.77", "63", "25"],
-    ["C-LIFT", "25", "10", "7.40", "0", "9.79", "10.94", "15.73", "40.59", "63", "25"],
-    ["B-PUMP", "16", "10", "11.57", "0", "13.95", "10.94", "13.02", "10.15", "63", "25"],
-    ["F-PUMP", "16", "10", "11.57", "0", "13.95", "10.94", "13.02", "20.30", "63", "25"],
-    ["T-PUMP", "16", "10", "11.57", "0", "13.95", "10.94", "13.02", "14.88", "63", "25"]
+    [
+      "Description",
+      "c.s.a(mm2)",
+      "L(m)",
+      "R(mΩ)",
+      "X(mΩ)",
+      "Rt(mΩ)",
+      "Xt(mΩ)",
+      "Isc(kA)",
+      "Ib(A)",
+      "In (A)",
+      "Isc,cb(kA)"
+    ],
+    [
+      "MV Network",
+      "",
+      "",
+      "0.04",
+      "0.35",
+      "0.04",
+      "0.35",
+      "264.08",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Transformer",
+      "",
+      "",
+      "2.38",
+      "10.94",
+      "2.38",
+      "10.94",
+      "20.62",
+      "688.14",
+      "909",
+      "40"
+    ],
+    [
+      "DB-P1",
+      "6",
+      "5",
+      "15.43",
+      "0",
+      "17.81",
+      "10.94",
+      "11.05",
+      "9.02",
+      "32",
+      "25"
+    ],
+    [
+      "DB-P2",
+      "6",
+      "5",
+      "15.43",
+      "0",
+      "17.81",
+      "10.94",
+      "11.05",
+      "3.04",
+      "25",
+      "25"
+    ],
+    [
+      "DB-P3",
+      "6",
+      "5",
+      "15.43",
+      "0",
+      "17.81",
+      "10.94",
+      "11.05",
+      "3.87",
+      "25",
+      "25"
+    ],
+    [
+      "SDB-3F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "26.57",
+      "80",
+      "25"
+    ],
+    [
+      "SDB-3FA",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "21.90",
+      "80",
+      "25"
+    ],
+    [
+      "SDB-5F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "62.22",
+      "100",
+      "25"
+    ],
+    [
+      "SDB-6F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "62.22",
+      "100",
+      "25"
+    ],
+    [
+      "SDB-7F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "62.22",
+      "100",
+      "25"
+    ],
+    [
+      "SDB-8F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "62.22",
+      "100",
+      "25"
+    ],
+    [
+      "SDB-9F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "62.22",
+      "100",
+      "25"
+    ],
+    [
+      "SDB-9FA",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "62.22",
+      "100",
+      "25"
+    ],
+    [
+      "SDB-11F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "62.22",
+      "100",
+      "25"
+    ],
+    [
+      "SDB-12F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "62.22",
+      "100",
+      "25"
+    ],
+    [
+      "SDB-12FA",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "62.22",
+      "100",
+      "25"
+    ],
+    [
+      "DB-14F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "48.77",
+      "100",
+      "25"
+    ],
+    [
+      "SDB-15F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "26.10",
+      "63",
+      "25"
+    ],
+    [
+      "DB-16F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "18.65",
+      "100",
+      "25"
+    ],
+    [
+      "DB-17F",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "27.20",
+      "63",
+      "25"
+    ],
+    [
+      "P-LIFT",
+      "25",
+      "5",
+      "3.70",
+      "0",
+      "6.08",
+      "10.94",
+      "18.44",
+      "29.77",
+      "63",
+      "25"
+    ],
+    [
+      "C-LIFT",
+      "25",
+      "10",
+      "7.40",
+      "0",
+      "9.79",
+      "10.94",
+      "15.73",
+      "40.59",
+      "63",
+      "25"
+    ],
+    [
+      "B-PUMP",
+      "16",
+      "10",
+      "11.57",
+      "0",
+      "13.95",
+      "10.94",
+      "13.02",
+      "10.15",
+      "63",
+      "25"
+    ],
+    [
+      "F-PUMP",
+      "16",
+      "10",
+      "11.57",
+      "0",
+      "13.95",
+      "10.94",
+      "13.02",
+      "20.30",
+      "63",
+      "25"
+    ],
+    [
+      "T-PUMP",
+      "16",
+      "10",
+      "11.57",
+      "0",
+      "13.95",
+      "10.94",
+      "13.02",
+      "14.88",
+      "63",
+      "25"
+    ]
   ]}
 />
 
 Voltage drop & short-circuit comparison
 
 <FunctionTable
-  caption="Voltage drop &amp; short-circuit comparison"
-  columns={["Column 1", "Voltage Drop", "Column 3", "Short-circuit", "Column 5"]}
+  columns={[
+    "Column 1",
+    "Voltage Drop",
+    "Column 3",
+    "Short-circuit",
+    "Column 5"
+  ]}
   rows={[
-    ["DB", "Excel", "Ecodial", "Excel", "Ecodial"],
-    ["DB-P1", "1.77", "1.80", "11.05", "10.80"],
-    ["DB-P2", "1.73", "1.77", "11.05", "10.80"],
-    ["DB-P3", "1.74", "1.77", "11.05", "10.80"],
-    ["DB-3F", "1.76", "1.79", "18.44", "18.10"],
-    ["DB-3FA", "1.75", "1.79", "18.44", "18.10"],
-    ["SDB-5F", "1.82", "1.85", "18.44", "18.10"],
-    ["SDB-6F", "1.82", "1.85", "18.44", "18.10"],
-    ["SDB-7F", "1.82", "1.85", "18.44", "18.10"],
-    ["SDB-8F", "1.82", "1.85", "18.44", "18.10"],
-    ["SDB-9F", "1.82", "1.85", "18.44", "18.10"],
-    ["SDB-9FA", "1.82", "1.85", "18.44", "18.10"],
-    ["SDB-11F", "1.82", "1.85", "18.44", "18.10"],
-    ["SDB-12F", "1.82", "1.85", "18.44", "18.10"],
-    ["SDB-12FA", "1.82", "1.85", "18.44", "18.10"],
-    ["DB-14F", "1.80", "1.83", "18.44", "18.10"],
-    ["DB-15F", "1.76", "1.81", "18.44", "18.10"],
-    ["DB-16F", "1.74", "1.78", "18.44", "18.10"],
-    ["DB-17F", "1.76", "1.79", "18.44", "18.10"],
-    ["P-LIFT", "1.76", "1.80", "18.44", "18.10"],
-    ["C-LIFT", "1.85", "1.88", "15.73", "14.90"],
-    ["T-PUMP", "1.79", "1.82", "13.02", "12.50"],
-    ["F-PUMP", "1.82", "1.85", "13.02", "12.50"],
-    ["B-PUMP", "1.77", "1.80", "13.02", "12.50"]
+    [
+      "DB",
+      "Excel",
+      "Ecodial",
+      "Excel",
+      "Ecodial"
+    ],
+    [
+      "DB-P1",
+      "1.77",
+      "1.80",
+      "11.05",
+      "10.80"
+    ],
+    [
+      "DB-P2",
+      "1.73",
+      "1.77",
+      "11.05",
+      "10.80"
+    ],
+    [
+      "DB-P3",
+      "1.74",
+      "1.77",
+      "11.05",
+      "10.80"
+    ],
+    [
+      "DB-3F",
+      "1.76",
+      "1.79",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "DB-3FA",
+      "1.75",
+      "1.79",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "SDB-5F",
+      "1.82",
+      "1.85",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "SDB-6F",
+      "1.82",
+      "1.85",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "SDB-7F",
+      "1.82",
+      "1.85",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "SDB-8F",
+      "1.82",
+      "1.85",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "SDB-9F",
+      "1.82",
+      "1.85",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "SDB-9FA",
+      "1.82",
+      "1.85",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "SDB-11F",
+      "1.82",
+      "1.85",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "SDB-12F",
+      "1.82",
+      "1.85",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "SDB-12FA",
+      "1.82",
+      "1.85",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "DB-14F",
+      "1.80",
+      "1.83",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "DB-15F",
+      "1.76",
+      "1.81",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "DB-16F",
+      "1.74",
+      "1.78",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "DB-17F",
+      "1.76",
+      "1.79",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "P-LIFT",
+      "1.76",
+      "1.80",
+      "18.44",
+      "18.10"
+    ],
+    [
+      "C-LIFT",
+      "1.85",
+      "1.88",
+      "15.73",
+      "14.90"
+    ],
+    [
+      "T-PUMP",
+      "1.79",
+      "1.82",
+      "13.02",
+      "12.50"
+    ],
+    [
+      "F-PUMP",
+      "1.82",
+      "1.85",
+      "13.02",
+      "12.50"
+    ],
+    [
+      "B-PUMP",
+      "1.77",
+      "1.80",
+      "13.02",
+      "12.50"
+    ]
   ]}
 />
