@@ -50,9 +50,17 @@ export default function AccessForm() {
           errorMessage={error}
         />
 
-        <Button type="submit" fillWidth disabled={loading || !password.trim()}>
-          {loading ? "Checking..." : "Enter website"}
+        <Button                  
+          type="submit"
+          fillWidth
+          disabled={loading || !password.trim()}
+          loading={loading}
+          
+        >
+          {loading ? "Checking..." : "Login"}
         </Button>
+
+
 
         <Text align="center" variant="body-default-xs" onBackground="neutral-weak">
           Access is saved on this browser for 7 days.

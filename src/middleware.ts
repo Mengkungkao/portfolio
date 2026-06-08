@@ -6,6 +6,7 @@ const PUBLIC_FILE = /\.(.*)$/;
 const PUBLIC_PROJECTS = [
   "/work/mdetect-autonomous-robot",
   "/work/build-fpv-drone",
+  "/work/low-voltage-electrical-system-design",
 ];
 
 function isProjectPath(pathname: string) {
