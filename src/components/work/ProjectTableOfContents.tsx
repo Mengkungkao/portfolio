@@ -1,76 +1,218 @@
 "use client";
 
-import React from "react";
-import { Column, Flex, Text } from "@/once-ui/components";
-import styles from "./ProjectTableOfContents.module.scss";
+import React, { useEffect, useState } from "react";
 
-export type ProjectTocItem = {
-  title: string;
+export type TableOfContentsItem = {
   id: string;
+  title?: string;
+  text?: string;
+  label?: string;
   level?: number;
 };
 
 type ProjectTableOfContentsProps = {
   title?: string;
-  items: ProjectTocItem[];
+  items?: TableOfContentsItem[];
 };
 
-export function ProjectTableOfContents({
-  title = "Content",
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/&/g, "-and-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-");
+}
+
+function ProjectTableOfContents({
+  title = "Contents",
   items,
 }: ProjectTableOfContentsProps) {
-  const scrollTo = (id: string, offset = 96) => {
-    const element = document.getElementById(id);
-    if (!element) return;
+  const [tocItems, setTocItems] = useState<TableOfContentsItem[]>([]);
+  const [activeId, setActiveId] = useState<string>("");
 
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.scrollY - offset;
+  useEffect(() => {
+    if (items && items.length > 0) {
+      setTocItems(items);
+      return;
+    }
+
+    const usedIds = new Map<string, number>();
+
+    const makeUniqueId = (baseId: string) => {
+      const cleanId = baseId || "section";
+      const count = usedIds.get(cleanId) || 0;
+
+      usedIds.set(cleanId, count + 1);
+
+      if (count === 0) {
+        return cleanId;
+      }
+
+      return `${cleanId}-${count + 1}`;
+    };
+
+    const headingElements = Array.from(
+      document.querySelectorAll<HTMLElement>("article h2, article h3")
+    );
+
+    const generatedItems = headingElements
+      .map((heading) => {
+        const text = heading.textContent?.trim() || "";
+
+        if (!text) {
+          return null;
+        }
+
+        const baseId = heading.id || slugify(text);
+        const uniqueId = makeUniqueId(baseId);
+
+        heading.id = uniqueId;
+
+        return {
+          id: uniqueId,
+          text,
+          level: Number(heading.tagName.replace("H", "")),
+        };
+      })
+      .filter(Boolean) as TableOfContentsItem[];
+
+    setTocItems(generatedItems);
+  }, [items]);
+
+  useEffect(() => {
+    if (tocItems.length === 0) {
+      return;
+    }
+
+    const updateActiveItem = () => {
+      let currentId = "";
+
+      for (const item of tocItems) {
+        const element = document.getElementById(item.id);
+
+        if (!element) {
+          continue;
+        }
+
+        const rect = element.getBoundingClientRect();
+
+        if (rect.top <= 130) {
+          currentId = item.id;
+        }
+      }
+
+      setActiveId(currentId);
+    };
+
+    updateActiveItem();
+
+    window.addEventListener("scroll", updateActiveItem, { passive: true });
+    window.addEventListener("resize", updateActiveItem);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveItem);
+      window.removeEventListener("resize", updateActiveItem);
+    };
+  }, [tocItems]);
+
+  const scrollToItem = (id: string) => {
+    const element = document.getElementById(id);
+
+    if (!element) {
+      return;
+    }
+
+    const headerOffset = 110;
+    const position = element.getBoundingClientRect().top + window.scrollY - headerOffset;
 
     window.scrollTo({
-      top: offsetPosition,
+      top: position,
       behavior: "smooth",
     });
   };
 
-  if (!items.length) return null;
+  if (tocItems.length === 0) {
+    return null;
+  }
 
   return (
-    <Column
-        className={styles.navigation}
-        left="0"
-        style={{ top: "128px" }}
-        position="fixed"
-        paddingLeft="8"
-        gap="16"
-        hide="m"
+    <nav
+      aria-label={title}
+      style={{
+        position: "fixed",
+        top: "110px",
+        bottom: "24px",
+        left: "24px",
+        width: "230px",
+        overflowY: "auto",
+        overflowX: "hidden",
+        direction: "rtl",
+        paddingLeft: "8px",
+        paddingRight: "12px",
+        zIndex: 20,
+      }}
+    >
+      <div
+        style={{
+          direction: "ltr",
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+        }}
+      >
+        <p
+          style={{
+            margin: "0 0 8px 0",
+            fontSize: "13px",
+            fontWeight: 600,
+            opacity: 0.7,
+          }}
         >
-    
-      <Text variant="label-default-s" onBackground="neutral-weak">
-        {title}
-      </Text>
+          {title}
+        </p>
 
-      <Column gap="12">
-        {items.map((item) => {
-          const indent = Math.max((item.level ?? 2) - 2, 0);
+        {tocItems.map((item, index) => {
+          const itemText = item.title || item.text || item.label || item.id;
+          const isActive = activeId === item.id;
 
           return (
-            <Flex
-              key={item.id}
-              cursor="interactive"
-              className={styles.item}
-              gap="8"
-              vertical="center"
-              onClick={() => scrollTo(item.id)}
-              style={{ paddingLeft: `calc(${indent} * var(--static-space-16))` }}
+            <button
+              key={`${item.id}-${index}`}
+              type="button"
+              onClick={() => scrollToItem(item.id)}
+              style={{
+                width: "100%",
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                textAlign: "left",
+                padding: item.level === 3 ? "6px 8px 6px 22px" : "6px 8px",
+                borderRadius: "8px",
+                fontSize: item.level === 3 ? "13px" : "14px",
+                lineHeight: "1.35",
+                opacity: isActive ? 1 : 0.65,
+                fontWeight: isActive ? 600 : 400,
+                color: "inherit",
+              }}
+              onMouseEnter={(event) => {
+                event.currentTarget.style.opacity = "1";
+                event.currentTarget.style.background = "rgba(128, 128, 128, 0.12)";
+              }}
+              onMouseLeave={(event) => {
+                event.currentTarget.style.opacity = isActive ? "1" : "0.65";
+                event.currentTarget.style.background = "transparent";
+              }}
             >
-              <Flex height="1" minWidth={indent > 0 ? "8" : "16"} background="neutral-strong" />
-              <Text className={styles.linkText} variant="body-default-s">
-                {item.title}
-              </Text>
-            </Flex>
+              {itemText}
+            </button>
           );
         })}
-      </Column>
-    </Column>
+      </div>
+    </nav>
   );
 }
+
+export default ProjectTableOfContents;
+export { ProjectTableOfContents };

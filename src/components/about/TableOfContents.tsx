@@ -66,7 +66,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
                 {section.items.map((item, itemIndex) => (
                   <Flex
                     hide="l"
-                    key={itemIndex}
+                    key={`${item.id}-${index}`}
                     style={{ cursor: "pointer" }}
                     className={styles.hover}
                     gap="12"
