@@ -33,12 +33,30 @@ export function Projects({ range }: ProjectsProps) {
   }));
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        width: "100%",
+        gap: "32px",
+        alignItems: "flex-start",
+        justifyContent: "center",
+        flexWrap: "wrap",
+      }}
+    >
       {showTableOfContents && (
         <ProjectTableOfContents title="Projects" items={tocItems} />
       )}
 
-      <Column fillWidth gap="xl" marginBottom="40" paddingX="l">
+      <Column
+        fillWidth
+        gap="xl"
+        marginBottom="40"
+        paddingX="l"
+        style={{
+          flex: "1 1 680px",
+          minWidth: 0,
+        }}
+      >
         {displayedProjects.map((post, index) => (
           <div
             key={post.slug}
@@ -64,6 +82,6 @@ export function Projects({ range }: ProjectsProps) {
           </div>
         ))}
       </Column>
-    </>
+    </div>
   );
 }

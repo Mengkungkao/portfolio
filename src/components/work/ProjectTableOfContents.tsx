@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export type TableOfContentsItem = {
   id: string;
@@ -31,6 +31,7 @@ function ProjectTableOfContents({
 }: ProjectTableOfContentsProps) {
   const [tocItems, setTocItems] = useState<TableOfContentsItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     if (items && items.length > 0) {
@@ -124,8 +125,9 @@ function ProjectTableOfContents({
       return;
     }
 
-    const headerOffset = 110;
-    const position = element.getBoundingClientRect().top + window.scrollY - headerOffset;
+    const headerOffset = 120;
+    const position =
+      element.getBoundingClientRect().top + window.scrollY - headerOffset;
 
     window.scrollTo({
       top: position,
@@ -138,20 +140,18 @@ function ProjectTableOfContents({
   }
 
   return (
-    <nav
-      aria-label={title}
+    <aside
       style={{
-        position: "fixed",
+        position: "sticky",
         top: "110px",
-        bottom: "24px",
-        left: "24px",
-        width: "230px",
-        overflowY: "auto",
+        alignSelf: "flex-start",
+        width: isOpen ? "240px" : "92px",
+        maxHeight: "calc(100vh - 130px)",
+        flexShrink: 0,
+        overflowY: isOpen ? "auto" : "visible",
         overflowX: "hidden",
         direction: "rtl",
         paddingLeft: "8px",
-        paddingRight: "12px",
-        zIndex: 20,
       }}
     >
       <div
@@ -162,55 +162,104 @@ function ProjectTableOfContents({
           gap: "10px",
         }}
       >
-        <p
+        <button
+          type="button"
+          onClick={() => setIsOpen((current) => !current)}
+          aria-expanded={isOpen}
           style={{
-            margin: "0 0 8px 0",
+            width: isOpen ? "100%" : "fit-content",
+            border: "1px solid rgba(128, 128, 128, 0.22)",
+            background: "rgba(128, 128, 128, 0.08)",
+            color: "inherit",
+            cursor: "pointer",
+            borderRadius: "999px",
+            padding: "8px 12px",
             fontSize: "13px",
             fontWeight: 600,
-            opacity: 0.7,
+            textAlign: "left",
           }}
         >
-          {title}
-        </p>
+          {isOpen ? "Hide contents" : "Contents"}
+        </button>
 
-        {tocItems.map((item, index) => {
-          const itemText = item.title || item.text || item.label || item.id;
-          const isActive = activeId === item.id;
-
-          return (
-            <button
-              key={`${item.id}-${index}`}
-              type="button"
-              onClick={() => scrollToItem(item.id)}
+        {isOpen && (
+          <nav
+            aria-label={title}
+            style={{
+              border: "1px solid rgba(128, 128, 128, 0.18)",
+              borderRadius: "16px",
+              padding: "14px",
+              background: "rgba(128, 128, 128, 0.05)",
+              backdropFilter: "blur(12px)",
+            }}
+          >
+            <p
               style={{
-                width: "100%",
-                border: "none",
-                background: "transparent",
-                cursor: "pointer",
-                textAlign: "left",
-                padding: item.level === 3 ? "6px 8px 6px 22px" : "6px 8px",
-                borderRadius: "8px",
-                fontSize: item.level === 3 ? "13px" : "14px",
-                lineHeight: "1.35",
-                opacity: isActive ? 1 : 0.65,
-                fontWeight: isActive ? 600 : 400,
-                color: "inherit",
-              }}
-              onMouseEnter={(event) => {
-                event.currentTarget.style.opacity = "1";
-                event.currentTarget.style.background = "rgba(128, 128, 128, 0.12)";
-              }}
-              onMouseLeave={(event) => {
-                event.currentTarget.style.opacity = isActive ? "1" : "0.65";
-                event.currentTarget.style.background = "transparent";
+                margin: "0 0 10px 0",
+                fontSize: "13px",
+                fontWeight: 700,
+                opacity: 0.75,
               }}
             >
-              {itemText}
-            </button>
-          );
-        })}
+              {title}
+            </p>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+              }}
+            >
+              {tocItems.map((item, index) => {
+                const itemText = item.title || item.text || item.label || item.id;
+                const isActive = activeId === item.id;
+
+                return (
+                  <button
+                    key={`${item.id}-${index}`}
+                    type="button"
+                    onClick={() => scrollToItem(item.id)}
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      background: isActive
+                        ? "rgba(128, 128, 128, 0.16)"
+                        : "transparent",
+                      cursor: "pointer",
+                      textAlign: "left",
+                      padding:
+                        item.level === 3
+                          ? "7px 8px 7px 22px"
+                          : "7px 8px",
+                      borderRadius: "10px",
+                      fontSize: item.level === 3 ? "13px" : "14px",
+                      lineHeight: "1.35",
+                      opacity: isActive ? 1 : 0.68,
+                      fontWeight: isActive ? 650 : 400,
+                      color: "inherit",
+                    }}
+                    onMouseEnter={(event) => {
+                      event.currentTarget.style.opacity = "1";
+                      event.currentTarget.style.background =
+                        "rgba(128, 128, 128, 0.12)";
+                    }}
+                    onMouseLeave={(event) => {
+                      event.currentTarget.style.opacity = isActive ? "1" : "0.68";
+                      event.currentTarget.style.background = isActive
+                        ? "rgba(128, 128, 128, 0.16)"
+                        : "transparent";
+                    }}
+                  >
+                    {itemText}
+                  </button>
+                );
+              })}
+            </div>
+          </nav>
+        )}
       </div>
-    </nav>
+    </aside>
   );
 }
 

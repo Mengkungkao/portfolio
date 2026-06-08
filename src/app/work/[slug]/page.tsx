@@ -114,21 +114,40 @@ export default async function Project({
         />
       )}
 
-      <ProjectTableOfContents />
+      <div
+  style={{
+    display: "flex",
+    width: "100%",
+    maxWidth: "1180px",
+    margin: "0 auto",
+    gap: "32px",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    flexWrap: "wrap",
+  }}
+>
+  <ProjectTableOfContents />
 
-      <Column style={{ margin: "auto" }} as="article" maxWidth="s">
-        <Flex gap="12" marginBottom="24" vertical="center">
-          {post.metadata.team && (
-            <AvatarGroup reverse avatars={avatars} size="m" />
-          )}
+  <Column
+    style={{
+      margin: "0",
+      flex: "1 1 680px",
+      minWidth: 0,
+    }}
+    as="article"
+    maxWidth="s"
+  >
+    <Flex gap="12" marginBottom="24" vertical="center">
+      {post.metadata.team && <AvatarGroup reverse avatars={avatars} size="m" />}
 
-          <Text variant="body-default-s" onBackground="neutral-weak">
-            {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
-          </Text>
-        </Flex>
+      <Text variant="body-default-s" onBackground="neutral-weak">
+        {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
+      </Text>
+    </Flex>
 
-        <CustomMDX source={post.content} />
-      </Column>
+    <CustomMDX source={post.content} />
+  </Column>
+</div>
 
       <ScrollToHash />
     </Column>
