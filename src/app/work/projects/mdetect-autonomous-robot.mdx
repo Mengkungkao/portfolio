@@ -33,11 +33,6 @@ team:
 
 **Swinburne University of Technology**
 
-**Team members:**
-
-Meng
-Rohith
-Joel
 
 # Executive Summary
 
@@ -45,18 +40,9 @@ This project was undertaken in collaboration with mDetect Pty Ltd to develop a G
 
 The primary objective of the project was to develop a robotic platform capable of estimating its position and orientation without relying on external positioning infrastructure. To achieve this, a localisation system was developed using wheel encoder odometry and an MPU6050 Inertial Measurement Unit (IMU). Encoder measurements were used to estimate robot displacement, while IMU heading information enabled transformation of local movement into global position estimates. The resulting system provided real-time estimation of robot position in a two-dimensional coordinate frame.
 
-Several challenges were encountered throughout development, including
-motion instability, encoder measurement noise, accumulated odometry
-errors, and hardware resource limitations. These challenges were
-addressed through motor scaling, Kalman filtering techniques, and motion
-control improvements, resulting in improved localisation accuracy and
-navigation performance.
+Several challenges were encountered throughout development, including motion instability, encoder measurement noise, accumulated odometry errors, and hardware resource limitations. These challenges were addressed through motor scaling, Kalman filtering techniques, and motion control improvements, resulting in improved localisation accuracy and navigation performance.
 
-To support advanced sensing and navigation capabilities, a Raspberry Pi
-4 was integrated into the system architecture. Serial communication was
-established between the Arduino Uno and Raspberry Pi, enabling real-time
-transmission of localisation data. A Python-based software framework was
-developed to provide robot monitoring, data logging, and high-level navigation functionality.
+To support advanced sensing and navigation capabilities, a Raspberry Pi 4 was integrated into the system architecture. Serial communication was established between the Arduino Uno and Raspberry Pi, enabling real-time transmission of localisation data. A Python-based software framework was developed to provide robot monitoring, data logging, and high-level navigation functionality.
 
 The final stage of the project involved integration of a COIN-D6 Time-of-Flight LiDAR sensor. The LiDAR system enabled environmental sensing, obstacle detection, and emergency stop functionality. Additional navigation features including waypoint management, path planning concepts, and lightweight SLAM foundations were also investigated.
 
@@ -66,68 +52,35 @@ The project successfully achieved its primary objectives and demonstrated the fe
 
 ## Background
 
-Underground environments such as tunnels, chambers, mines, and
-interconnected voids present significant challenges for robotic
-navigation and localisation. Unlike outdoor environments, Global
-Positioning System (GPS) signals are unavailable or severely degraded
-underground, making conventional localisation techniques ineffective.
-Accurate localisation is essential for autonomous robotic systems
-operating in these environments, particularly when precise position
-information is required for inspection, mapping, and scientific data
-collection.
+Underground environments such as tunnels, chambers, mines, and interconnected voids present significant challenges for robotic navigation and localisation. Unlike outdoor environments, Global Positioning System (GPS) signals are unavailable or severely degraded underground, making conventional localisation techniques ineffective. Accurate localisation is essential for autonomous robotic systems operating in these environments, particularly when precise position information is required for inspection, mapping, and scientific data collection.
 
-mDetect Pty Ltd is developing a muon detector platform for underground
-sensing applications. Muon detectors use naturally occurring cosmic ray
-muons to investigate subsurface structures and identify hidden voids,
-geological formations, and underground features. For muon measurements
-to be meaningful, detector readings must be accurately associated with
-the robot’s location and orientation at the time of measurement.
-Consequently, a reliable GPS-free localisation system is required to
-support future deployment of autonomous muon detection platforms.
+mDetect Pty Ltd is developing a muon detector platform for underground sensing applications. Muon detectors use naturally occurring cosmic ray muons to investigate subsurface structures and identify hidden voids, geological formations, and underground features. For muon measurements to be meaningful, detector readings must be accurately associated with the robot’s location and orientation at the time of measurement. Consequently, a reliable GPS-free localisation system is required to support future deployment of autonomous muon detection platforms.
 
 ![Muon Detector (Mdetect.com.au, 2025)](/images/projects/mdetect/image3.png)
 
-Robotic localisation in GPS-denied environments commonly relies on
-onboard sensors such as wheel encoders, inertial measurement units
-(IMUs), cameras, and LiDAR sensors. Each sensing technology offers
-advantages and limitations. Wheel encoders provide distance travelled
-information but are affected by wheel slip and accumulated errors. IMUs
-provide orientation information but are subject to sensor drift over
-time. LiDAR sensors provide environmental perception and obstacle
-detection capabilities but require greater computational resources for
-processing.
+Robotic localisation in GPS-denied environments commonly relies on onboard sensors such as wheel encoders, inertial measurement units (IMUs), cameras, and LiDAR sensors. Each sensing technology offers advantages and limitations. Wheel encoders provide distance travelled information but are affected by wheel slip and accumulated errors. IMUs provide orientation information but are subject to sensor drift over time. LiDAR sensors provide environmental perception and obstacle detection capabilities but require greater computational resources for processing.
 
-To address these challenges, this project investigated the development
-of a GPS-free localisation platform using a combination of encoder
-odometry, IMU-based heading estimation, and LiDAR sensing. The system
-was implemented using an Arduino Uno microcontroller for low-level robot
-control and a Raspberry Pi 4 for higher-level sensing and navigation
-tasks.
+To address these challenges, this project investigated the development of a GPS-free localisation platform using a combination of encoder odometry, IMU-based heading estimation, and LiDAR sensing. The system was implemented using an Arduino Uno microcontroller for low-level robot control and a Raspberry Pi 4 for higher-level sensing and navigation tasks.
 
 ## Industry Problem
 
-The industry partner identified the need for an autonomous robotic
-platform capable of operating in underground and confined environments
-where GPS signals are unavailable. Existing localisation methods based
-solely on wheel encoders often suffer from accumulated position errors,
-while manual operation limits efficiency and repeatability.
+The industry partner identified the need for an autonomous robotic platform capable of operating in underground and confined environments where GPS signals are unavailable. Existing localisation methods based solely on wheel encoders often suffer from accumulated position errors, while manual operation limits efficiency and repeatability.
 
 Several technical challenges were identified during the project:
 
-1.  Localisation without GPS signals
+1. Localisation without GPS signals
 
-2.  Motion instability caused by differences in motor performance
+2. Motion instability caused by differences in motor performance
 
-3.  Encoder measurement noise and accumulated odometry errors
+3. Encoder measurement noise and accumulated odometry errors
 
-4.  Accurate estimation of robot position and orientation
+4. Accurate estimation of robot position and orientation
 
-5.  Integration of multiple sensing and processing systems
+5. Integration of multiple sensing and processing systems
 
-6.  Obstacle detection and safe navigation in confined environments
+6. Obstacle detection and safe navigation in confined environments
 
-A practical solution to these challenges was required to support future
-deployment of autonomous muon detector systems.
+A practical solution to these challenges was required to support future deployment of autonomous muon detector systems.
 
 ![Figure 1.2.1 Four Mecanum Wheels Mechanical Part Assembly Robot](/images/projects/mdetect/image4.png)
 
@@ -135,163 +88,91 @@ deployment of autonomous muon detector systems.
 
 ## Project Aim
 
-The aim of this project was to develop a reliable GPS-free localisation
-and navigation platform for a mobile robotic system operating in
-underground and tunnel-like environments.
+The aim of this project was to develop a reliable GPS-free localisation and navigation platform for a mobile robotic system operating in underground and tunnel-like environments.
 
-The project focused on combining encoder odometry, IMU-based heading
-estimation, and LiDAR sensing to provide real-time position estimation,
-obstacle detection, and autonomous navigation capabilities.
+The project focused on combining encoder odometry, IMU-based heading estimation, and LiDAR sensing to provide real-time position estimation, obstacle detection, and autonomous navigation capabilities.
 
 ## Project Objectives
 
 The project objectives were defined as follows:
 
-- Develop an encoder-based odometry system capable of estimating robot
-  displacement and distance travelled.
+- Develop an encoder-based odometry system capable of estimating robot displacement and distance travelled.
 
-- Implement IMU-based heading estimation to determine robot orientation
-  and improve localisation accuracy.
+- Implement IMU-based heading estimation to determine robot orientation and improve localisation accuracy.
 
-- Estimate robot position in a two-dimensional coordinate system using
-  odometry and IMU data.
+- Estimate robot position in a two-dimensional coordinate system using odometry and IMU data.
 
-- Improve motion stability through motor control and error correction
-  techniques.
+- Improve motion stability through motor control and error correction techniques.
 
-- Integrate Raspberry Pi and COIN-D6 LiDAR hardware for environmental
-  sensing.
+- Integrate Raspberry Pi and COIN-D6 LiDAR hardware for environmental sensing.
 
-- Develop obstacle detection and emergency stop functionality for safe
-  navigation.
+- Develop obstacle detection and emergency stop functionality for safe navigation.
 
-- Investigate advanced navigation approaches including waypoint
-  navigation, path planning, and LiDAR-assisted localisation.
+- Investigate advanced navigation approaches including waypoint navigation, path planning, and LiDAR-assisted localisation.
 
 ## Report Structure
 
-This report presents the design, implementation, testing, and evaluation
-of the GPS-denied robotic localisation platform developed for mDetect
-Pty Ltd.
+This report presents the design, implementation, testing, and evaluation of the GPS-denied robotic localisation platform developed for mDetect Pty Ltd.
 
-- Chapter 2 reviews existing literature related to odometry, inertial
-  navigation, PID control, Kalman filtering, and LiDAR-based navigation
-  systems.
+- Chapter 2 reviews existing literature related to odometry, inertial navigation, PID control, Kalman filtering, and LiDAR-based navigation systems.
 
-- Chapter 3 describes the project methodology, hardware architecture,
-  software development process, and implementation approach.
+- Chapter 3 describes the project methodology, hardware architecture, software development process, and implementation approach.
 
-- Chapter 4 presents the localisation system development, including
-  encoder odometry and IMU integration.
+- Chapter 4 presents the localisation system development, including encoder odometry and IMU integration.
 
-- Chapter 5 discusses the major technical challenges encountered during
-  the project and the solutions implemented.
+- Chapter 5 discusses the major technical challenges encountered during the project and the solutions implemented.
 
-- Chapter 6 presents the Raspberry Pi and LiDAR integration, obstacle
-  detection system, and advanced navigation framework.
+- Chapter 6 presents the Raspberry Pi and LiDAR integration, obstacle detection system, and advanced navigation framework.
 
-- Finally, summarises the project outcomes, limitations, conclusions,
-  and recommendations for future work.
+- Finally, summarises the project outcomes, limitations, conclusions, and recommendations for future work.
 
 # Literature Review
 
 ## Mobile Robot Localisation Using Odometry
 
-Robot localisation is a fundamental requirement for autonomous
-navigation systems. Localisation refers to the ability of a robot to
-estimate its position and orientation within a known or unknown
-environment. In GPS-denied environments such as tunnels, underground
-chambers, and mines, localisation becomes particularly challenging
-because external positioning systems are unavailable.
+Robot localisation is a fundamental requirement for autonomous navigation systems. Localisation refers to the ability of a robot to estimate its position and orientation within a known or unknown environment. In GPS-denied environments such as tunnels, underground chambers, and mines, localisation becomes particularly challenging because external positioning systems are unavailable.
 
-One of the most widely used localisation techniques is wheel encoder
-odometry. Odometry estimates robot displacement by measuring wheel
-rotation and converting encoder counts into travelled distance. The
-method is computationally efficient and can be implemented using
-low-cost hardware, making it suitable for embedded robotic systems.
+One of the most widely used localisation techniques is wheel encoder odometry. Odometry estimates robot displacement by measuring wheel rotation and converting encoder counts into travelled distance. The method is computationally efficient and can be implemented using low-cost hardware, making it suitable for embedded robotic systems.
 
-Borenstein and Feng (1996) investigated systematic odometry errors in
-mobile robots and identified wheel slip, uneven surfaces, and mechanical
-tolerances as major sources of localisation error. Their work
-demonstrated that odometry errors accumulate over time, causing
-increasing deviation between the estimated and actual robot position.
+Borenstein and Feng (1996) investigated systematic odometry errors in mobile robots and identified wheel slip, uneven surfaces, and mechanical tolerances as major sources of localisation error. Their work demonstrated that odometry errors accumulate over time, causing increasing deviation between the estimated and actual robot position.
 
 The distance travelled by a wheel can be calculated using:
 
-Distance = (Encoder Counts / Counts per Revolution) × Wheel
-Circumference
+Distance = (Encoder Counts / Counts per Revolution) × Wheel Circumference
 
-Encoder-based odometry provides a simple and effective method for
-short-distance localisation. However, due to accumulated errors,
-odometry alone is generally insufficient for long-term navigation and is
-often combined with additional sensors.
+Encoder-based odometry provides a simple and effective method for short-distance localisation. However, due to accumulated errors, odometry alone is generally insufficient for long-term navigation and is often combined with additional sensors.
 
 ![Figure 2.1.1 Encoder Odometry Principle (Guo et al., 2025)](/images/projects/mdetect/image7.png)
 
-The findings from previous studies indicate that encoder odometry
-remains an essential component of mobile robot localisation but requires
-complementary sensing technologies to improve long-term accuracy.
+The findings from previous studies indicate that encoder odometry remains an essential component of mobile robot localisation but requires complementary sensing technologies to improve long-term accuracy.
 
 ## Inertial Measurement Units for Navigation
 
-An Inertial Measurement Unit (IMU) is commonly used in robotic systems
-to estimate orientation, acceleration, and angular velocity. IMUs
-typically consist of accelerometers and gyroscopes that measure motion
-in multiple axes.
+An Inertial Measurement Unit (IMU) is commonly used in robotic systems to estimate orientation, acceleration, and angular velocity. IMUs typically consist of accelerometers and gyroscopes that measure motion in multiple axes.
 
-The MPU6050 sensor was selected for this project due to its low cost,
-ease of integration, and availability. The sensor combines a three-axis
-accelerometer and a three-axis gyroscope within a single package,
-enabling measurement of robot orientation and motion.
+The MPU6050 sensor was selected for this project due to its low cost, ease of integration, and availability. The sensor combines a three-axis accelerometer and a three-axis gyroscope within a single package, enabling measurement of robot orientation and motion.
 
-Brossard, Barrau, and Bonnabel (2019) investigated IMU-based dead
-reckoning methods and demonstrated that inertial sensors can provide
-reliable orientation information for autonomous navigation systems.
-Their work showed that combining IMU data with other localisation
-methods can significantly improve navigation performance.
+Brossard, Barrau, and Bonnabel (2019) investigated IMU-based dead reckoning methods and demonstrated that inertial sensors can provide reliable orientation information for autonomous navigation systems. Their work showed that combining IMU data with other localisation methods can significantly improve navigation performance.
 
-In mobile robot applications, heading estimation is particularly
-important because orientation errors directly affect position
-estimation. Even small heading errors can result in large position
-errors when integrated over long distances.
+In mobile robot applications, heading estimation is particularly important because orientation errors directly affect position estimation. Even small heading errors can result in large position errors when integrated over long distances.
 
-The primary limitation of IMU systems is sensor drift. Gyroscope bias
-and measurement noise cause heading errors to accumulate over time.
-Consequently, IMU sensors are typically integrated with odometry or
-external sensing systems to improve localisation performance.
+The primary limitation of IMU systems is sensor drift. Gyroscope bias and measurement noise cause heading errors to accumulate over time. Consequently, IMU sensors are typically integrated with odometry or external sensing systems to improve localisation performance.
 
-For this project, the IMU was used primarily to estimate the robot
-heading angle, which was then combined with encoder-based displacement
-measurements to calculate robot position within a two-dimensional
-coordinate frame.
+For this project, the IMU was used primarily to estimate the robot heading angle, which was then combined with encoder-based displacement measurements to calculate robot position within a two-dimensional coordinate frame.
 
 ![Figure 2.2.1 MPU6050 IMU Sensor and Heading Estimation (Last Minute Engineers, 2021)](/images/projects/mdetect/image8.png)
 
-The literature suggests that combining encoder odometry and IMU
-measurements can significantly improve localisation accuracy compared to
-using either sensing method independently.
+The literature suggests that combining encoder odometry and IMU measurements can significantly improve localisation accuracy compared to using either sensing method independently.
 
 ## Proportional Integral Derivative (PID) Control
 
-Motion control is a critical requirement for autonomous robotic systems.
-Variations in motor performance can cause robots to drift from their
-intended path, reducing localisation accuracy and navigation
-reliability.
+Motion control is a critical requirement for autonomous robotic systems. Variations in motor performance can cause robots to drift from their intended path, reducing localisation accuracy and navigation reliability.
 
-The Proportional Integral Derivative (PID) controller is one of the most
-widely used control algorithms in industrial automation and robotics.
-PID controllers continuously calculate the difference between a desired
-value and a measured value, generating corrective actions to minimise
-error.
+The Proportional Integral Derivative (PID) controller is one of the most widely used control algorithms in industrial automation and robotics. PID controllers continuously calculate the difference between a desired value and a measured value, generating corrective actions to minimise error.
 
-According to Sundström et al. (2024), PID controllers remain the
-industry standard for many motion control applications due to their
-simplicity, reliability, and effectiveness.
+According to Sundström et al. (2024), PID controllers remain the industry standard for many motion control applications due to their simplicity, reliability, and effectiveness.
 
-The proportional component provides immediate correction based on the
-current error. The integral component compensates for accumulated errors
-over time, while the derivative component predicts future behaviour
-based on the rate of error change.
+The proportional component provides immediate correction based on the current error. The integral component compensates for accumulated errors over time, while the derivative component predicts future behaviour based on the rate of error change.
 
 In mobile robotics, PID control can be used to:
 
@@ -303,34 +184,19 @@ In mobile robotics, PID control can be used to:
 
 - Reduce navigation errors.
 
-Although PID control improves robot motion stability, careful tuning is
-required to achieve optimal performance. Excessive gains can cause
-oscillation, while insufficient gains may result in slow response.
+Although PID control improves robot motion stability, careful tuning is required to achieve optimal performance. Excessive gains can cause oscillation, while insufficient gains may result in slow response.
 
-The literature consistently demonstrates that PID control remains an
-effective method for improving navigation accuracy in differential-drive
-and mobile robotic platforms.
+The literature consistently demonstrates that PID control remains an effective method for improving navigation accuracy in differential-drive and mobile robotic platforms.
 
 ## Kalman Filtering for Sensor Noise Reduction
 
-Sensor measurements obtained from encoders and IMUs are often affected
-by noise, vibration, and measurement uncertainty. Noise can
-significantly reduce localisation accuracy if not properly managed.
+Sensor measurements obtained from encoders and IMUs are often affected by noise, vibration, and measurement uncertainty. Noise can significantly reduce localisation accuracy if not properly managed.
 
-The Kalman filter is a mathematical algorithm designed to estimate the
-true state of a system by combining measurements and predictions. It has
-become one of the most widely used filtering techniques in robotics and
-autonomous systems.
+The Kalman filter is a mathematical algorithm designed to estimate the true state of a system by combining measurements and predictions. It has become one of the most widely used filtering techniques in robotics and autonomous systems.
 
-Aldibs and Mısır (2025) demonstrated the effectiveness of Kalman
-filtering for processing LiDAR and localisation data in mobile robots.
-Their results showed that filtering techniques can reduce measurement
-noise and improve tracking performance.
+Aldibs and Mısır (2025) demonstrated the effectiveness of Kalman filtering for processing LiDAR and localisation data in mobile robots. Their results showed that filtering techniques can reduce measurement noise and improve tracking performance.
 
-In encoder-based localisation systems, Kalman filtering can be applied
-to smooth pulse measurements before position calculations are performed.
-This reduces fluctuations caused by wheel vibration, electrical
-interference, and irregular surface conditions.
+In encoder-based localisation systems, Kalman filtering can be applied to smooth pulse measurements before position calculations are performed. This reduces fluctuations caused by wheel vibration, electrical interference, and irregular surface conditions.
 
 Advantages of Kalman filtering include:
 
@@ -342,32 +208,21 @@ Advantages of Kalman filtering include:
 
 - Enhanced system robustness.
 
-For this project, Kalman filtering was investigated as a method to
-reduce encoder measurement noise and improve localisation accuracy.
+For this project, Kalman filtering was investigated as a method to reduce encoder measurement noise and improve localisation accuracy.
 
 ![Figure 2.4.1 Raw Encoder Data versus Kalman Filtered Data](/images/projects/mdetect/image9.png)
 
 (Severin, Dobrea and Dobrea, 2020)
 
-The literature indicates that Kalman filtering can significantly improve
-sensor quality and is widely adopted in robotic navigation systems.
+The literature indicates that Kalman filtering can significantly improve sensor quality and is widely adopted in robotic navigation systems.
 
 ## LiDAR-Based Navigation and Obstacle Detection
 
-LiDAR (Light Detection and Ranging) has become one of the most important
-sensing technologies for autonomous robots. LiDAR systems determine the
-distance to surrounding objects by measuring the time required for laser
-pulses to return after reflection.
+LiDAR (Light Detection and Ranging) has become one of the most important sensing technologies for autonomous robots. LiDAR systems determine the distance to surrounding objects by measuring the time required for laser pulses to return after reflection.
 
-Compared with ultrasonic sensors and cameras, LiDAR provides higher
-measurement accuracy and greater environmental awareness. As a result,
-LiDAR has become widely used in autonomous vehicles, robotic mapping
-systems, and industrial automation.
+Compared with ultrasonic sensors and cameras, LiDAR provides higher measurement accuracy and greater environmental awareness. As a result, LiDAR has become widely used in autonomous vehicles, robotic mapping systems, and industrial automation.
 
-Alsalamy, Frels, and Danowitz (2018) demonstrated that LiDAR sensors can
-be effectively used for autonomous navigation and mapping applications.
-Their work highlighted the ability of LiDAR systems to generate detailed
-environmental information for path planning and obstacle avoidance.
+Alsalamy, Frels, and Danowitz (2018) demonstrated that LiDAR sensors can be effectively used for autonomous navigation and mapping applications. Their work highlighted the ability of LiDAR systems to generate detailed environmental information for path planning and obstacle avoidance.
 
 LiDAR systems provide several advantages:
 
@@ -379,38 +234,21 @@ LiDAR systems provide several advantages:
 
 - Support for localisation and navigation.
 
-However, LiDAR systems require greater computational resources than
-encoder or IMU systems. Consequently, high-level processing platforms
-such as Raspberry Pi are often used to manage LiDAR data processing
-tasks.
+However, LiDAR systems require greater computational resources than encoder or IMU systems. Consequently, high-level processing platforms such as Raspberry Pi are often used to manage LiDAR data processing tasks.
 
-For this project, a COIN-D6 Time-of-Flight (ToF) LiDAR sensor was
-selected to provide obstacle detection and environmental sensing
-capabilities.
+For this project, a COIN-D6 Time-of-Flight (ToF) LiDAR sensor was selected to provide obstacle detection and environmental sensing capabilities.
 
 ![Figure 2.5.1 COIN-D6 LiDAR Sensor (Witmotion, 2025)](/images/projects/mdetect/image10.png)
 
-The literature demonstrates that LiDAR technology can significantly
-improve robotic navigation performance, particularly in GPS-denied
-environments.
+The literature demonstrates that LiDAR technology can significantly improve robotic navigation performance, particularly in GPS-denied environments.
 
 ## Summary
 
-The literature review identified encoder odometry, IMU-based heading
-estimation, PID control, Kalman filtering, and LiDAR sensing as suitable
-technologies for GPS-free robotic localisation and navigation.
+The literature review identified encoder odometry, IMU-based heading estimation, PID control, Kalman filtering, and LiDAR sensing as suitable technologies for GPS-free robotic localisation and navigation.
 
-Encoder odometry provides a simple method for estimating robot
-displacement but suffers from accumulated errors. IMUs provide
-orientation information but are affected by sensor drift. Kalman
-filtering can reduce measurement noise, while PID control improves
-motion stability and navigation accuracy. LiDAR sensors provide
-environmental awareness and obstacle detection capabilities that support
-safe autonomous operation.
+Encoder odometry provides a simple method for estimating robot displacement but suffers from accumulated errors. IMUs provide orientation information but are affected by sensor drift. Kalman filtering can reduce measurement noise, while PID control improves motion stability and navigation accuracy. LiDAR sensors provide environmental awareness and obstacle detection capabilities that support safe autonomous operation.
 
-Based on these findings, a localisation architecture combining wheel
-encoders, an MPU6050 IMU, Raspberry Pi processing, and COIN-D6 LiDAR
-sensing was selected for this project.
+Based on these findings, a localisation architecture combining wheel encoders, an MPU6050 IMU, Raspberry Pi processing, and COIN-D6 LiDAR sensing was selected for this project.
 
 # Project Plan and Methods
 
@@ -418,53 +256,35 @@ sensing was selected for this project.
 
 ![Figure 3.1.1 Project Documentation Directories](/images/projects/mdetect/image11.png)
 
-This
-[OneDrive](https://liveswinburneeduau-my.sharepoint.com/:f:/g/personal/105019988_student_swin_edu_au/IgA7LOST5j8xSph7iULTvmB7AbzIz47aERVrj8-3Inr4UJ8?e=8o9DHp)
-is linked to all file documents including datasheets, drawing, manual
-and references.
+This [OneDrive](https://www.mengkung.site/work/mdetect-autonomous-robot) is linked to all file documents including datasheets, drawing, manual and references.
 
 ## Project Scope and System Overview
 
-The objective of this project was to develop a GPS-free localisation and
-navigation platform for a mobile robotic system operating in underground
-and confined environments. The project was undertaken in collaboration
-with mDetect Pty Ltd to support future deployment of autonomous muon
-detector platforms.
+The objective of this project was to develop a GPS-denied localisation and navigation platform for a mobile robotic system operating in underground and confined environments. The project was undertaken in collaboration with mDetect Pty Ltd to support future deployment of autonomous muon detector platforms.
 
-The scope of work focused on developing a localisation system capable of
-estimating robot position and orientation without the use of GPS. The
-project incorporated encoder odometry, IMU-based heading estimation,
-motion control, Raspberry Pi integration, and LiDAR-based obstacle
-detection.
+The scope of work focused on developing a localisation system capable of estimating robot position and orientation without the use of GPS. The project incorporated encoder odometry, IMU-based heading estimation, motion control, Raspberry Pi integration, and LiDAR-based obstacle detection.
 
 The project was divided into three primary deliverables:
 
 - Deliverable 1: Encoder-based odometry and distance estimation.
 
-- Deliverable 2: Position and orientation estimation using encoder and
-  IMU data.
+- Deliverable 2: Position and orientation estimation using encoder and IMU data.
 
-- Deliverable 3: Obstacle detection and advanced navigation using LiDAR
-  sensing.
+- Deliverable 3: Obstacle detection and advanced navigation using LiDAR sensing.
 
-The final system combined low-level control functions on an Arduino Uno
-with high-level sensing and navigation functions on a Raspberry Pi 4.
+The final system combined low-level control functions on an Arduino Uno with high-level sensing and navigation functions on a Raspberry Pi 4.
 
 ![Figure 3.2.1 Overall System Architecture](/images/projects/mdetect/image12.png)
 
 ## Hardware Components
 
-The hardware platform consisted of a four-wheel robotic chassis equipped
-with wheel encoders, an inertial measurement unit, a Raspberry Pi, and a
-COIN-D6 LiDAR sensor.
+The hardware platform consisted of a four-wheel robotic chassis equipped with wheel encoders, an inertial measurement unit, a Raspberry Pi, and a COIN-D6 LiDAR sensor.
 
 ### Arduino Uno
 
 ![Project image](/images/projects/mdetect/image13.png)
 
-The Arduino Uno was selected as the primary low-level controller due to
-its simplicity, availability, and compatibility with the existing robot
-platform. The Arduino was responsible for:
+The Arduino Uno was selected as the primary low-level controller due to its simplicity, availability, and compatibility with the existing robot platform. The Arduino was responsible for:
 
 - Reading encoder data
 
@@ -478,24 +298,17 @@ platform. The Arduino was responsible for:
 
 - Wheel Encoders
 
-Quadrature wheel encoders were used to measure wheel rotation and
-estimate robot displacement. Encoder pulse counts were converted into
-wheel displacement measurements and used for odometry calculations.
+Quadrature wheel encoders were used to measure wheel rotation and estimate robot displacement. Encoder pulse counts were converted into wheel displacement measurements and used for odometry calculations.
 
 ### MPU6050 Inertial Measurement Unit
 
 ![Figure 3.3.1 MPU6050](/images/projects/mdetect/image14.png)
 
-The MPU6050 sensor was used to provide heading information for robot
-localisation. The sensor combines a three-axis accelerometer and a
-three-axis gyroscope, enabling estimation of robot orientation during
-motion.
+The MPU6050 sensor was used to provide heading information for robot localisation. The sensor combines a three-axis accelerometer and a three-axis gyroscope, enabling estimation of robot orientation during motion.
 
 ### Raspberry Pi 3B+
 
-As the project progressed, additional processing capability was required
-to support LiDAR integration and navigation algorithms. A Raspberry Pi
-3B+ was therefore introduced to perform high-level tasks such as:
+As the project progressed, additional processing capability was required to support LiDAR integration and navigation algorithms. A Raspberry Pi 3B+ was therefore introduced to perform high-level tasks such as:
 
 - LiDAR data processing
 
@@ -509,32 +322,82 @@ to support LiDAR integration and navigation algorithms. A Raspberry Pi
 
 - COIN-D6 LiDAR
 
-A COIN-D6 Time-of-Flight LiDAR sensor was integrated to provide
-environmental sensing and obstacle detection capabilities. The sensor
-continuously scanned the surrounding environment and transmitted
-distance measurements to the Raspberry Pi.
+A COIN-D6 Time-of-Flight LiDAR sensor was integrated to provide environmental sensing and obstacle detection capabilities. The sensor continuously scanned the surrounding environment and transmitted distance measurements to the Raspberry Pi.
 
-Table 3.3.1 Hardware Components Selected and Functions
 
-| Hardware Components                 | Quantity | Function                                                                                                               |
-|-------------------------------------|----------|------------------------------------------------------------------------------------------------------------------------|
-| QGPMaker 4WD Mecanum Robot Platform | 1        | Mobile robotic platform used for localisation and navigation experiments.                                              |
-| Arduino Uno R3                      | 1        | Low-level controller responsible for encoder processing, IMU integration, motor control and localisation calculations. |
-| Raspberry Pi 4 Model B              | 1        | High-level processor used for LiDAR processing, obstacle detection, monitoring and navigation functions.               |
-| GM37-520 DC Motors                  | 4        | Provide propulsion and movement for the robot.                                                                         |
-| Quadrature Wheel Encoders           | 4        | Measure wheel rotation and provide displacement information for odometry calculations.                                 |
-| MPU6050 IMU                         | 1        | Measures robot heading and orientation using gyroscope and accelerometer data.                                         |
-| COIN-D6 Time-of-Flight LiDAR        | 1        | Performs environmental sensing, obstacle detection and supports future mapping applications.                           |
-| PCA9685 Motor Shield                | 1        | Interfaces the Arduino with the DC motors and provides motor driving capability.                                       |
-| 12V Lithium Battery Pack            | 1        | Supplies power to the robot platform and electronic components.                                                        |
-| USB Communication Interface         | 2        | Enables serial communication between Arduino, Raspberry Pi and development computer                                    |
-| Chassis and Mechanical Frame        | 1        | Provides structural support for all hardware components.                                                               |
+**Table 3.3.1 Hardware Components Selected and Functions**
+
+<table>
+  <thead>
+    <tr>
+      <th>Hardware Component</th>
+      <th>Quantity</th>
+      <th>Function</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>QGPMaker 4WD Mecanum Robot Platform</td>
+      <td>1</td>
+      <td>Mobile robotic platform used for localisation and navigation experiments.</td>
+    </tr>
+    <tr>
+      <td>Arduino Uno R3</td>
+      <td>1</td>
+      <td>Low-level controller responsible for encoder processing, IMU integration, motor control, and localisation calculations.</td>
+    </tr>
+    <tr>
+      <td>Raspberry Pi 4 Model B</td>
+      <td>1</td>
+      <td>High-level processor used for LiDAR processing, obstacle detection, monitoring, data logging, and navigation functions.</td>
+    </tr>
+    <tr>
+      <td>GM37-520 DC Motors</td>
+      <td>4</td>
+      <td>Provide propulsion and movement for the robotic platform.</td>
+    </tr>
+    <tr>
+      <td>Quadrature Wheel Encoders</td>
+      <td>4</td>
+      <td>Measure wheel rotation and provide displacement information for odometry calculations.</td>
+    </tr>
+    <tr>
+      <td>MPU6050 IMU</td>
+      <td>1</td>
+      <td>Measures robot heading and orientation using gyroscope and accelerometer data.</td>
+    </tr>
+    <tr>
+      <td>COIN-D6 Time-of-Flight LiDAR</td>
+      <td>1</td>
+      <td>Provides environmental sensing, obstacle detection, and future mapping support.</td>
+    </tr>
+    <tr>
+      <td>PCA9685 Motor Shield</td>
+      <td>1</td>
+      <td>Interfaces the Arduino with the DC motors and provides motor driving capability.</td>
+    </tr>
+    <tr>
+      <td>12V Lithium Battery Pack</td>
+      <td>1</td>
+      <td>Supplies power to the robot platform and electronic components.</td>
+    </tr>
+    <tr>
+      <td>USB Communication Interface</td>
+      <td>2</td>
+      <td>Enables serial communication between Arduino, Raspberry Pi, and the development computer.</td>
+    </tr>
+    <tr>
+      <td>Chassis and Mechanical Frame</td>
+      <td>1</td>
+      <td>Provides structural support for all hardware components.</td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## Software Architecture
 
-The software architecture was divided between the Arduino Uno and
-Raspberry Pi to balance computational requirements and system
-responsiveness.
+The software architecture was divided between the Arduino Uno and Raspberry Pi to balance computational requirements and system responsiveness.
 
 ### Arduino Software
 
@@ -552,15 +415,13 @@ The Arduino software was responsible for:
 
 - Serial communication
 
-Robot position was continuously updated using encoder displacement and
-heading information obtained from the MPU6050 sensor.
+Robot position was continuously updated using encoder displacement and heading information obtained from the MPU6050 sensor.
 
 ![Figure 3.4.1 Arduino Software Architecture](/images/projects/mdetect/image15.png)
 
 ### Raspberry Pi Software
 
-A Python-based software framework was developed on the Raspberry Pi to
-perform high-level navigation and sensing functions.
+A Python-based software framework was developed on the Raspberry Pi to perform high-level navigation and sensing functions.
 
 The Raspberry Pi software included:
 
@@ -578,80 +439,84 @@ The Raspberry Pi software included:
 
 - Route planning
 
-The software also provided a graphical monitoring console for
-visualisation of robot position and LiDAR measurements.
+The software also provided a graphical monitoring console for visualisation of robot position and LiDAR measurements.
 
 ![Figure 3.4.2 Raspberry Pi Software Architecture](/images/projects/mdetect/image16.png)
 
 ## Project Management and Team Allocation
 
-The project was completed by a multidisciplinary team consisting of
-three members.
+The project was completed by a multidisciplinary team consisting of three members.
 
 ![Project image](/images/projects/mdetect/image17.png)
 
-| Team Member | Role | Responsibilities |
-|---|---|---|
-| Meng Kung Kao | System Integration and Technical Lead | Encoder integration; IMU integration; odometry implementation; Raspberry Pi implementation; LiDAR implementation; system integration; hardware testing. |
-| Joel Jose | Documentation and Programming Lead | IMU integration; programming support; LiDAR integration; mid-semester presentation preparation; final presentation preparation. |
-| Rohith Uthaman Nair | Planning and Coordination Lead | PID control implementation; project planning; team coordination; testing support. |
+**Table 3.4.1 Team Roles and Responsibilities**
 
-The allocation of responsibilities enabled parallel development of
-different project components while ensuring effective collaboration and
-communication between team members.
+<table>
+  <thead>
+    <tr>
+      <th>Team Member</th>
+      <th>Role</th>
+      <th>Responsibilities</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Meng Kung Kao</td>
+      <td>System Integration and Technical Lead</td>
+      <td>Encoder integration, IMU integration, odometry implementation, Raspberry Pi implementation, LiDAR implementation, system integration, and hardware testing.</td>
+    </tr>
+    <tr>
+      <td>Joel Jose</td>
+      <td>Documentation and Programming Lead</td>
+      <td>IMU integration, programming support, LiDAR integration, mid-semester presentation preparation, and final presentation preparation.</td>
+    </tr>
+    <tr>
+      <td>Rohith Uthaman Nair</td>
+      <td>Planning and Coordination Lead</td>
+      <td>PID control implementation, project planning, team coordination, and testing support.</td>
+    </tr>
+  </tbody>
+</table>
+
+The allocation of responsibilities enabled parallel development of different project components while ensuring effective collaboration and communication between team members.
 
 ## Methodology
 
-The project was developed using an incremental engineering approach
-consisting of several stages.
+The project was developed using an incremental engineering approach consisting of several stages.
 
 **Stage 1: Encoder Odometry Development**
 
-The first stage focused on implementing encoder-based odometry. Wheel
-encoder pulses were measured and converted into wheel displacement
-values.
+The first stage focused on implementing encoder-based odometry. Wheel encoder pulses were measured and converted into wheel displacement values.
 
-Robot displacement was calculated using wheel kinematics and odometry
-equations.
+Robot displacement was calculated using wheel kinematics and odometry equations.
 
 **Stage 2: IMU Integration**
 
-The second stage involved integrating the MPU6050 sensor with the
-localisation system.
+The second stage involved integrating the MPU6050 sensor with the localisation system.
 
-Heading information obtained from the IMU was combined with encoder
-displacement measurements to estimate robot position in a global
-coordinate frame.
+Heading information obtained from the IMU was combined with encoder displacement measurements to estimate robot position in a global coordinate frame.
 
 **Stage 3: Localisation Verification**
 
-The localisation system was tested using predefined movement
-trajectories. Position estimates were compared against expected robot
-movement to evaluate localisation performance.
+The localisation system was tested using predefined movement trajectories. Position estimates were compared against expected robot movement to evaluate localisation performance.
 
 **Stage 4: Motion Stability Improvement**
 
 Robot motion stability was investigated through repeated movement tests.
 
-Motor scaling and control techniques were implemented to reduce drift
-and improve navigation accuracy.
+Motor scaling and control techniques were implemented to reduce drift and improve navigation accuracy.
 
 **Stage 5: Sensor Noise Reduction**
 
-Encoder measurements were analysed to identify noise and error
-accumulation.
+Encoder measurements were analysed to identify noise and error accumulation.
 
-Kalman filtering techniques were investigated to improve measurement
-stability and reduce localisation errors.
+Kalman filtering techniques were investigated to improve measurement stability and reduce localisation errors.
 
 **Stage 6: Raspberry Pi Integration**
 
-The Raspberry Pi was integrated into the system to support advanced
-sensing and navigation functions.
+The Raspberry Pi was integrated into the system to support advanced sensing and navigation functions.
 
-Serial communication between the Arduino and Raspberry Pi was
-established to allow real-time transmission of robot position
-information.
+Serial communication between the Arduino and Raspberry Pi was established to allow real-time transmission of robot position information.
 
 **Stage 7: LiDAR Integration**
 
@@ -671,20 +536,15 @@ Software modules were developed to:
 
 Obstacle detection algorithms were implemented using LiDAR measurements.
 
-The system continuously monitored a predefined safety zone in front of
-the robot. If an obstacle was detected within the safety threshold, an
-emergency stop command was generated.
+The system continuously monitored a predefined safety zone in front of the robot. If an obstacle was detected within the safety threshold, an emergency stop command was generated.
 
-Additional navigation functions including waypoint management, route
-planning, and lightweight SLAM concepts were investigated to support
-future autonomous navigation development.
+Additional navigation functions including waypoint management, route planning, and lightweight SLAM concepts were investigated to support future autonomous navigation development.
 
 ![Figure 3.5: System Development Flowchart](/images/projects/mdetect/image18.png)
 
 ## Project Timeline
 
-The project was completed over a twelve-week semester and followed a
-staged development process.
+The project was completed over a twelve-week semester and followed a staged development process.
 
 Major milestones included:
 
@@ -714,28 +574,19 @@ Major milestones included:
 
 ## Encoder-Based Odometry Development
 
-The first major objective of the project was the development of an
-encoder-based odometry system capable of estimating robot displacement
-and travelled distance. Odometry forms the foundation of many mobile
-robot localisation systems because it provides a direct estimate of
-movement using wheel rotation measurements.
+The first major objective of the project was the development of an encoder-based odometry system capable of estimating robot displacement and travelled distance. Odometry forms the foundation of many mobile robot localisation systems because it provides a direct estimate of movement using wheel rotation measurements.
 
-The robotic platform utilised quadrature wheel encoders mounted on each
-drive motor. Encoder pulses generated during wheel rotation were
-measured by the Arduino Uno and converted into wheel displacement
-values. These measurements were then used to estimate robot motion.
+The robotic platform utilised quadrature wheel encoders mounted on each drive motor. Encoder pulses generated during wheel rotation were measured by the Arduino Uno and converted into wheel displacement values. These measurements were then used to estimate robot motion.
 
 The distance travelled by each wheel was calculated using:
 
-Distance = (Encoder Counts / Counts per Revolution) × Wheel
-Circumference
+Distance = (Encoder Counts / Counts per Revolution) × Wheel Circumference
 
 where:
 
 - Encoder Counts represents the measured encoder pulses.
 
-- Counts per Revolution (CPR) represents the number of pulses generated
-  for one complete wheel revolution.
+- Counts per Revolution (CPR) represents the number of pulses generated for one complete wheel revolution.
 
 - Wheel Circumference is determined from the wheel diameter.
 
@@ -745,38 +596,25 @@ The wheel circumference was calculated as:
 
 where D is the wheel diameter.
 
-For the robot platform used in this project, encoder measurements were
-continuously updated and processed to estimate robot displacement during
-motion.
+For the robot platform used in this project, encoder measurements were continuously updated and processed to estimate robot displacement during motion.
 
 ![Figure 4.1.1 Encoder Integration and Testing Setup](/images/projects/mdetect/image20.png)
 
 ![Figure 4.1.2 Encoder Pulse Output from Oscilloscope](/images/projects/mdetect/image21.png)
 
-Initial testing confirmed that encoder counts increased proportionally
-with wheel rotation, allowing reliable estimation of travelled distance.
-However, experimental results revealed several challenges including
-wheel slip, uneven motor performance, and accumulated odometry errors.
-These issues became more apparent during longer navigation tasks.
+Initial testing confirmed that encoder counts increased proportionally with wheel rotation, allowing reliable estimation of travelled distance. However, experimental results revealed several challenges including wheel slip, uneven motor performance, and accumulated odometry errors. These issues became more apparent during longer navigation tasks.
 
-Despite these limitations, encoder odometry successfully provided
-real-time displacement information and established the foundation for
-subsequent localisation development.
+Despite these limitations, encoder odometry successfully provided real-time displacement information and established the foundation for subsequent localisation development.
 
 ![Figure 4.1.3 Print data of IMU MPU6050 Output](/images/projects/mdetect/image22.png)
 
-IMU-only localization and Encoder was not stable enough for
-long-duration operation
-Combining sensors required careful synchronization
+IMU-only localization and Encoder was not stable enough for long-duration operation Combining sensors required careful synchronization
 
 ## Position Estimation Using Odometry
 
-Following successful encoder integration, odometry equations were
-implemented to estimate robot displacement in the local coordinate
-frame.
+Following successful encoder integration, odometry equations were implemented to estimate robot displacement in the local coordinate frame.
 
-The robotic platform used four-wheel encoders. Individual wheel
-displacement values were represented as:
+The robotic platform used four-wheel encoders. Individual wheel displacement values were represented as:
 
 d1, d2, d3 and d4
 
@@ -788,17 +626,11 @@ The local lateral displacement was calculated as:
 
 localX = (-d1 + d2 + d3 - d4) / 4
 
-These equations allowed robot motion to be estimated relative to its
-current orientation.
+These equations allowed robot motion to be estimated relative to its current orientation.
 
-The implementation enabled real-time calculation of robot movement in
-both forward and lateral directions. Position estimates were updated
-continuously as encoder data became available.
+The implementation enabled real-time calculation of robot movement in both forward and lateral directions. Position estimates were updated continuously as encoder data became available.
 
-Experimental testing demonstrated that the odometry system could
-successfully track robot movement over short distances. However,
-accumulated errors became increasingly visible as travelled distance
-increased.
+Experimental testing demonstrated that the odometry system could successfully track robot movement over short distances. However, accumulated errors became increasingly visible as travelled distance increased.
 
 Sources of error included:
 
@@ -812,50 +644,35 @@ Sources of error included:
 
 - Motor speed variations
 
-As a result, additional sensing was required to improve localisation
-accuracy.
+As a result, additional sensing was required to improve localisation accuracy.
 
 ## IMU Integration and Heading Estimation
 
-To improve localisation performance, an MPU6050 Inertial Measurement
-Unit (IMU) was integrated into the robot platform.
+To improve localisation performance, an MPU6050 Inertial Measurement Unit (IMU) was integrated into the robot platform.
 
-The MPU6050 combines a three-axis accelerometer and a three-axis
-gyroscope, enabling measurement of robot orientation and rotational
-movement.
+The MPU6050 combines a three-axis accelerometer and a three-axis gyroscope, enabling measurement of robot orientation and rotational movement.
 
-The primary objective of IMU integration was to obtain heading
-information for use in coordinate transformation and position
-estimation.
+The primary objective of IMU integration was to obtain heading information for use in coordinate transformation and position estimation.
 
 ![Figure 4.3.1 MPU6050 Wiring and Integration](/images/projects/mdetect/image23.png)
 
-The sensor was calibrated during system startup to reduce gyroscope bias
-and improve heading accuracy.
+The sensor was calibrated during system startup to reduce gyroscope bias and improve heading accuracy.
 
-Following calibration, heading values were continuously transmitted to
-the localisation algorithm.
+Following calibration, heading values were continuously transmitted to the localisation algorithm.
 
-The heading angle was represented as theta θ, where θ corresponds to the
-robot orientation relative to the global coordinate frame.
+The heading angle was represented as theta θ, where θ corresponds to the robot orientation relative to the global coordinate frame.
 
-The addition of heading information enabled transformation of local
-robot movement into world coordinates.
+The addition of heading information enabled transformation of local robot movement into world coordinates.
 
 ![Figure 4.3.2 MPU6050 Heading Output](/images/projects/mdetect/image24.png)
 
-Experimental testing confirmed that the IMU could reliably estimate
-heading changes during robot motion. This provided a significant
-improvement over encoder-only localisation approaches.
+Experimental testing confirmed that the IMU could reliably estimate heading changes during robot motion. This provided a significant improvement over encoder-only localisation approaches.
 
 ## World Frame Position Estimation
 
-Once encoder displacement and heading information were available,
-coordinate transformation equations were implemented to estimate robot
-position within a global coordinate system.
+Once encoder displacement and heading information were available, coordinate transformation equations were implemented to estimate robot position within a global coordinate system.
 
-The transformation from local coordinates to world coordinates was
-performed using:
+The transformation from local coordinates to world coordinates was performed using:
 
 worldX = localX cos(θ) − localY sin(θ)
 
@@ -867,8 +684,7 @@ Xnew = Xold + worldX
 
 Ynew = Yold + worldY
 
-These equations allowed robot movement to be represented in a fixed
-world coordinate frame rather than relative to the robot itself.
+These equations allowed robot movement to be represented in a fixed world coordinate frame rather than relative to the robot itself.
 
 The implementation enabled real-time estimation of:
 
@@ -878,44 +694,31 @@ The implementation enabled real-time estimation of:
 
 - Heading angle (θ)
 
-Position estimates were displayed through the monitoring system and
-updated continuously during robot operation.
+Position estimates were displayed through the monitoring system and updated continuously during robot operation.
 
-Experimental results demonstrated that the robot could successfully
-estimate its position while navigating predefined paths.
+Experimental results demonstrated that the robot could successfully estimate its position while navigating predefined paths.
 
 ![Figure 4.4.1 Real-Time Position Output](/images/projects/mdetect/image24.png)
 
-The ability to estimate position within a world coordinate frame
-represented a major milestone in the project because it enabled waypoint
-navigation and future autonomous navigation capabilities.
+The ability to estimate position within a world coordinate frame represented a major milestone in the project because it enabled waypoint navigation and future autonomous navigation capabilities.
 
 ## Localisation Performance Evaluation
 
-The performance of the localisation system was evaluated through a
-series of controlled movement experiments. The robot was instructed to
-travel predefined distances while position estimates were monitored and
-recorded.
+The performance of the localisation system was evaluated through a series of controlled movement experiments. The robot was instructed to travel predefined distances while position estimates were monitored and recorded.
 
 Results showed that:
 
-- Encoder odometry provided reliable short-distance displacement
-  measurements
+- Encoder odometry provided reliable short-distance displacement measurements
 
 - IMU heading estimation significantly improved orientation tracking
 
-- Position estimation successfully produced real-time X and Y
-  coordinates
+- Position estimation successfully produced real-time X and Y coordinates
 
-- Localisation accuracy was sufficient for waypoint navigation
-  experiments
+- Localisation accuracy was sufficient for waypoint navigation experiments
 
 However, several limitations were observed.
 
-The primary limitation was accumulated odometry error. Small measurement
-inaccuracies in encoder counts and heading estimation gradually
-increased over time, causing deviation between estimated and actual
-robot position.
+The primary limitation was accumulated odometry error. Small measurement inaccuracies in encoder counts and heading estimation gradually increased over time, causing deviation between estimated and actual robot position.
 
 Additional factors contributing to localisation error included:
 
@@ -927,78 +730,45 @@ Additional factors contributing to localisation error included:
 
 - Surface irregularities
 
-These findings highlighted the need for additional filtering and motion
-correction techniques, which are discussed in the following chapter.
+These findings highlighted the need for additional filtering and motion correction techniques, which are discussed in the following chapter.
 
 ## Summary
 
-This chapter presented the development of the localisation system
-implemented for the robotic platform.
+This chapter presented the development of the localisation system implemented for the robotic platform.
 
-Encoder-based odometry was successfully implemented to estimate robot
-displacement and travelled distance. The MPU6050 IMU was integrated to
-provide heading estimation and orientation tracking. By combining
-encoder displacement with IMU heading information, the robot was able to
-estimate its position within a two-dimensional world coordinate frame.
+Encoder-based odometry was successfully implemented to estimate robot displacement and travelled distance. The MPU6050 IMU was integrated to provide heading estimation and orientation tracking. By combining encoder displacement with IMU heading information, the robot was able to estimate its position within a two-dimensional world coordinate frame.
 
-The localisation system achieved the second project deliverable by
-providing real-time estimates of robot position (X, Y) and orientation
-(θ). Although localisation performance was sufficient for autonomous
-navigation experiments, accumulated errors and motion instability were
-identified as significant challenges requiring further investigation.
+The localisation system achieved the second project deliverable by providing real-time estimates of robot position (X, Y) and orientation (θ). Although localisation performance was sufficient for autonomous navigation experiments, accumulated errors and motion instability were identified as significant challenges requiring further investigation.
 
-The following chapter discusses the major technical challenges
-encountered during development and the solutions implemented to improve
-system performance.
+The following chapter discusses the major technical challenges encountered during development and the solutions implemented to improve system performance.
 
 # Discussion – System Challenges and Performance Improvements
 
 ## Challenge 1: Motion Stability
 
-Following the implementation of encoder-based odometry and IMU
-localisation, several motion tests were conducted to evaluate the
-robot's navigation performance. During these experiments, it was
-observed that the robot consistently deviated from the intended
-straight-line path.
+Following the implementation of encoder-based odometry and IMU localisation, several motion tests were conducted to evaluate the robot's navigation performance. During these experiments, it was observed that the robot consistently deviated from the intended straight-line path.
 
-Although identical motor commands were issued to all four motors, the
-robot gradually drifted to one side during forward motion. This
-behaviour reduced localisation accuracy and negatively affected waypoint
-navigation performance.
+Although identical motor commands were issued to all four motors, the robot gradually drifted to one side during forward motion. This behaviour reduced localisation accuracy and negatively affected waypoint navigation performance.
 
 ![Figure 5.1.1 Robot Drift During Straight-Line Motion](/images/projects/mdetect/image25.png)
 
-Further investigation revealed that one motor produced slightly higher
-rotational speed than the remaining motors. As a result, unequal wheel
-velocities generated unintended changes in robot heading.
+Further investigation revealed that one motor produced slightly higher rotational speed than the remaining motors. As a result, unequal wheel velocities generated unintended changes in robot heading.
 
-The issue became more significant as travelled distance increased
-because even small deviations accumulated over time and introduced
-errors into the odometry calculations.
+The issue became more significant as travelled distance increased because even small deviations accumulated over time and introduced errors into the odometry calculations.
 
-To address this problem, encoder-based motor scaling was implemented.
-Experimental testing was performed to determine correction factors that
-compensated for motor speed variations.
+To address this problem, encoder-based motor scaling was implemented. Experimental testing was performed to determine correction factors that compensated for motor speed variations.
 
-The scaling process involved comparing encoder counts generated by each
-motor under identical operating conditions and applying correction
-coefficients to achieve more balanced wheel motion.
+The scaling process involved comparing encoder counts generated by each motor under identical operating conditions and applying correction coefficients to achieve more balanced wheel motion.
 
 ![Figure 5.1.2 Encoder Scaling Calibration Process](/images/projects/mdetect/image26.png)
 
-Following implementation of motor scaling, the robot demonstrated
-significantly improved straight-line motion. Drift was reduced and
-overall localisation performance improved.
+Following implementation of motor scaling, the robot demonstrated significantly improved straight-line motion. Drift was reduced and overall localisation performance improved.
 
-The results demonstrated that motor scaling provided an effective
-solution for compensating mechanical variations between motors and
-improving navigation accuracy.
+The results demonstrated that motor scaling provided an effective solution for compensating mechanical variations between motors and improving navigation accuracy.
 
 ## Challenge 2: Encoder Noise and Error Accumulation
 
-Although encoder odometry successfully estimated robot displacement,
-testing revealed fluctuations in encoder measurements that affected
-localisation accuracy.
+Although encoder odometry successfully estimated robot displacement, testing revealed fluctuations in encoder measurements that affected localisation accuracy.
 
 Several sources of measurement uncertainty were identified:
 
@@ -1012,29 +782,21 @@ Several sources of measurement uncertainty were identified:
 
 - Mechanical tolerances
 
-These effects produced noisy encoder measurements that occasionally
-resulted in sudden variations in calculated displacement.
+These effects produced noisy encoder measurements that occasionally resulted in sudden variations in calculated displacement.
 
-As robot movement continued, small encoder errors accumulated and
-gradually increased localisation uncertainty.
+As robot movement continued, small encoder errors accumulated and gradually increased localisation uncertainty.
 
-To reduce measurement noise, Kalman filtering techniques were
-investigated and implemented.
+To reduce measurement noise, Kalman filtering techniques were investigated and implemented.
 
-The Kalman filter is a recursive estimation algorithm that combines
-prediction and measurement information to estimate the most probable
-system state.
+The Kalman filter is a recursive estimation algorithm that combines prediction and measurement information to estimate the most probable system state.
 
-For this project, the Kalman filter was applied to encoder measurements
-prior to position estimation calculations.
+For this project, the Kalman filter was applied to encoder measurements prior to position estimation calculations.
 
-The filtering process reduced measurement fluctuations while preserving
-overall system responsiveness.
+The filtering process reduced measurement fluctuations while preserving overall system responsiveness.
 
 ![Figure 5.2.1 Kalman Filter Algorithm (Borenstein and Liqiang Feng, 1996)](/images/projects/mdetect/image27.png)
 
-Experimental results demonstrated a noticeable improvement in
-measurement stability.
+Experimental results demonstrated a noticeable improvement in measurement stability.
 
 The filtered encoder output exhibited:
 
@@ -1054,22 +816,15 @@ Encoder Data after Kalman Filtering:
 
 ![Figure 5.2.3 Encoder Data After Kalman Filtering](/images/projects/mdetect/image29.png)
 
-The implementation of Kalman filtering contributed significantly to
-improving localisation performance and reducing accumulated odometry
-errors.
+The implementation of Kalman filtering contributed significantly to improving localisation performance and reducing accumulated odometry errors.
 
 ## Challenge 3: Accurate Motion Control
 
-While localisation performance improved through odometry and filtering
-techniques, additional challenges were encountered during navigation
-experiments.
+While localisation performance improved through odometry and filtering techniques, additional challenges were encountered during navigation experiments.
 
-Repeated testing showed that the robot occasionally drifted during
-forward movement and experienced inaccuracies when executing turning
-manoeuvres.
+Repeated testing showed that the robot occasionally drifted during forward movement and experienced inaccuracies when executing turning manoeuvres.
 
-Heading errors accumulated after multiple turns, causing deviations from
-the intended path.
+Heading errors accumulated after multiple turns, causing deviations from the intended path.
 
 The problem was influenced by several factors:
 
@@ -1083,32 +838,25 @@ The problem was influenced by several factors:
 
 To improve motion accuracy, PID control techniques were implemented.
 
-PID controllers continuously calculate the difference between a desired
-value and a measured value and generate corrective actions to minimise
-error.
+PID controllers continuously calculate the difference between a desired value and a measured value and generate corrective actions to minimise error.
 
 Two PID control strategies were investigated:
 
 **Encoder-Based PID Control**
 
-Encoder feedback was used to maintain consistent wheel speeds and
-improve straight-line motion.
+Encoder feedback was used to maintain consistent wheel speeds and improve straight-line motion.
 
-The controller continuously compared measured wheel motion with desired
-motion and adjusted motor outputs accordingly.
+The controller continuously compared measured wheel motion with desired motion and adjusted motor outputs accordingly.
 
 **IMU-Based Heading Control**
 
-Heading information obtained from the MPU6050 was used to maintain the
-desired robot orientation.
+Heading information obtained from the MPU6050 was used to maintain the desired robot orientation.
 
-When heading deviations occurred, corrective motor commands were
-generated to minimise orientation errors.
+When heading deviations occurred, corrective motor commands were generated to minimise orientation errors.
 
 ![A graph with a line drawn on it AI-generated content may be incorrect.](/images/projects/mdetect/image30.jpeg)
 
-The combined use of encoder feedback and IMU heading information
-improved overall navigation performance.
+The combined use of encoder feedback and IMU heading information improved overall navigation performance.
 
 Experimental observations indicated:
 
@@ -1122,20 +870,15 @@ Experimental observations indicated:
 
 ![Figure 5.3.1 Navigation Performance After PID Implementation](/images/projects/mdetect/image31.png)
 
-Although perfect accuracy was not achieved, the PID controllers
-significantly improved robot stability and navigation reliability.
+Although perfect accuracy was not achieved, the PID controllers significantly improved robot stability and navigation reliability.
 
 ## Challenge 4: System Integration and Resource Constraints
 
-As additional functionality was added to the robot platform, limitations
-of the Arduino Uno became increasingly apparent.
+As additional functionality was added to the robot platform, limitations of the Arduino Uno became increasingly apparent.
 
-The localisation system, encoder processing, IMU integration, PID
-control, and communication tasks collectively utilised a significant
-proportion of the available memory and processing resources.
+The localisation system, encoder processing, IMU integration, PID control, and communication tasks collectively utilised a significant proportion of the available memory and processing resources.
 
-During development, occasional system instability was observed,
-including:
+During development, occasional system instability was observed, including:
 
 - Unexpected freezes
 
@@ -1145,15 +888,11 @@ including:
 
 - Difficulty integrating additional sensing modules
 
-The integration of a COIN-D6 LiDAR sensor introduced additional
-computational requirements that exceeded the practical capabilities of
-the Arduino Uno.
+The integration of a COIN-D6 LiDAR sensor introduced additional computational requirements that exceeded the practical capabilities of the Arduino Uno.
 
-To address these limitations, a Raspberry Pi 4 was introduced into the
-system architecture.
+To address these limitations, a Raspberry Pi 4 was introduced into the system architecture.
 
-The revised architecture separated low-level and high-level processing
-tasks.
+The revised architecture separated low-level and high-level processing tasks.
 
 **Arduino Responsibilities**
 
@@ -1179,24 +918,17 @@ tasks.
 
 - Path planning
 
-This architecture improved system scalability and allowed more advanced
-navigation functions to be developed without compromising real-time
-motor control performance.
+This architecture improved system scalability and allowed more advanced navigation functions to be developed without compromising real-time motor control performance.
 
-The separation of processing tasks also simplified software development
-and provided a foundation for future expansion of the system.
+The separation of processing tasks also simplified software development and provided a foundation for future expansion of the system.
 
 ## Discussion
 
-The challenges encountered throughout the project highlighted the
-complexity of developing reliable localisation systems for autonomous
-robots operating in GPS-denied environments.
+The challenges encountered throughout the project highlighted the complexity of developing reliable localisation systems for autonomous robots operating in GPS-denied environments.
 
-Motion stability, sensor noise, accumulated errors, and hardware
-limitations all contributed to localisation uncertainty.
+Motion stability, sensor noise, accumulated errors, and hardware limitations all contributed to localisation uncertainty.
 
-The solutions implemented during the project demonstrated that
-significant performance improvements could be achieved through:
+The solutions implemented during the project demonstrated that significant performance improvements could be achieved through:
 
 - Motor scaling
 
@@ -1206,51 +938,27 @@ significant performance improvements could be achieved through:
 
 - Distributed processing architecture
 
-Each improvement addressed a specific limitation of the system and
-collectively contributed to a more reliable localisation platform.
+Each improvement addressed a specific limitation of the system and collectively contributed to a more reliable localisation platform.
 
-The results obtained during testing indicate that combining multiple
-sensing and control techniques is essential for achieving practical
-navigation performance in confined and underground environments.
+The results obtained during testing indicate that combining multiple sensing and control techniques is essential for achieving practical navigation performance in confined and underground environments.
 
 ## Summary
 
-This chapter presented the major technical challenges encountered during
-development and the solutions implemented to improve system performance.
+This chapter presented the major technical challenges encountered during development and the solutions implemented to improve system performance.
 
-Motion instability was reduced through encoder-based motor scaling.
-Encoder measurement noise was addressed using Kalman filtering
-techniques, resulting in smoother localisation data. PID control
-improved motion accuracy and navigation consistency, while the
-introduction of a Raspberry Pi enabled more advanced sensing and
-navigation capabilities.
+Motion instability was reduced through encoder-based motor scaling. Encoder measurement noise was addressed using Kalman filtering techniques, resulting in smoother localisation data. PID control improved motion accuracy and navigation consistency, while the introduction of a Raspberry Pi enabled more advanced sensing and navigation capabilities.
 
-The solutions implemented throughout this phase significantly improved
-localisation performance and established a robust foundation for LiDAR
-integration and advanced navigation functions, which are discussed in
-the following chapter.
+The solutions implemented throughout this phase significantly improved localisation performance and established a robust foundation for LiDAR integration and advanced navigation functions, which are discussed in the following chapter.
 
 # Results and Discussion – LiDAR Navigation System
 
 ## Raspberry Pi High-Level Control Development
 
-As the project progressed, additional sensing and navigation
-capabilities were required beyond the processing capacity of the Arduino
-Uno. While the Arduino was suitable for encoder processing, IMU
-integration, and motor control, the implementation of LiDAR sensing and
-advanced navigation functions required a more powerful processing
-platform.
+As the project progressed, additional sensing and navigation capabilities were required beyond the processing capacity of the Arduino Uno. While the Arduino was suitable for encoder processing, IMU integration, and motor control, the implementation of LiDAR sensing and advanced navigation functions required a more powerful processing platform.
 
-A Raspberry Pi 4 was therefore integrated into the robotic platform to
-perform high-level processing tasks. The Raspberry Pi was responsible
-for LiDAR communication, obstacle detection, monitoring functions, data
-logging, and future navigation algorithms.
+A Raspberry Pi 4 was therefore integrated into the robotic platform to perform high-level processing tasks. The Raspberry Pi was responsible for LiDAR communication, obstacle detection, monitoring functions, data logging, and future navigation algorithms.
 
-Serial communication was established between the Arduino Uno and
-Raspberry Pi to enable real-time data exchange. The Arduino continuously
-transmitted robot localisation information, including position and
-heading estimates, while the Raspberry Pi performed environmental
-sensing and navigation functions.
+Serial communication was established between the Arduino Uno and Raspberry Pi to enable real-time data exchange. The Arduino continuously transmitted robot localisation information, including position and heading estimates, while the Raspberry Pi performed environmental sensing and navigation functions.
 
 The communication system transmitted:
 
@@ -1266,10 +974,7 @@ The communication system transmitted:
 
 ![Figure 6.1.1 Arduino–Raspberry Pi Communication Architecture (Duncan, 2019)](/images/projects/mdetect/image32.png)
 
-A Python-based software framework was developed on the Raspberry Pi to
-manage communication and navigation functions. The software continuously
-received localisation information from the Arduino and displayed robot
-status information through a monitoring console.
+A Python-based software framework was developed on the Raspberry Pi to manage communication and navigation functions. The software continuously received localisation information from the Arduino and displayed robot status information through a monitoring console.
 
 The monitoring system enabled real-time visualisation of:
 
@@ -1285,26 +990,17 @@ The monitoring system enabled real-time visualisation of:
 
 ![Figure 6.1.2 Python Monitoring Console](/images/projects/mdetect/image33.jpg)
 
-To support future analysis and system evaluation, data logging
-functionality was also implemented. Robot position and status
-information were automatically recorded and stored for later review.
+To support future analysis and system evaluation, data logging functionality was also implemented. Robot position and status information were automatically recorded and stored for later review.
 
-The integration of the Raspberry Pi significantly increased system
-capability and established the foundation for advanced navigation and
-sensing functions.
+The integration of the Raspberry Pi significantly increased system capability and established the foundation for advanced navigation and sensing functions.
 
 ## LiDAR Integration
 
-The next stage of development involved integrating a COIN-D6
-Time-of-Flight (ToF) LiDAR sensor with the Raspberry Pi.
+The next stage of development involved integrating a COIN-D6 Time-of-Flight (ToF) LiDAR sensor with the Raspberry Pi.
 
-The purpose of the LiDAR system was to provide environmental awareness
-and obstacle detection capabilities that could not be achieved using
-encoder and IMU measurements alone.
+The purpose of the LiDAR system was to provide environmental awareness and obstacle detection capabilities that could not be achieved using encoder and IMU measurements alone.
 
-The LiDAR sensor continuously measured distances to surrounding objects
-and transmitted scan data to the Raspberry Pi through a serial
-communication interface.
+The LiDAR sensor continuously measured distances to surrounding objects and transmitted scan data to the Raspberry Pi through a serial communication interface.
 
 ![Figure 6.2.1 COIN-D6 LiDAR Mounted on Robot](/images/projects/mdetect/image34.jpg)
 
@@ -1320,36 +1016,25 @@ To support LiDAR operation, a software module was developed to:
 
 - Display scan information
 
-The software processed incoming LiDAR packets and converted distance
-measurements into usable environmental information.
+The software processed incoming LiDAR packets and converted distance measurements into usable environmental information.
 
-To improve measurement accuracy, calibration procedures were implemented
-to compensate for sensor mounting position and measurement offsets.
+To improve measurement accuracy, calibration procedures were implemented to compensate for sensor mounting position and measurement offsets.
 
 ![Figure 6.2.2 LiDAR Data Processing Workflow](/images/projects/mdetect/image35.png)
 
-A visualisation interface was also developed to display real-time LiDAR
-measurements. This enabled environmental features and obstacles to be
-observed during robot operation.
+A visualisation interface was also developed to display real-time LiDAR measurements. This enabled environmental features and obstacles to be observed during robot operation.
 
 ![Figure 6.2.3 Real-Time LiDAR Scan Output](/images/projects/mdetect/image36.png)
 
-The successful integration of the COIN-D6 sensor represented a major
-project milestone because it enabled the robot to perceive its
-environment rather than relying solely on internal localisation sensors.
+The successful integration of the COIN-D6 sensor represented a major project milestone because it enabled the robot to perceive its environment rather than relying solely on internal localisation sensors.
 
 ## Obstacle Detection System
 
-Following successful LiDAR integration, an obstacle detection system was
-developed to improve navigation safety.
+Following successful LiDAR integration, an obstacle detection system was developed to improve navigation safety.
 
-The objective of the obstacle detection system was to identify objects
-located directly in front of the robot and prevent collisions during
-autonomous movement.
+The objective of the obstacle detection system was to identify objects located directly in front of the robot and prevent collisions during autonomous movement.
 
-A safety zone was defined in front of the robot using LiDAR
-measurements. The system continuously monitored this region for
-obstacles located within a predefined distance threshold.
+A safety zone was defined in front of the robot using LiDAR measurements. The system continuously monitored this region for obstacles located within a predefined distance threshold.
 
 The implemented detection parameters included:
 
@@ -1359,9 +1044,7 @@ The implemented detection parameters included:
 
 - Emergency stop distance threshold
 
-When an obstacle was detected inside the safety region, the Raspberry Pi
-automatically generated an emergency stop command and transmitted it to
-the Arduino controller.
+When an obstacle was detected inside the safety region, the Raspberry Pi automatically generated an emergency stop command and transmitted it to the Arduino controller.
 
 The emergency stop system provided several benefits:
 
@@ -1375,22 +1058,17 @@ The emergency stop system provided several benefits:
 
 ![Figure 6.3.1 Obstacle Detection and Emergency Stop Flowchart](/images/projects/mdetect/image37.png)
 
-Experimental testing demonstrated that the system could successfully
-detect obstacles and generate stop commands before collision occurred.
+Experimental testing demonstrated that the system could successfully detect obstacles and generate stop commands before collision occurred.
 
-The implementation confirmed the effectiveness of LiDAR sensing for
-real-time obstacle detection in confined environments.
+The implementation confirmed the effectiveness of LiDAR sensing for real-time obstacle detection in confined environments.
 
 ## Advanced Navigation Development
 
-After successful implementation of obstacle detection, additional
-navigation capabilities were investigated to support future autonomous
-operation.
+After successful implementation of obstacle detection, additional navigation capabilities were investigated to support future autonomous operation.
 
 **Waypoint Queue Management**
 
-A waypoint management system was developed to allow multiple navigation
-targets to be entered and executed sequentially.
+A waypoint management system was developed to allow multiple navigation targets to be entered and executed sequentially.
 
 Each waypoint consisted of:
 
@@ -1400,38 +1078,29 @@ Each waypoint consisted of:
 
 - Waiting time
 
-This approach enabled the robot to navigate to a location, pause for a
-specified duration, and then continue to the next waypoint.
+This approach enabled the robot to navigate to a location, pause for a specified duration, and then continue to the next waypoint.
 
 The waypoint navigation workflow was designed to support sequential movement through multiple target points.
 
-The waypoint queue system improved mission flexibility and supported
-future autonomous data collection tasks.
+The waypoint queue system improved mission flexibility and supported future autonomous data collection tasks.
 
 **A\* Path Planning**
 
-A\* path planning concepts were investigated as a method for generating
-safe routes around obstacles.
+A\* path planning concepts were investigated as a method for generating safe routes around obstacles.
 
-A\* is a graph-based search algorithm widely used in robotics for
-navigation and route optimisation.
+A\* is a graph-based search algorithm widely used in robotics for navigation and route optimisation.
 
-The algorithm evaluates possible paths and selects a route with minimum
-cost while avoiding obstacles.
+The algorithm evaluates possible paths and selects a route with minimum cost while avoiding obstacles.
 
-For this project, A\* concepts were integrated into the Raspberry Pi
-navigation framework to support future obstacle avoidance development.
+For this project, A\* concepts were integrated into the Raspberry Pi navigation framework to support future obstacle avoidance development.
 
 ![Figure 6.4.1 A* Path Planning](/images/projects/mdetect/image38.png)
 
-Although full autonomous path planning was not completed during the
-project, the software architecture was designed to support future
-implementation.
+Although full autonomous path planning was not completed during the project, the software architecture was designed to support future implementation.
 
 **Automatic Route Replanning**
 
-To further improve navigation capability, automatic route replanning
-concepts were investigated.
+To further improve navigation capability, automatic route replanning concepts were investigated.
 
 The intended operation was:
 
@@ -1445,21 +1114,17 @@ Obstacle detected
 
 → Navigation resumes
 
-This approach would allow the robot to respond dynamically to
-environmental changes.
+This approach would allow the robot to respond dynamically to environmental changes.
 
 ![Figure 6.4.2 Automatic Route Replanning Process](/images/projects/mdetect/image39.png)
 
-The architecture developed during the project provides a foundation for
-future implementation of dynamic obstacle avoidance systems.
+The architecture developed during the project provides a foundation for future implementation of dynamic obstacle avoidance systems.
 
 **Lightweight SLAM Framework**
 
-Simultaneous Localisation and Mapping (SLAM) is a key technology for
-autonomous robots operating in unknown environments.
+Simultaneous Localisation and Mapping (SLAM) is a key technology for autonomous robots operating in unknown environments.
 
-Although full SLAM implementation was outside the scope of this project,
-several foundational elements were developed.
+Although full SLAM implementation was outside the scope of this project, several foundational elements were developed.
 
 The LiDAR system enabled:
 
@@ -1471,119 +1136,59 @@ The LiDAR system enabled:
 
 - Position verification
 
-These functions represent the initial stages of a lightweight SLAM
-framework.
+These functions represent the initial stages of a lightweight SLAM framework.
 
 ![Figure 6.4.3 LiDAR Mapping and Localisation Concept](/images/projects/mdetect/image40.png)
 
-The integration of LiDAR sensing with existing localisation information
-provides a pathway toward future implementation of full SLAM systems.
+The integration of LiDAR sensing with existing localisation information provides a pathway toward future implementation of full SLAM systems.
 
 ## Discussion
 
-The introduction of Raspberry Pi processing and LiDAR sensing
-significantly expanded the capabilities of the robotic platform.
+The introduction of Raspberry Pi processing and LiDAR sensing significantly expanded the capabilities of the robotic platform.
 
-Prior to LiDAR integration, the system relied exclusively on internal
-sensors such as wheel encoders and the MPU6050 IMU. While these sensors
-provided localisation information, they were unable to detect
-environmental obstacles.
+Prior to LiDAR integration, the system relied exclusively on internal sensors such as wheel encoders and the MPU6050 IMU. While these sensors provided localisation information, they were unable to detect environmental obstacles.
 
-The addition of LiDAR sensing enabled the robot to perceive its
-surroundings and respond to obstacles in real time.
+The addition of LiDAR sensing enabled the robot to perceive its surroundings and respond to obstacles in real time.
 
-Furthermore, the development of waypoint management, path planning
-concepts, obstacle detection, and route replanning established the
-foundation for future autonomous navigation.
+Furthermore, the development of waypoint management, path planning concepts, obstacle detection, and route replanning established the foundation for future autonomous navigation.
 
-The dual-controller architecture also proved highly effective. The
-Arduino continued to provide reliable low-level control while the
-Raspberry Pi handled computationally intensive sensing and navigation
-tasks.
+The dual-controller architecture also proved highly effective. The Arduino continued to provide reliable low-level control while the Raspberry Pi handled computationally intensive sensing and navigation tasks.
 
-These developments transformed the platform from a localisation-focused
-robot into a semi-autonomous navigation system suitable for future
-underground deployment.
+These developments transformed the platform from a localisation-focused robot into a semi-autonomous navigation system suitable for future underground deployment.
 
 ## Summary
 
-This chapter presented the development of the Raspberry Pi and LiDAR
-navigation system. A Raspberry Pi 4 was integrated to provide high-level
-processing capabilities, while a COIN-D6 LiDAR sensor enabled
-environmental sensing and obstacle detection. A Python-based monitoring
-framework was developed to visualise robot position and LiDAR
-information in real time.
+This chapter presented the development of the Raspberry Pi and LiDAR navigation system. A Raspberry Pi 4 was integrated to provide high-level processing capabilities, while a COIN-D6 LiDAR sensor enabled environmental sensing and obstacle detection. A Python-based monitoring framework was developed to visualise robot position and LiDAR information in real time.
 
-Additional navigation features including waypoint management, obstacle
-detection, emergency stop functionality, route replanning concepts, and
-lightweight SLAM foundations were investigated.
+Additional navigation features including waypoint management, obstacle detection, emergency stop functionality, route replanning concepts, and lightweight SLAM foundations were investigated.
 
-The successful integration of these technologies significantly enhanced
-system capability and established a strong foundation for future
-autonomous navigation and underground sensing applications.
+The successful integration of these technologies significantly enhanced system capability and established a strong foundation for future autonomous navigation and underground sensing applications.
 
 # Summary and Conclusions
 
 ## Summary
 
-The objective of this project was to develop a GPS-free localisation and
-navigation platform for a mobile robotic system operating in underground
-and confined environments. The project was undertaken in collaboration
-with mDetect Pty Ltd to support future deployment of autonomous muon
-detector systems.
+The objective of this project was to develop a GPS-free localisation and navigation platform for a mobile robotic system operating in underground and confined environments. The project was undertaken in collaboration with mDetect Pty Ltd to support future deployment of autonomous muon detector systems.
 
-The project investigated the use of multiple sensing and navigation
-technologies including wheel encoders, an MPU6050 Inertial Measurement
-Unit (IMU), PID control, Raspberry Pi processing, and COIN-D6 LiDAR
-sensing.
+The project investigated the use of multiple sensing and navigation technologies including wheel encoders, an MPU6050 Inertial Measurement Unit (IMU), PID control, Raspberry Pi processing, and COIN-D6 LiDAR sensing.
 
-The first stage of the project focused on encoder-based odometry.
-Quadrature wheel encoders were successfully integrated into the robotic
-platform and used to estimate wheel displacement and travelled distance.
-Real-time odometry calculations enabled continuous estimation of robot
-movement and formed the foundation of the localisation system.
+The first stage of the project focused on encoder-based odometry. Quadrature wheel encoders were successfully integrated into the robotic platform and used to estimate wheel displacement and travelled distance. Real-time odometry calculations enabled continuous estimation of robot movement and formed the foundation of the localisation system.
 
-The second stage involved integration of the MPU6050 IMU. Heading
-information obtained from the IMU was combined with encoder displacement
-measurements to estimate robot position within a two-dimensional
-coordinate system. The implementation enabled real-time estimation of X
-position, Y position, and heading angle (θ), satisfying the second
-project deliverable.
+The second stage involved integration of the MPU6050 IMU. Heading information obtained from the IMU was combined with encoder displacement measurements to estimate robot position within a two-dimensional coordinate system. The implementation enabled real-time estimation of X position, Y position, and heading angle (θ), satisfying the second project deliverable.
 
-Several technical challenges were encountered throughout development.
-Motion instability caused by unequal motor performance resulted in
-localisation inaccuracies during straight-line motion. Encoder noise and
-accumulated measurement errors further reduced navigation performance.
-These issues were addressed through motor scaling, Kalman filtering
-techniques, and PID control strategies. The implemented solutions
-improved motion stability, reduced measurement noise, and enhanced
-navigation reliability.
+Several technical challenges were encountered throughout development. Motion instability caused by unequal motor performance resulted in localisation inaccuracies during straight-line motion. Encoder noise and accumulated measurement errors further reduced navigation performance. These issues were addressed through motor scaling, Kalman filtering techniques, and PID control strategies. The implemented solutions improved motion stability, reduced measurement noise, and enhanced navigation reliability.
 
-As the project progressed, a Raspberry Pi 4 was integrated to provide
-additional computational capability for advanced sensing and navigation
-functions. Serial communication was established between the Arduino Uno
-and Raspberry Pi, enabling real-time transmission of localisation data.
+As the project progressed, a Raspberry Pi 4 was integrated to provide additional computational capability for advanced sensing and navigation functions. Serial communication was established between the Arduino Uno and Raspberry Pi, enabling real-time transmission of localisation data.
 
-The final stage of the project involved integration of a COIN-D6
-Time-of-Flight LiDAR sensor. LiDAR processing software was developed
-using Python and enabled real-time environmental sensing, obstacle
-detection, monitoring, and data logging. Additional navigation features
-including waypoint management, emergency stop functionality, path
-planning concepts, and lightweight SLAM foundations were also
-investigated.
+The final stage of the project involved integration of a COIN-D6 Time-of-Flight LiDAR sensor. LiDAR processing software was developed using Python and enabled real-time environmental sensing, obstacle detection, monitoring, and data logging. Additional navigation features including waypoint management, emergency stop functionality, path planning concepts, and lightweight SLAM foundations were also investigated.
 
-Overall, the project successfully combined multiple sensing technologies
-into a unified robotic localisation and navigation platform suitable for
-operation in GPS-denied environments.
+Overall, the project successfully combined multiple sensing technologies into a unified robotic localisation and navigation platform suitable for operation in GPS-denied environments.
 
 ## Conclusions
 
-The results obtained throughout this project demonstrate that reliable
-GPS-free localisation can be achieved through the integration of encoder
-odometry, IMU heading estimation, and LiDAR sensing.
+The results obtained throughout this project demonstrate that reliable GPS-free localisation can be achieved through the integration of encoder odometry, IMU heading estimation, and LiDAR sensing.
 
-The developed system successfully achieved the primary project
-objectives:
+The developed system successfully achieved the primary project objectives:
 
 - Encoder-based odometry was implemented for displacement estimation.
 
@@ -1595,322 +1200,167 @@ objectives:
 
 - Raspberry Pi and Arduino communication was successfully established.
 
-- COIN-D6 LiDAR integration enabled obstacle detection and environmental
-  sensing.
+- COIN-D6 LiDAR integration enabled obstacle detection and environmental sensing.
 
-- Advanced navigation concepts including waypoint management and path
-  planning were investigated.
+- Advanced navigation concepts including waypoint management and path planning were investigated.
 
-The implementation of a dual-controller architecture proved particularly
-beneficial. Low-level control functions were efficiently managed by the
-Arduino Uno, while high-level sensing and navigation functions were
-performed by the Raspberry Pi. This separation improved system
-scalability and supported future development of more advanced autonomous
-capabilities.
+The implementation of a dual-controller architecture proved particularly beneficial. Low-level control functions were efficiently managed by the Arduino Uno, while high-level sensing and navigation functions were performed by the Raspberry Pi. This separation improved system scalability and supported future development of more advanced autonomous capabilities.
 
-The project successfully transformed the robotic platform from a basic
-motion control system into a semi-autonomous navigation platform capable
-of localisation, environmental sensing, and obstacle detection.
+The project successfully transformed the robotic platform from a basic motion control system into a semi-autonomous navigation platform capable of localisation, environmental sensing, and obstacle detection.
 
-These outcomes provide a strong foundation for future deployment of
-robotic sensing systems within underground and tunnel environments.
+These outcomes provide a strong foundation for future deployment of robotic sensing systems within underground and tunnel environments.
 
 ## Project Limitations
 
-Although the project achieved its primary objectives, several
-limitations were identified. First, encoder odometry remains susceptible
-to accumulated errors caused by wheel slip, uneven surfaces, and
-mechanical tolerances. While filtering and motion correction techniques
-improved performance, localisation drift was still observed during
-extended operation.
+Although the project achieved its primary objectives, several limitations were identified. First, encoder odometry remains susceptible to accumulated errors caused by wheel slip, uneven surfaces, and mechanical tolerances. While filtering and motion correction techniques improved performance, localisation drift was still observed during extended operation.
 
-Second, IMU measurements remain affected by sensor drift and calibration
-uncertainty. Long-term heading estimation accuracy may therefore
-decrease during prolonged operation.
+Second, IMU measurements remain affected by sensor drift and calibration uncertainty. Long-term heading estimation accuracy may therefore decrease during prolonged operation.
 
-Third, the obstacle detection system was primarily designed for safety
-monitoring rather than full autonomous obstacle avoidance. Additional
-development is required to achieve robust navigation in complex
-environments.
+Third, the obstacle detection system was primarily designed for safety monitoring rather than full autonomous obstacle avoidance. Additional development is required to achieve robust navigation in complex environments.
 
-Finally, full SLAM implementation was outside the scope of this project.
-Although the system provides the foundation for future mapping and
-localisation development, complete autonomous mapping capability has not
-yet been achieved.
+Finally, full SLAM implementation was outside the scope of this project. Although the system provides the foundation for future mapping and localisation development, complete autonomous mapping capability has not yet been achieved.
 
 ## Recommendations for Future Work
 
-Several opportunities exist for future development and improvement of
-the robotic platform.
+Several opportunities exist for future development and improvement of the robotic platform.
 
 **Full SLAM Implementation**
 
-Future work should focus on implementing a complete Simultaneous
-Localisation and Mapping (SLAM) system. SLAM would enable the robot to
-generate maps of unknown environments while simultaneously estimating
-its position within those maps.
+Future work should focus on implementing a complete Simultaneous Localisation and Mapping (SLAM) system. SLAM would enable the robot to generate maps of unknown environments while simultaneously estimating its position within those maps.
 
 **Extended Kalman Filter (EKF)**
 
-The current localisation system could be enhanced through implementation
-of an Extended Kalman Filter. Sensor fusion techniques combining
-encoder, IMU, and LiDAR measurements would improve localisation accuracy
-and reduce accumulated errors.
+The current localisation system could be enhanced through implementation of an Extended Kalman Filter. Sensor fusion techniques combining encoder, IMU, and LiDAR measurements would improve localisation accuracy and reduce accumulated errors.
 
 **Autonomous Obstacle Avoidance**
 
-Future development should include fully autonomous obstacle avoidance
-and dynamic route replanning capabilities. Integration of obstacle
-avoidance with path planning algorithms would improve navigation
-reliability in complex environments.
+Future development should include fully autonomous obstacle avoidance and dynamic route replanning capabilities. Integration of obstacle avoidance with path planning algorithms would improve navigation reliability in complex environments.
 
 **ROS2 Integration**
 
-The Robot Operating System (ROS2) could be integrated to provide a more
-scalable software architecture and access to advanced robotics tools and
-libraries.
+The Robot Operating System (ROS2) could be integrated to provide a more scalable software architecture and access to advanced robotics tools and libraries.
 
 **Real-Time Mapping and Visualisation**
 
-Additional work could focus on developing real-time environment mapping
-and visualisation capabilities using LiDAR data. This would provide
-improved situational awareness for both autonomous and teleoperated
-operation.
+Additional work could focus on developing real-time environment mapping and visualisation capabilities using LiDAR data. This would provide improved situational awareness for both autonomous and teleoperated operation.
 
 **Muon Detector Integration**
 
-The final stage of development should involve integration of the muon
-detector payload with the localisation platform. This would enable
-precise association of muon measurements with robot position and
-orientation, supporting the objectives of mDetect Pty Ltd.
+The final stage of development should involve integration of the muon detector payload with the localisation platform. This would enable precise association of muon measurements with robot position and orientation, supporting the objectives of mDetect Pty Ltd.
 
 **Field Testing**
 
-Future testing should be conducted in representative tunnel and
-underground environments to evaluate system performance under realistic
-operating conditions.
+Future testing should be conducted in representative tunnel and underground environments to evaluate system performance under realistic operating conditions.
 
 ## Final Remarks
 
-This project successfully demonstrated the development of a GPS-free
-robotic localisation and navigation platform using encoder odometry, IMU
-heading estimation, Raspberry Pi processing, and LiDAR sensing
-technologies.
+This project successfully demonstrated the development of a GPS-free robotic localisation and navigation platform using encoder odometry, IMU heading estimation, Raspberry Pi processing, and LiDAR sensing technologies.
 
-The system achieved reliable position estimation, obstacle detection,
-and monitoring capabilities while establishing a framework for future
-autonomous navigation and underground sensing applications.
+The system achieved reliable position estimation, obstacle detection, and monitoring capabilities while establishing a framework for future autonomous navigation and underground sensing applications.
 
-The knowledge gained throughout this project has contributed
-significantly to the understanding of robotic localisation, sensor
-integration, embedded systems, and autonomous navigation technologies.
-The developed platform provides a valuable foundation for future
-research and industrial deployment within GPS-denied environments.
+The knowledge gained throughout this project has contributed significantly to the understanding of robotic localisation, sensor integration, embedded systems, and autonomous navigation technologies. The developed platform provides a valuable foundation for future research and industrial deployment within GPS-denied environments.
 
 # Acknowledgements
 
-The project team would like to express sincere gratitude to mDetect Pty
-Ltd for providing the project opportunity, technical guidance, and
-industry support throughout the duration of this project.
+The project team would like to express sincere gratitude to mDetect Pty Ltd for providing the project opportunity, technical guidance, and industry support throughout the duration of this project.
 
-The authors would also like to thank the industry supervisor, Mr Hasan
-Kaptan, for his valuable feedback, technical expertise, and ongoing
-assistance during the development of the robotic platform.
+The authors would also like to thank the industry supervisor, Mr Hasan Kaptan, for his valuable feedback, technical expertise, and ongoing assistance during the development of the robotic platform.
 
-Special thanks are extended to the academic supervisor, Dr Shanti
-Krishnan, for her guidance, encouragement, and support throughout the
-project.
+Special thanks are extended to the academic supervisor, Dr Shanti Krishnan, for her guidance, encouragement, and support throughout the project.
 
-Finally, the authors would like to acknowledge the contributions of all
-team members whose collaboration, commitment, and technical efforts were
-essential to the successful completion of this project.
+Finally, the authors would like to acknowledge the contributions of all team members whose collaboration, commitment, and technical efforts were essential to the successful completion of this project.
 
 # References
 
-Aghus Sofwan, Hafidz Rizqi Mulyana, Hadha Afrisal & Goni, A 2019,
-‘Development of Omni-Wheeled Mobile Robot Based-on Inverse Kinematics
-and Odometry’, *UNDIP Institutional Repository (UNDIP-IR) (Diponegoro
-University)*, Diponegoro University.
+Aghus Sofwan, Hafidz Rizqi Mulyana, Hadha Afrisal & Goni, A 2019, ‘Development of Omni-Wheeled Mobile Robot Based-on Inverse Kinematics and Odometry’, *UNDIP Institutional Repository (UNDIP-IR) (Diponegoro University)*, Diponegoro University.
 
-Aldibs, K & Mısır, O 2025, ‘Object Tracking Using Lidar Data Filtered by
-Minimized Kalman Filter on Turtlebot3 Mobile Robot’, *Bitlis Eren
-Üniversitesi Fen Bilimleri Dergisi*, vol. 14, no. 1, pp. 179–197.
+Aldibs, K & Mısır, O 2025, ‘Object Tracking Using Lidar Data Filtered by Minimized Kalman Filter on Turtlebot3 Mobile Robot’, *Bitlis Eren Üniversitesi Fen Bilimleri Dergisi*, vol. 14, no. 1, pp. 179–197.
 
-Allen, P 2021, ‘Models for the Dynamic Simulation of Tank Track
-Components - Bing’, *Bing*, viewed 4 June 2026,
-https://fileserver-az.core.ac.uk/download/40081469.pdf
+Allen, P 2021, ‘Models for the Dynamic Simulation of Tank Track Components - Bing’, *Bing*, viewed 4 June 2026, https://fileserver-az.core.ac.uk/download/40081469.pdf
 
-Alsalamy, S, Frels, G & Danowitz, A 2018, *Autonomous Navigation and
-Mapping using LiDAR*, viewed 26 March 2026,
-https://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1302&context=cpesp.
+Alsalamy, S, Frels, G & Danowitz, A 2018, *Autonomous Navigation and Mapping using LiDAR*, viewed 26 March 2026, https://digitalcommons.calpoly.edu/cgi/viewcontent.cgi?article=1302&context=cpesp.
 
-Aqel, MOA, Marhaban, MH, Saripan, MI & Ismail, NBt 2016, ‘Review of
-Visual odometry: types, approaches, challenges, and Applications’,
-*SpringerPlus*, vol. 5, no. 1.
+Aqel, MOA, Marhaban, MH, Saripan, MI & Ismail, NBt 2016, ‘Review of Visual odometry: types, approaches, challenges, and Applications’, *SpringerPlus*, vol. 5, no. 1.
 
-Arduino 2025a, ‘Mega 2560 Rev3 \| Arduino Documentation’,
-*docs.arduino.cc*, viewed
-https://docs.arduino.cc/hardware/mega-2560/.
+Arduino 2025a, ‘Mega 2560 Rev3 \| Arduino Documentation’, *docs.arduino.cc*, viewed https://docs.arduino.cc/hardware/mega-2560/.
 
-Arduino 2025b, ‘UNO R3 \| Arduino Documentation’, *docs.arduino.cc*,
-viewed https://docs.arduino.cc/hardware/uno-rev3/.
+Arduino 2025b, ‘UNO R3 \| Arduino Documentation’, *docs.arduino.cc*, viewed https://docs.arduino.cc/hardware/uno-rev3/.
 
-‘AZ-DELIVERY GY-521 MPU-6050 MANUAL Pdf Download’ 2024, *ManualsLib*,
-viewed
-https://www.manualslib.com/manual/3515757/Az-Delivery-Gy-521-Mpu-6050.html.
+‘AZ-DELIVERY GY-521 MPU-6050 MANUAL Pdf Download’ 2024, *ManualsLib*, viewed https://www.manualslib.com/manual/3515757/Az-Delivery-Gy-521-Mpu-6050.html.
 
-Borenstein, J & Liqiang Feng 1996, ‘Measurement and Correction of
-Systematic Odometry Errors in Mobile Robots’, *IEEE Transactions on
-Robotics and Automation*, vol. 12, no. 6, pp. 869–880.
+Borenstein, J & Liqiang Feng 1996, ‘Measurement and Correction of Systematic Odometry Errors in Mobile Robots’, *IEEE Transactions on Robotics and Automation*, vol. 12, no. 6, pp. 869–880.
 
-Brossard, M, Barrau, A & Bonnabel, S 2019, ‘AI-IMU Dead-Reckoning’,
-*arXiv (Cornell University)*, Cornell University.
+Brossard, M, Barrau, A & Bonnabel, S 2019, ‘AI-IMU Dead-Reckoning’, *arXiv (Cornell University)*, Cornell University.
 
-Chen, P, Huang, B, Yuan, S, Jin, Y & Hou, J 2025, ‘Automated Mobile
-robot-based Detection of in-process Tunnel Lining Deformation during
-Construction’, *Automation in Construction*, vol. 180, Elsevier BV, p.
-106560.
+Chen, P, Huang, B, Yuan, S, Jin, Y & Hou, J 2025, ‘Automated Mobile robot-based Detection of in-process Tunnel Lining Deformation during Construction’, *Automation in Construction*, vol. 180, Elsevier BV, p. 106560.
 
-David, C, Cheng, C & Pisani 2024, *POLITECNICO DI TORINO Implementation
-of a ROS-based Autonomous Multi-Agent Cooperative SLAM Approach*, viewed
-https://webthesis.biblio.polito.it/secure/33980/1/tesi.pdf.
+David, C, Cheng, C & Pisani 2024, *POLITECNICO DI TORINO Implementation of a ROS-based Autonomous Multi-Agent Cooperative SLAM Approach*, viewed https://webthesis.biblio.polito.it/secure/33980/1/tesi.pdf.
 
-Duncan, D 2019, ‘Arduino and Raspberry Pi serial communication’,
-*Blogspot.com*, Blogger, viewed
-https://shepherdingelectrons.blogspot.com/2019/06/serial-uart-gpio-on-raspberry-pi-zero.html.
+Duncan, D 2019, ‘Arduino and Raspberry Pi serial communication’, *Blogspot.com*, Blogger, viewed https://shepherdingelectrons.blogspot.com/2019/06/serial-uart-gpio-on-raspberry-pi-zero.html.
 
-E. Sundström, T. Hägglund, Bauer, M, Eker, J & Soltesz, K 2024,
-‘Reference Implementation of the PID Controller’, *IFAC-PapersOnLine*,
-vol. 58, no. 7, Elsevier BV, pp. 370–375.
+E. Sundström, T. Hägglund, Bauer, M, Eker, J & Soltesz, K 2024, ‘Reference Implementation of the PID Controller’, *IFAC-PapersOnLine*, vol. 58, no. 7, Elsevier BV, pp. 370–375.
 
-Garneau, E, Semak, M & Galovich, C n.d., *Robotic Navigation using
-LiDAR*, viewed 26 March 2026,
-https://www.colorado.edu/center/spacegrant/sites/default/files/attached-files/CSGO%20Evanston%20Garneau%20Final%20Poster%20Final%20-%20Evanston%20Garneau.pdf.
+Garneau, E, Semak, M & Galovich, C n.d., *Robotic Navigation using LiDAR*, viewed 26 March 2026, https://www.colorado.edu/center/spacegrant/sites/default/files/attached-files/CSGO%20Evanston%20Garneau%20Final%20Poster%20Final%20-%20Evanston%20Garneau.pdf.
 
-Gfrerrer, A 2008, ‘Geometry and Kinematics of the Mecanum Wheel’,
-*Computer Aided Geometric Design*, vol. 25, no. 9, pp. 784–791.
+Gfrerrer, A 2008, ‘Geometry and Kinematics of the Mecanum Wheel’, *Computer Aided Geometric Design*, vol. 25, no. 9, pp. 784–791.
 
-Grinberg, MR 2009, *UC San Diego UC San Diego Electronic Theses and
-Dissertations Title Design, simulation, and control of a vertically
-balancing treaded rover Publication Date*, viewed 4 June 2026,
-https://escholarship.org/content/qt6pf6j70w/qt6pf6j70w.pdf.
+Grinberg, MR 2009, *UC San Diego UC San Diego Electronic Theses and Dissertations Title Design, simulation, and control of a vertically balancing treaded rover Publication Date*, viewed 4 June 2026, https://escholarship.org/content/qt6pf6j70w/qt6pf6j70w.pdf.
 
-Guo, B, Wang, G, Chen, Y, Gao, Y & Xie, Q 2025, ‘Risk-Aware
-Reinforcement Learning with Dynamic Safety Filter for Collision Risk
-Mitigation in Mobile Robot Navigation’, *Sensors*, vol. 25, no. 17, MDPI
-AG, p. 5488.
+Guo, B, Wang, G, Chen, Y, Gao, Y & Xie, Q 2025, ‘Risk-Aware Reinforcement Learning with Dynamic Safety Filter for Collision Risk Mitigation in Mobile Robot Navigation’, *Sensors*, vol. 25, no. 17, MDPI AG, p. 5488.
 
-Gusrial, MH, Abdullah, MLH, Othman, NA & Ahmad, H 2024, ‘Enhancing
-Navigation Accuracy of Turtlebot3 Burger Mobile Robot Through Initial
-Covariance Matrix Determination’, *Lecture Notes in Electrical
-Engineering*, Springer Nature Singapore, Singapore, pp. 525–542.
+Gusrial, MH, Abdullah, MLH, Othman, NA & Ahmad, H 2024, ‘Enhancing Navigation Accuracy of Turtlebot3 Burger Mobile Robot Through Initial Covariance Matrix Determination’, *Lecture Notes in Electrical Engineering*, Springer Nature Singapore, Singapore, pp. 525–542.
 
-Heredge, J, Archer, JW, Duffy, AR, Brown, JMC, Guatelli, S, Scutti, F,
-Krishnan, S & Webster, C 2021, ‘Muon event localisation with AI’,
-*Nuclear Instruments and Methods in Physics Research Section A:
-Accelerators, Spectrometers, Detectors and Associated Equipment*, vol.
-1001, p. 165237.
+Heredge, J, Archer, JW, Duffy, AR, Brown, JMC, Guatelli, S, Scutti, F, Krishnan, S & Webster, C 2021, ‘Muon event localisation with AI’, *Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment*, vol. 1001, p. 165237.
 
-Kamble, S & Kharche, S 2021, ‘Obstacle Detection using LIDAR’,
-*International Journal of Scientific Research & Engineering Trends*,
-vol. 7, pp. 2395–566, viewed
-https://ijsret.com/wp-content/uploads/2021/07/IJSRET_V7_issue4_574.pdf.
+Kamble, S & Kharche, S 2021, ‘Obstacle Detection using LIDAR’, *International Journal of Scientific Research & Engineering Trends*, vol. 7, pp. 2395–566, viewed https://ijsret.com/wp-content/uploads/2021/07/IJSRET_V7_issue4_574.pdf.
 
-Kulkarni, AD, Narkhede, GG & Motade, SN 2022, ‘SENSOR FUSION: an Advance
-Inertial Navigation System Using GPS and IMU’, *2022 6th International
-Conference On Computing, Communication, Control And Automation
-(ICCUBEA*, pp. 1–5, viewed 9 June 2025,
-https://ieeexplore.ieee.org/abstract/document/10010952/figures#figures.
+Kulkarni, AD, Narkhede, GG & Motade, SN 2022, ‘SENSOR FUSION: an Advance Inertial Navigation System Using GPS and IMU’, *2022 6th International Conference On Computing, Communication, Control And Automation (ICCUBEA*, pp. 1–5, viewed 9 June 2025, https://ieeexplore.ieee.org/abstract/document/10010952/figures#figures.
 
-Last Minute Engineers 2021, ‘Interface MPU6050 Accelerometer and
-Gyroscope Sensor with Arduino’, *Lastminuteengineers.com*, viewed
-https://lastminuteengineers.com/mpu6050-accel-gyro-arduino-tutorial/.
+Last Minute Engineers 2021, ‘Interface MPU6050 Accelerometer and Gyroscope Sensor with Arduino’, *Lastminuteengineers.com*, viewed https://lastminuteengineers.com/mpu6050-accel-gyro-arduino-tutorial/.
 
-Lechmann, A, Mair, D, Ariga, A, Ariga, T, Ereditato, A, Nishiyama, R,
-Pistillo, C, Scampoli, P, Schlunegger, F & Vladymyrov, M 2021, ‘Muon
-tomography in geoscientific research – A guide to best practice’,
-*Earth-Science Reviews*, vol. 222, p. 103842.
+Lechmann, A, Mair, D, Ariga, A, Ariga, T, Ereditato, A, Nishiyama, R, Pistillo, C, Scampoli, P, Schlunegger, F & Vladymyrov, M 2021, ‘Muon tomography in geoscientific research – A guide to best practice’, *Earth-Science Reviews*, vol. 222, p. 103842.
 
-Li, Y, Ge, S, Dai, S, Zhao, L, Yan, X, Zheng, Y & Shi, Y 2020,
-‘Kinematic Modeling of a Combined System of Multiple Mecanum-Wheeled
-Robots with Velocity Compensation’, *Sensors*, vol. 20, no. 1, p. 75,
-viewed 25 July 2023, https://www.mdpi.com/1424-8220/20/1/75.
+Li, Y, Ge, S, Dai, S, Zhao, L, Yan, X, Zheng, Y & Shi, Y 2020, ‘Kinematic Modeling of a Combined System of Multiple Mecanum-Wheeled Robots with Velocity Compensation’, *Sensors*, vol. 20, no. 1, p. 75, viewed 25 July 2023, https://www.mdpi.com/1424-8220/20/1/75.
 
-Liu, K-Q, Zhong, S-S, Zhao, K & Song, Y 2023, ‘Motion control and
-positioning system of multi-sensor tunnel defect inspection robot: from
-methodology to application’, *Scientific Reports*, vol. 13, no. 1.
+Liu, K-Q, Zhong, S-S, Zhao, K & Song, Y 2023, ‘Motion control and positioning system of multi-sensor tunnel defect inspection robot: from methodology to application’, *Scientific Reports*, vol. 13, no. 1.
 
-Liu, Y, Wang, C, Wu, H, Wei, Y, Ren, M & Zhao, C 2022a, ‘Improved LiDAR
-Localization Method for Mobile Robots Based on Multi-Sensing’, *Remote
-Sensing*, vol. 14, no. 23, p. 6133.
+Liu, Y, Wang, C, Wu, H, Wei, Y, Ren, M & Zhao, C 2022a, ‘Improved LiDAR Localization Method for Mobile Robots Based on Multi-Sensing’, *Remote Sensing*, vol. 14, no. 23, p. 6133.
 
-Liu, Y, Wang, C, Wu, H, Wei, Y, Ren, M & Zhao, C 2022b, ‘Improved LiDAR
-Localization Method for Mobile Robots Based on Multi-Sensing’, *Remote
-Sensing*, vol. 14, no. 23, p. 6133.
+Liu, Y, Wang, C, Wu, H, Wei, Y, Ren, M & Zhao, C 2022b, ‘Improved LiDAR Localization Method for Mobile Robots Based on Multi-Sensing’, *Remote Sensing*, vol. 14, no. 23, p. 6133.
 
-mDetect 2025, ‘mDetect – Seeing through the unseeable’,
-*Mdetect.com.au*, viewed https://mdetect.com.au/.
+mDetect 2025, ‘mDetect – Seeing through the unseeable’, *Mdetect.com.au*, viewed https://mdetect.com.au/.
 
-Microdcmotors.com 2023, ‘37mm High Torque 12V DC Motor With Gearbox
-Model NFP-GM37-520-EN \| Microdcmotors.com’, *Microdcmotors.com*, viewed
-https://microdcmotors.com/product/6v-12v-geared-dc-electric-motor-with-encoder-nfp-jgb37-520-en.
+Microdcmotors.com 2023, ‘37mm High Torque 12V DC Motor With Gearbox Model NFP-GM37-520-EN \| Microdcmotors.com’, *Microdcmotors.com*, viewed https://microdcmotors.com/product/6v-12v-geared-dc-electric-motor-with-encoder-nfp-jgb37-520-en.
 
 Monk, S & Cheneler, D (eds) 2025, *Mobile Robots*, MDPI.
 
-MPU-6050 2013, *MPU-6050 Product Specification Revision 3.4
-MPU-6000/MPU-6050 Product Specification*, viewed
-https://product.tdk.com/system/files/dam/doc/product/sensor/mortion-inertial/imu/data_sheet/mpu-6000-datasheet1.pdf.
+MPU-6050 2013, *MPU-6050 Product Specification Revision 3.4 MPU-6000/MPU-6050 Product Specification*, viewed https://product.tdk.com/system/files/dam/doc/product/sensor/mortion-inertial/imu/data_sheet/mpu-6000-datasheet1.pdf.
 
-Muhammad Umair Shafiq, Imran, A, Sajjad Maznoor, Afraz Hussain Majeed,
-Ahmed, B, Khan, I & Mohamed, A 2024, ‘Real-time navigation of mecanum
-wheel-based mobile robot in a dynamic environment’, *Heliyon*, Elsevier
-BV, pp. e26829–e26829.
+Muhammad Umair Shafiq, Imran, A, Sajjad Maznoor, Afraz Hussain Majeed, Ahmed, B, Khan, I & Mohamed, A 2024, ‘Real-time navigation of mecanum wheel-based mobile robot in a dynamic environment’, *Heliyon*, Elsevier BV, pp. e26829–e26829.
 
-Nordic Semiconductor 2007, ‘nRF24L01 Single Chip 2.4GHz Transceiver
-Product Specification’, *Sparkfun.com*, viewed
-https://cdn.sparkfun.com/datasheets/Wireless/Nordic/nRF24L01_Product_Specification_v2_0.pdf.
+Nordic Semiconductor 2007, ‘nRF24L01 Single Chip 2.4GHz Transceiver Product Specification’, *Sparkfun.com*, viewed https://cdn.sparkfun.com/datasheets/Wireless/Nordic/nRF24L01_Product_Specification_v2_0.pdf.
 
-‘PySerial Documentation’ 2025, *PySerial Documentation*, viewed
-https://www.pyserial.com/docs.
+‘PySerial Documentation’ 2025, *PySerial Documentation*, viewed https://www.pyserial.com/docs.
 
-Raspberry Pi 2026, ‘Raspberry Pi Connect’, *Raspberrypi.com*, viewed 4
-June 2026,
-https://www.raspberrypi.com/documentation/computers/remote-access.html#raspberry-pi-connect.
+Raspberry Pi 2026, ‘Raspberry Pi Connect’, *Raspberrypi.com*, viewed 4 June 2026, https://www.raspberrypi.com/documentation/computers/remote-access.html#raspberry-pi-connect.
 
-ROBOTIS 2026, ‘ROBOTIS e-Manual’, *ROBOTIS e-Manual*, viewed
-https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/.
+ROBOTIS 2026, ‘ROBOTIS e-Manual’, *ROBOTIS e-Manual*, viewed https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/.
 
-Severin, IC, Dobrea, DM & Dobrea, MC 2020, ‘Head Gesture Recognition
-using a 6DOF Inertial IMU’, *INTERNATIONAL JOURNAL OF COMPUTERS
-COMMUNICATIONS & CONTROL*, vol. 15, no. 3.
+Severin, IC, Dobrea, DM & Dobrea, MC 2020, ‘Head Gesture Recognition using a 6DOF Inertial IMU’, *INTERNATIONAL JOURNAL OF COMPUTERS COMMUNICATIONS & CONTROL*, vol. 15, no. 3.
 
-Shan, T 2024, ‘A Review of Multi-Sensor Fusion Techniques for Indoor
-Mobile Robot Navigation’, *Applied and Computational Engineering*, vol.
-80, no. 1, pp. 175–180.
+Shan, T 2024, ‘A Review of Multi-Sensor Fusion Techniques for Indoor Mobile Robot Navigation’, *Applied and Computational Engineering*, vol. 80, no. 1, pp. 175–180.
 
-Sparkfun 2018, ‘Understanding Odometry and Its Applications’,
-*Sparkfun.com*, viewed https://news.sparkfun.com/11361.
+Sparkfun 2018, ‘Understanding Odometry and Its Applications’, *Sparkfun.com*, viewed https://news.sparkfun.com/11361.
 
-Tardioli, D & Villarroel, JL 2014, ‘Odometry-less Localization in
-tunnel-like Environments’, *2014 IEEE International Conference on
-Autonomous Robot Systems and Competitions (ICARSC)*, IEEE, pp. 65–72.
+Tardioli, D & Villarroel, JL 2014, ‘Odometry-less Localization in tunnel-like Environments’, *2014 IEEE International Conference on Autonomous Robot Systems and Competitions (ICARSC)*, IEEE, pp. 65–72.
 
-‘TF-Luna LiDAR, Low Cost Distance Sensor - Benewake’ 2024,
-*Benewake.com*, viewed https://en.benewake.com/TFLuna/index.html.
+‘TF-Luna LiDAR, Low Cost Distance Sensor - Benewake’ 2024, *Benewake.com*, viewed https://en.benewake.com/TFLuna/index.html.
 
-Thrun, S, Burgard, W & Fox, D 2006, ‘Probabilistic Robotics’, *MIT
-Press, The Knowledge Engineering Review*, vol. 21, no. 3, pp. 287–289.
+Thrun, S, Burgard, W & Fox, D 2006, ‘Probabilistic Robotics’, *MIT Press, The Knowledge Engineering Review*, vol. 21, no. 3, pp. 287–289.
 
-Wang, S & Ahmad, NS 2024, ‘A Comprehensive Review on Sensor Fusion
-Techniques for Localization of a Dynamic Target in GPS-denied
-Environments’, *IEEE Access*, Institute of Electrical and Electronics
-Engineers, pp. 1–1, viewed
-https://ieeexplore.ieee.org/abstract/document/10806702.
+Wang, S & Ahmad, NS 2024, ‘A Comprehensive Review on Sensor Fusion Techniques for Localization of a Dynamic Target in GPS-denied Environments’, *IEEE Access*, Institute of Electrical and Electronics Engineers, pp. 1–1, viewed https://ieeexplore.ieee.org/abstract/document/10806702.
 
-‘WitMotion dTOF laser lidar sensor module outdoor Light resistance 60Klx
-5000Hz 12m 360° Scanning support ROS1 ROS2 Arduino’ 2026, *WITMOTION HK
-CO.,LIMITED*, viewed 4 June 2026,
-https://witmotion-sensor.com/products/witmotion-dtof-laser-lidar-sensor-module-outdoor-light-resistance-60klx-5000hz-12m-360-scanning-support-ros1-ros2-arduino.
+‘WitMotion dTOF laser lidar sensor module outdoor Light resistance 60Klx 5000Hz 12m 360° Scanning support ROS1 ROS2 Arduino’ 2026, *WITMOTION HK CO.,LIMITED*, viewed 4 June 2026, https://witmotion-sensor.com/products/witmotion-dtof-laser-lidar-sensor-module-outdoor-light-resistance-60klx-5000hz-12m-360-scanning-support-ros1-ros2-arduino.
 
 # Appendices
 
@@ -1948,10 +1398,8 @@ Motors calibration for scale the motor PWM
 
 ![Project image](/images/projects/mdetect/image52.png)
 
-Apply the simple Kalman Filter to fix the spike on Encoder reading
-values
+Apply the simple Kalman Filter to fix the spike on Encoder reading values
 
-Added simple Kalman filtering to smooth encoder distance and reject
-large spikes.
+Added simple Kalman filtering to smooth encoder distance and reject large spikes.
 
 ![Project image](/images/projects/mdetect/image53.png)

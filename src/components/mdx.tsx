@@ -1,6 +1,7 @@
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import React, { ReactNode } from "react";
 import dynamic from "next/dynamic";
+import styles from "./mdx.module.scss";
 
 import { 
   Heading,
@@ -10,7 +11,6 @@ import {
   Text,
   InlineCode,
 } from "@/once-ui/components";
-import styles from "./mdx.module.scss";
 import { CodeBlock } from "@/once-ui/modules/code/CodeBlock";
 import { TextProps } from "@/once-ui/interfaces";
 import { SmartImageProps } from "@/once-ui/components/SmartImage";
@@ -105,6 +105,47 @@ function createParagraph({ children }: TextProps) {
     </Text>
   );
 }
+function createTable({ children }: React.TableHTMLAttributes<HTMLTableElement>) {
+  return (
+    <div className={styles.tableWrapper}>
+      <table className={styles.mdxTable}>{children}</table>
+    </div>
+  );
+}
+
+function createTableHead({ children }: React.HTMLAttributes<HTMLTableSectionElement>) {
+  return <thead className={styles.tableHead}>{children}</thead>;
+}
+
+function createTableBody({ children }: React.HTMLAttributes<HTMLTableSectionElement>) {
+  return <tbody>{children}</tbody>;
+}
+
+function createTableRow({ children }: React.HTMLAttributes<HTMLTableRowElement>) {
+  return <tr>{children}</tr>;
+}
+
+function createTableHeader({
+  children,
+  ...props
+}: React.ThHTMLAttributes<HTMLTableCellElement>) {
+  return (
+    <th className={styles.tableHeader} {...props}>
+      {children}
+    </th>
+  );
+}
+
+function createTableCell({
+  children,
+  ...props
+}: React.TdHTMLAttributes<HTMLTableCellElement>) {
+  return (
+    <td className={styles.tableCell} {...props}>
+      {children}
+    </td>
+  );
+}
 
 function createInlineCode({ children }: { children: ReactNode }) {
   return <InlineCode>{children}</InlineCode>;
@@ -147,10 +188,19 @@ const components = {
   h4: createHeading("h4") as any,
   h5: createHeading("h5") as any,
   h6: createHeading("h6") as any,
+
+  table: createTable as any,
+  thead: createTableHead as any,
+  tbody: createTableBody as any,
+  tr: createTableRow as any,
+  th: createTableHeader as any,
+  td: createTableCell as any,
+  
   img: createImage as any,
   a: CustomLink as any,
   code: createInlineCode as any,
   pre: createCodeBlock as any,
+  
   Heading,
   Text,
   CodeBlock,

@@ -16,7 +16,7 @@ type ProjectTableOfContentsProps = {
 };
 
 export function ProjectTableOfContents({
-  title = "Project content",
+  title = "Content",
   items,
 }: ProjectTableOfContentsProps) {
   const scrollTo = (id: string, offset = 96) => {

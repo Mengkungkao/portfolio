@@ -7,14 +7,13 @@ const routes = {
   "/work": true,
   "/blog": true,
   "/gallery": false,
+  "/access": true,
 };
 
 // Enable password protection on selected routes
 // Set password in the .env file, refer to .env.example
 const protectedRoutes = {
-  "/work/electrical-load-estimation-design": true,
-  "/work/autocad-electrical-system-in-a-building-design": true,
-  "/work/malab-simulink-model-for-accumulator-heat-transfer-analysis": true,
+  "/gallery": true,
 };
 
 import { Geist } from "next/font/google";
