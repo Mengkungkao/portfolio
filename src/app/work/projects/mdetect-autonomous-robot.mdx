@@ -21,42 +21,29 @@ team:
 
   - name: "Rohith"
     role: "Electrical & Electronic Engineer"
-    
+
   - name: "Joel"
     role: "Robotic Engineer"
-    
+
 ---
 
-# contributors
+# Contributors
 
-**mDetect Pty Ltd** 
+**mDetect Pty Ltd**
 
-**Swinburne university of technology** 
+**Swinburne University of Technology**
 
-**Unit: Professional Masters Industry Project**
+**Team members:**
 
-**Unit Code: EAT80002**
+Meng
+Rohith
+Joel
 
-<a id="executive-summary" />
 # Executive Summary
 
-This project was undertaken in collaboration with mDetect Pty Ltd to
-develop a GPS-Denied localisation and navigation platform for a mobile
-robotic system intended for operation in underground and confined
-environments. The motivation for the project arose from the limitations
-of Global Positioning System (GPS) technology in tunnels, chambers,
-mines, and interconnected voids, where reliable position information is
-required for future deployment of autonomous muon detector systems.
+This project was undertaken in collaboration with mDetect Pty Ltd to develop a GPS-denied localisation and navigation platform for a mobile robotic system intended for operation in underground and confined environments. The motivation for the project arose from the limitations of Global Positioning System (GPS) technology in tunnels, chambers, mines, and interconnected voids, where reliable position information is required for future deployment of autonomous muon detector systems.
 
-The primary objective of the project was to develop a robotic platform
-capable of estimating its position and orientation without relying on
-external positioning infrastructure. To achieve this, a localisation
-system was developed using wheel encoder odometry and an MPU6050
-Inertial Measurement Unit (IMU). Encoder measurements were used to
-estimate robot displacement, while IMU heading information enabled
-transformation of local movement into global position estimates. The
-resulting system provided real-time estimation of robot position in a
-two-dimensional coordinate frame.
+The primary objective of the project was to develop a robotic platform capable of estimating its position and orientation without relying on external positioning infrastructure. To achieve this, a localisation system was developed using wheel encoder odometry and an MPU6050 Inertial Measurement Unit (IMU). Encoder measurements were used to estimate robot displacement, while IMU heading information enabled transformation of local movement into global position estimates. The resulting system provided real-time estimation of robot position in a two-dimensional coordinate frame.
 
 Several challenges were encountered throughout development, including
 motion instability, encoder measurement noise, accumulated odometry
@@ -69,27 +56,14 @@ To support advanced sensing and navigation capabilities, a Raspberry Pi
 4 was integrated into the system architecture. Serial communication was
 established between the Arduino Uno and Raspberry Pi, enabling real-time
 transmission of localisation data. A Python-based software framework was
-developed to provide robot monitoring, data logging, and high-level
-navigation functionality.
+developed to provide robot monitoring, data logging, and high-level navigation functionality.
 
-The final stage of the project involved integration of a COIN-D6
-Time-of-Flight LiDAR sensor. The LiDAR system enabled environmental
-sensing, obstacle detection, and emergency stop functionality.
-Additional navigation features including waypoint management, path
-planning concepts, and lightweight SLAM foundations were also
-investigated.
+The final stage of the project involved integration of a COIN-D6 Time-of-Flight LiDAR sensor. The LiDAR system enabled environmental sensing, obstacle detection, and emergency stop functionality. Additional navigation features including waypoint management, path planning concepts, and lightweight SLAM foundations were also investigated.
 
-The project successfully achieved its primary objectives and
-demonstrated the feasibility of combining encoder odometry, IMU heading
-estimation, Raspberry Pi processing, and LiDAR sensing to create a
-GPS-free robotic localisation platform. The developed system provides a
-strong foundation for future autonomous navigation, mapping, and
-underground sensing applications for mDetect Pty Ltd.
+The project successfully achieved its primary objectives and demonstrated the feasibility of combining encoder odometry, IMU heading estimation, Raspberry Pi processing, and LiDAR sensing to create a GPS-free robotic localisation platform. The developed system provides a strong foundation for future autonomous navigation, mapping, and underground sensing applications for mDetect Pty Ltd.
 
-<a id="introduction" />
 # Introduction
 
-<a id="background" />
 ## Background
 
 Underground environments such as tunnels, chambers, mines, and
@@ -130,7 +104,6 @@ was implemented using an Arduino Uno microcontroller for low-level robot
 control and a Raspberry Pi 4 for higher-level sensing and navigation
 tasks.
 
-<a id="industry-problem" />
 ## Industry Problem
 
 The industry partner identified the need for an autonomous robotic
@@ -156,17 +129,10 @@ Several technical challenges were identified during the project:
 A practical solution to these challenges was required to support future
 deployment of autonomous muon detector systems.
 
-<figure id="fig-1-2-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image4.png" alt="Four mecanum wheels mechanical assembly" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 1.2.1 Four Mecanum Wheels Mechanical Part Assembly Robot</figcaption>
-</figure>
+![Figure 1.2.1 Four Mecanum Wheels Mechanical Part Assembly Robot](/images/projects/mdetect/image4.png)
 
-<figure id="fig-1-2-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image6.png" alt="Figure 1.2.2 Robot Dimensions" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 1.2.2 Robot Dimensions</figcaption>
-</figure>
+![Figure 1.2.2 Robot Dimensions](/images/projects/mdetect/image6.png)
 
-<a id="project-aim" />
 ## Project Aim
 
 The aim of this project was to develop a reliable GPS-free localisation
@@ -177,7 +143,6 @@ The project focused on combining encoder odometry, IMU-based heading
 estimation, and LiDAR sensing to provide real-time position estimation,
 obstacle detection, and autonomous navigation capabilities.
 
-<a id="project-objectives" />
 ## Project Objectives
 
 The project objectives were defined as follows:
@@ -203,11 +168,10 @@ The project objectives were defined as follows:
 - Investigate advanced navigation approaches including waypoint
   navigation, path planning, and LiDAR-assisted localisation.
 
-<a id="report-structure" />
 ## Report Structure
 
 This report presents the design, implementation, testing, and evaluation
-of the GPS-Dinied robotic localisation platform developed for mDetect
+of the GPS-denied robotic localisation platform developed for mDetect
 Pty Ltd.
 
 - Chapter 2 reviews existing literature related to odometry, inertial
@@ -229,10 +193,8 @@ Pty Ltd.
 - Finally, summarises the project outcomes, limitations, conclusions,
   and recommendations for future work.
 
-<a id="literature-review" />
 # Literature Review
 
-<a id="mobile-robot-localisation-using-odometry" />
 ## Mobile Robot Localisation Using Odometry
 
 Robot localisation is a fundamental requirement for autonomous
@@ -264,16 +226,12 @@ short-distance localisation. However, due to accumulated errors,
 odometry alone is generally insufficient for long-term navigation and is
 often combined with additional sensors.
 
-<figure id="fig-2-1-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image7.png" alt="Figure 2.1.1 Encoder Odometry Principle (Guo et al., 2025)" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 2.1.1 Encoder Odometry Principle (Guo et al., 2025)</figcaption>
-</figure>
+![Figure 2.1.1 Encoder Odometry Principle (Guo et al., 2025)](/images/projects/mdetect/image7.png)
 
 The findings from previous studies indicate that encoder odometry
 remains an essential component of mobile robot localisation but requires
 complementary sensing technologies to improve long-term accuracy.
 
-<a id="inertial-measurement-units-for-navigation" />
 ## Inertial Measurement Units for Navigation
 
 An Inertial Measurement Unit (IMU) is commonly used in robotic systems
@@ -307,16 +265,12 @@ heading angle, which was then combined with encoder-based displacement
 measurements to calculate robot position within a two-dimensional
 coordinate frame.
 
-<figure id="fig-2-2-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image8.png" alt="Figure 2.2.1 MPU6050 IMU Sensor and Heading Estimation (Last Minute Engineers, 2021)" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 2.2.1 MPU6050 IMU Sensor and Heading Estimation (Last Minute Engineers, 2021)</figcaption>
-</figure>
+![Figure 2.2.1 MPU6050 IMU Sensor and Heading Estimation (Last Minute Engineers, 2021)](/images/projects/mdetect/image8.png)
 
 The literature suggests that combining encoder odometry and IMU
 measurements can significantly improve localisation accuracy compared to
 using either sensing method independently.
 
-<a id="proportional-integral-derivative-pid-control" />
 ## Proportional Integral Derivative (PID) Control
 
 Motion control is a critical requirement for autonomous robotic systems.
@@ -357,7 +311,6 @@ The literature consistently demonstrates that PID control remains an
 effective method for improving navigation accuracy in differential-drive
 and mobile robotic platforms.
 
-<a id="kalman-filtering-for-sensor-noise-reduction" />
 ## Kalman Filtering for Sensor Noise Reduction
 
 Sensor measurements obtained from encoders and IMUs are often affected
@@ -392,17 +345,13 @@ Advantages of Kalman filtering include:
 For this project, Kalman filtering was investigated as a method to
 reduce encoder measurement noise and improve localisation accuracy.
 
-<figure id="fig-2-4-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image9.png" alt="Figure 2.4.1 Raw Encoder Data versus Kalman Filtered Data" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 2.4.1 Raw Encoder Data versus Kalman Filtered Data</figcaption>
-</figure>
+![Figure 2.4.1 Raw Encoder Data versus Kalman Filtered Data](/images/projects/mdetect/image9.png)
 
 (Severin, Dobrea and Dobrea, 2020)
 
 The literature indicates that Kalman filtering can significantly improve
 sensor quality and is widely adopted in robotic navigation systems.
 
-<a id="lidar-based-navigation-and-obstacle-detection" />
 ## LiDAR-Based Navigation and Obstacle Detection
 
 LiDAR (Light Detection and Ranging) has become one of the most important
@@ -439,16 +388,12 @@ For this project, a COIN-D6 Time-of-Flight (ToF) LiDAR sensor was
 selected to provide obstacle detection and environmental sensing
 capabilities.
 
-<figure id="fig-2-5-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image10.png" alt="Figure 2.5.1 COIN-D6 LiDAR Sensor (Witmotion, 2025)" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 2.5.1 COIN-D6 LiDAR Sensor (Witmotion, 2025)</figcaption>
-</figure>
+![Figure 2.5.1 COIN-D6 LiDAR Sensor (Witmotion, 2025)](/images/projects/mdetect/image10.png)
 
 The literature demonstrates that LiDAR technology can significantly
 improve robotic navigation performance, particularly in GPS-denied
 environments.
 
-<a id="literature-review-summary" />
 ## Summary
 
 The literature review identified encoder odometry, IMU-based heading
@@ -467,23 +412,17 @@ Based on these findings, a localisation architecture combining wheel
 encoders, an MPU6050 IMU, Raspberry Pi processing, and COIN-D6 LiDAR
 sensing was selected for this project.
 
-<a id="project-plan-and-methods" />
 # Project Plan and Methods
 
-<a id="project-directories-folder" />
 ## Project Directories Folder
 
-<figure id="fig-3-1-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image11.png" alt="Figure 3.1.1 Project Documentation Directories" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 3.1.1 Project Documentation Directories</figcaption>
-</figure>
+![Figure 3.1.1 Project Documentation Directories](/images/projects/mdetect/image11.png)
 
 This
-[Onedrive](https://liveswinburneeduau-my.sharepoint.com/:f:/g/personal/105019988_student_swin_edu_au/IgA7LOST5j8xSph7iULTvmB7AbzIz47aERVrj8-3Inr4UJ8?e=8o9DHp)
+[OneDrive](https://liveswinburneeduau-my.sharepoint.com/:f:/g/personal/105019988_student_swin_edu_au/IgA7LOST5j8xSph7iULTvmB7AbzIz47aERVrj8-3Inr4UJ8?e=8o9DHp)
 is linked to all file documents including datasheets, drawing, manual
 and references.
 
-<a id="project-scope-and-system-overview" />
 ## Project Scope and System Overview
 
 The objective of this project was to develop a GPS-free localisation and
@@ -511,22 +450,17 @@ The project was divided into three primary deliverables:
 The final system combined low-level control functions on an Arduino Uno
 with high-level sensing and navigation functions on a Raspberry Pi 4.
 
-<figure id="fig-3-2-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image12.png" alt="Figure 3.2.1 Overall System Architecture" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 3.2.1 Overall System Architecture</figcaption>
-</figure>
+![Figure 3.2.1 Overall System Architecture](/images/projects/mdetect/image12.png)
 
-<a id="hardware-components" />
 ## Hardware Components
 
 The hardware platform consisted of a four-wheel robotic chassis equipped
 with wheel encoders, an inertial measurement unit, a Raspberry Pi, and a
 COIN-D6 LiDAR sensor.
 
-<a id="arduino-uno" />
 ### Arduino Uno
 
-<img src="/images/projects/mdetect/image13.png" alt="Project image" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
+![Project image](/images/projects/mdetect/image13.png)
 
 The Arduino Uno was selected as the primary low-level controller due to
 its simplicity, availability, and compatibility with the existing robot
@@ -548,20 +482,15 @@ Quadrature wheel encoders were used to measure wheel rotation and
 estimate robot displacement. Encoder pulse counts were converted into
 wheel displacement measurements and used for odometry calculations.
 
-<a id="mpu6050-inertial-momentum-unit" />
-### MPU6050 Inertial Momentum Unit
+### MPU6050 Inertial Measurement Unit
 
-<figure id="fig-3-3-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image14.png" alt="Figure 3.3.1 MPU6050" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 3.3.1 MPU6050</figcaption>
-</figure>
+![Figure 3.3.1 MPU6050](/images/projects/mdetect/image14.png)
 
 The MPU6050 sensor was used to provide heading information for robot
 localisation. The sensor combines a three-axis accelerometer and a
 three-axis gyroscope, enabling estimation of robot orientation during
 motion.
 
-<a id="raspberry-pi-3b" />
 ### Raspberry Pi 3B+
 
 As the project progressed, additional processing capability was required
@@ -601,14 +530,12 @@ Table 3.3.1 Hardware Components Selected and Functions
 | USB Communication Interface         | 2        | Enables serial communication between Arduino, Raspberry Pi and development computer                                    |
 | Chassis and Mechanical Frame        | 1        | Provides structural support for all hardware components.                                                               |
 
-<a id="software-architecture" />
 ## Software Architecture
 
 The software architecture was divided between the Arduino Uno and
 Raspberry Pi to balance computational requirements and system
 responsiveness.
 
-<a id="arduino-software" />
 ### Arduino Software
 
 The Arduino software was responsible for:
@@ -628,12 +555,8 @@ The Arduino software was responsible for:
 Robot position was continuously updated using encoder displacement and
 heading information obtained from the MPU6050 sensor.
 
-<figure id="fig-3-4-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image15.png" alt="Arduino software architecture flowchart" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 3.4.1 Arduino Software Architecture</figcaption>
-</figure>
+![Figure 3.4.1 Arduino Software Architecture](/images/projects/mdetect/image15.png)
 
-<a id="raspberry-pi-software" />
 ### Raspberry Pi Software
 
 A Python-based software framework was developed on the Raspberry Pi to
@@ -643,7 +566,7 @@ The Raspberry Pi software included:
 
 - Serial communication with Arduino
 
-- Robots pose monitoring
+- Robot pose monitoring
 
 - Data logging
 
@@ -658,18 +581,14 @@ The Raspberry Pi software included:
 The software also provided a graphical monitoring console for
 visualisation of robot position and LiDAR measurements.
 
-<figure id="fig-3-4-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image16.png" alt="Figure 3.4.2 Raspberry Pi Software Architecture" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 3.4.2 Raspberry Pi Software Architecture</figcaption>
-</figure>
+![Figure 3.4.2 Raspberry Pi Software Architecture](/images/projects/mdetect/image16.png)
 
-<a id="project-management-and-team-allocation" />
 ## Project Management and Team Allocation
 
 The project was completed by a multidisciplinary team consisting of
 three members.
 
-<img src="/images/projects/mdetect/image17.png" alt="Project image" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
+![Project image](/images/projects/mdetect/image17.png)
 
 | Team Member | Role | Responsibilities |
 |---|---|---|
@@ -681,7 +600,6 @@ The allocation of responsibilities enabled parallel development of
 different project components while ensuring effective collaboration and
 communication between team members.
 
-<a id="methodology" />
 ## Methodology
 
 The project was developed using an incremental engineering approach
@@ -735,9 +653,6 @@ Serial communication between the Arduino and Raspberry Pi was
 established to allow real-time transmission of robot position
 information.
 
-**  
-**
-
 **Stage 7: LiDAR Integration**
 
 The COIN-D6 LiDAR sensor was integrated with the Raspberry Pi.
@@ -764,12 +679,8 @@ Additional navigation functions including waypoint management, route
 planning, and lightweight SLAM concepts were investigated to support
 future autonomous navigation development.
 
-<figure id="fig-3-5" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image18.png" alt="Figure 3.5: System Development Flowchart" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 3.5: System Development Flowchart</figcaption>
-</figure>
+![Figure 3.5: System Development Flowchart](/images/projects/mdetect/image18.png)
 
-<a id="project-timeline" />
 ## Project Timeline
 
 The project was completed over a twelve-week semester and followed a
@@ -797,15 +708,10 @@ Major milestones included:
 
 - Final presentation and report preparation
 
-<figure id="fig-3-7-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image19.png" alt="Figure 3.7.1: Revised Project Gantt Chart" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 3.7.1: Revised Project Gantt Chart</figcaption>
-</figure>
+![Figure 3.7.1: Revised Project Gantt Chart](/images/projects/mdetect/image19.png)
 
-<a id="discussion-odometry-system-development" />
 # Discussion - Odometry System Development
 
-<a id="encoder-based-odometry-development" />
 ## Encoder-Based Odometry Development
 
 The first major objective of the project was the development of an
@@ -843,15 +749,9 @@ For the robot platform used in this project, encoder measurements were
 continuously updated and processed to estimate robot displacement during
 motion.
 
-<figure id="fig-4-1-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image20.png" alt="Figure 4.1.1 Encoder Integration and Testing Setup" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 4.1.1 Encoder Integration and Testing Setup</figcaption>
-</figure>
+![Figure 4.1.1 Encoder Integration and Testing Setup](/images/projects/mdetect/image20.png)
 
-<figure id="fig-4-1-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image21.png" alt="Figure 4.1.2 Encoder Pulse Output from Oscilloscope" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 4.1.2 Encoder Pulse Output from Oscilloscope</figcaption>
-</figure>
+![Figure 4.1.2 Encoder Pulse Output from Oscilloscope](/images/projects/mdetect/image21.png)
 
 Initial testing confirmed that encoder counts increased proportionally
 with wheel rotation, allowing reliable estimation of travelled distance.
@@ -863,16 +763,12 @@ Despite these limitations, encoder odometry successfully provided
 real-time displacement information and established the foundation for
 subsequent localisation development.
 
-<figure id="fig-4-1-3" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image22.png" alt="Figure 4.1.3 Print data of IMU MPU6050 Output" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 4.1.3 Print data of IMU MPU6050 Output</figcaption>
-</figure>
+![Figure 4.1.3 Print data of IMU MPU6050 Output](/images/projects/mdetect/image22.png)
 
 IMU-only localization and Encoder was not stable enough for
-long-duration operation  
+long-duration operation
 Combining sensors required careful synchronization
 
-<a id="position-estimation-using-odometry" />
 ## Position Estimation Using Odometry
 
 Following successful encoder integration, odometry equations were
@@ -919,7 +815,6 @@ Sources of error included:
 As a result, additional sensing was required to improve localisation
 accuracy.
 
-<a id="imu-integration-and-heading-estimation" />
 ## IMU Integration and Heading Estimation
 
 To improve localisation performance, an MPU6050 Inertial Measurement
@@ -933,10 +828,7 @@ The primary objective of IMU integration was to obtain heading
 information for use in coordinate transformation and position
 estimation.
 
-<figure id="fig-4-3-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image23.png" alt="Figure 4.3.1 MPU6050 Wiring and Integration" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 4.3.1 MPU6050 Wiring and Integration</figcaption>
-</figure>
+![Figure 4.3.1 MPU6050 Wiring and Integration](/images/projects/mdetect/image23.png)
 
 The sensor was calibrated during system startup to reduce gyroscope bias
 and improve heading accuracy.
@@ -950,16 +842,12 @@ robot orientation relative to the global coordinate frame.
 The addition of heading information enabled transformation of local
 robot movement into world coordinates.
 
-<figure id="fig-4-3-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image24.png" alt="Figure 4.3.2 MPU6050 Heading Output" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 4.3.2 MPU6050 Heading Output</figcaption>
-</figure>
+![Figure 4.3.2 MPU6050 Heading Output](/images/projects/mdetect/image24.png)
 
 Experimental testing confirmed that the IMU could reliably estimate
 heading changes during robot motion. This provided a significant
 improvement over encoder-only localisation approaches.
 
-<a id="world-frame-position-estimation" />
 ## World Frame Position Estimation
 
 Once encoder displacement and heading information were available,
@@ -996,16 +884,12 @@ updated continuously during robot operation.
 Experimental results demonstrated that the robot could successfully
 estimate its position while navigating predefined paths.
 
-<figure id="fig-4-4-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image24.png" alt="Figure 4.4.1 Real-Time Position Output" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 4.4.1 Real-Time Position Output</figcaption>
-</figure>
+![Figure 4.4.1 Real-Time Position Output](/images/projects/mdetect/image24.png)
 
 The ability to estimate position within a world coordinate frame
 represented a major milestone in the project because it enabled waypoint
 navigation and future autonomous navigation capabilities.
 
-<a id="localisation-performance-evaluation" />
 ## Localisation Performance Evaluation
 
 The performance of the localisation system was evaluated through a
@@ -1046,7 +930,6 @@ Additional factors contributing to localisation error included:
 These findings highlighted the need for additional filtering and motion
 correction techniques, which are discussed in the following chapter.
 
-<a id="odometry-summary" />
 ## Summary
 
 This chapter presented the development of the localisation system
@@ -1068,10 +951,8 @@ The following chapter discusses the major technical challenges
 encountered during development and the solutions implemented to improve
 system performance.
 
-<a id="discussion-system-challenges-and-performance-improvements" />
 # Discussion – System Challenges and Performance Improvements
 
-<a id="challenge-1-motion-stability" />
 ## Challenge 1: Motion Stability
 
 Following the implementation of encoder-based odometry and IMU
@@ -1085,10 +966,7 @@ robot gradually drifted to one side during forward motion. This
 behaviour reduced localisation accuracy and negatively affected waypoint
 navigation performance.
 
-<figure id="fig-5-1-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image25.png" alt="Figure 5.1.1 Robot Drift During Straight-Line Motion" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 5.1.1 Robot Drift During Straight-Line Motion</figcaption>
-</figure>
+![Figure 5.1.1 Robot Drift During Straight-Line Motion](/images/projects/mdetect/image25.png)
 
 Further investigation revealed that one motor produced slightly higher
 rotational speed than the remaining motors. As a result, unequal wheel
@@ -1106,10 +984,7 @@ The scaling process involved comparing encoder counts generated by each
 motor under identical operating conditions and applying correction
 coefficients to achieve more balanced wheel motion.
 
-<figure id="fig-5-1-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image26.png" alt="Figure 5.1.2 Encoder Scaling Calibration Process" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 5.1.2 Encoder Scaling Calibration Process</figcaption>
-</figure>
+![Figure 5.1.2 Encoder Scaling Calibration Process](/images/projects/mdetect/image26.png)
 
 Following implementation of motor scaling, the robot demonstrated
 significantly improved straight-line motion. Drift was reduced and
@@ -1119,7 +994,6 @@ The results demonstrated that motor scaling provided an effective
 solution for compensating mechanical variations between motors and
 improving navigation accuracy.
 
-<a id="challenge-2-encoder-noise-and-error-accumulation" />
 ## Challenge 2: Encoder Noise and Error Accumulation
 
 Although encoder odometry successfully estimated robot displacement,
@@ -1157,10 +1031,7 @@ prior to position estimation calculations.
 The filtering process reduced measurement fluctuations while preserving
 overall system responsiveness.
 
-<figure id="fig-5-2-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image27.png" alt="Figure 5.2.1 Kalman Filter Algorithm (Borenstein and Liqiang Feng, 1996)" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 5.2.1 Kalman Filter Algorithm (Borenstein and Liqiang Feng, 1996)</figcaption>
-</figure>
+![Figure 5.2.1 Kalman Filter Algorithm (Borenstein and Liqiang Feng, 1996)](/images/projects/mdetect/image27.png)
 
 Experimental results demonstrated a noticeable improvement in
 measurement stability.
@@ -1177,23 +1048,16 @@ The filtered encoder output exhibited:
 
 Encoder Data before Kalman Filtering:
 
-<figure id="fig-5-2-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image28.png" alt="Figure 5.2.2 Encoder Data before Kalman Filtering" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 5.2.2 Encoder Data before Kalman Filtering</figcaption>
-</figure>
+![Figure 5.2.2 Encoder Data before Kalman Filtering](/images/projects/mdetect/image28.png)
 
 Encoder Data after Kalman Filtering:
 
-<figure id="fig-5-2-3" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image29.png" alt="Figure 5.2.3 Encoder Data After Kalman Filtering" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 5.2.3 Encoder Data After Kalman Filtering</figcaption>
-</figure>
+![Figure 5.2.3 Encoder Data After Kalman Filtering](/images/projects/mdetect/image29.png)
 
 The implementation of Kalman filtering contributed significantly to
 improving localisation performance and reducing accumulated odometry
 errors.
 
-<a id="challenge-3-accurate-motion-control" />
 ## Challenge 3: Accurate Motion Control
 
 While localisation performance improved through odometry and filtering
@@ -1241,7 +1105,7 @@ desired robot orientation.
 When heading deviations occurred, corrective motor commands were
 generated to minimise orientation errors.
 
-<img src="/images/projects/mdetect/image30.jpeg" alt="A graph with a line drawn on it AI-generated content may be incorrect." style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
+![A graph with a line drawn on it AI-generated content may be incorrect.](/images/projects/mdetect/image30.jpeg)
 
 The combined use of encoder feedback and IMU heading information
 improved overall navigation performance.
@@ -1256,15 +1120,11 @@ Experimental observations indicated:
 
 - More reliable waypoint navigation
 
-<figure id="fig-5-3-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image31.png" alt="A graph with numbers and lines AI-generated content may be incorrect." style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 5.3.1 Navigation Performance After PID Implementation</figcaption>
-</figure>
+![Figure 5.3.1 Navigation Performance After PID Implementation](/images/projects/mdetect/image31.png)
 
 Although perfect accuracy was not achieved, the PID controllers
 significantly improved robot stability and navigation reliability.
 
-<a id="challenge-4-system-integration-and-resource-constraints" />
 ## Challenge 4: System Integration and Resource Constraints
 
 As additional functionality was added to the robot platform, limitations
@@ -1326,7 +1186,6 @@ motor control performance.
 The separation of processing tasks also simplified software development
 and provided a foundation for future expansion of the system.
 
-<a id="system-challenges-discussion" />
 ## Discussion
 
 The challenges encountered throughout the project highlighted the
@@ -1354,7 +1213,6 @@ The results obtained during testing indicate that combining multiple
 sensing and control techniques is essential for achieving practical
 navigation performance in confined and underground environments.
 
-<a id="system-challenges-summary" />
 ## Summary
 
 This chapter presented the major technical challenges encountered during
@@ -1372,10 +1230,8 @@ localisation performance and established a robust foundation for LiDAR
 integration and advanced navigation functions, which are discussed in
 the following chapter.
 
-<a id="results-and-discussion-lidar-navigation-system" />
 # Results and Discussion – LiDAR Navigation System
 
-<a id="raspberry-pi-high-level-control-development" />
 ## Raspberry Pi High-Level Control Development
 
 As the project progressed, additional sensing and navigation
@@ -1408,10 +1264,7 @@ The communication system transmitted:
 
 - Navigation status messages
 
-<figure id="fig-6-1-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image32.png" alt="Figure 6.1.1 Arduino–Raspberry Pi Communication Architecture (Duncan, 2019)" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 6.1.1 Arduino–Raspberry Pi Communication Architecture (Duncan, 2019)</figcaption>
-</figure>
+![Figure 6.1.1 Arduino–Raspberry Pi Communication Architecture (Duncan, 2019)](/images/projects/mdetect/image32.png)
 
 A Python-based software framework was developed on the Raspberry Pi to
 manage communication and navigation functions. The software continuously
@@ -1430,10 +1283,7 @@ The monitoring system enabled real-time visualisation of:
 
 - Obstacle detection status
 
-<figure id="fig-6-1-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image33.jpg" alt="Figure 6.1.2 Python Monitoring Console" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 6.1.2 Python Monitoring Console</figcaption>
-</figure>
+![Figure 6.1.2 Python Monitoring Console](/images/projects/mdetect/image33.jpg)
 
 To support future analysis and system evaluation, data logging
 functionality was also implemented. Robot position and status
@@ -1443,7 +1293,6 @@ The integration of the Raspberry Pi significantly increased system
 capability and established the foundation for advanced navigation and
 sensing functions.
 
-<a id="lidar-integration" />
 ## LiDAR Integration
 
 The next stage of development involved integrating a COIN-D6
@@ -1457,10 +1306,7 @@ The LiDAR sensor continuously measured distances to surrounding objects
 and transmitted scan data to the Raspberry Pi through a serial
 communication interface.
 
-<figure id="fig-6-2-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image34.jpg" alt="Figure 6.2.1 COIN-D6 LiDAR Mounted on Robot" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 6.2.1 COIN-D6 LiDAR Mounted on Robot</figcaption>
-</figure>
+![Figure 6.2.1 COIN-D6 LiDAR Mounted on Robot](/images/projects/mdetect/image34.jpg)
 
 To support LiDAR operation, a software module was developed to:
 
@@ -1480,25 +1326,18 @@ measurements into usable environmental information.
 To improve measurement accuracy, calibration procedures were implemented
 to compensate for sensor mounting position and measurement offsets.
 
-<figure id="fig-6-2-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image35.png" alt="Figure 6.2.2 LiDAR Data Processing Workflow" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 6.2.2 LiDAR Data Processing Workflow</figcaption>
-</figure>
+![Figure 6.2.2 LiDAR Data Processing Workflow](/images/projects/mdetect/image35.png)
 
 A visualisation interface was also developed to display real-time LiDAR
 measurements. This enabled environmental features and obstacles to be
 observed during robot operation.
 
-<figure id="fig-6-2-3" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image36.png" alt="Figure 6.2.3 Real-Time LiDAR Scan Output" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 6.2.3 Real-Time LiDAR Scan Output</figcaption>
-</figure>
+![Figure 6.2.3 Real-Time LiDAR Scan Output](/images/projects/mdetect/image36.png)
 
 The successful integration of the COIN-D6 sensor represented a major
 project milestone because it enabled the robot to perceive its
 environment rather than relying solely on internal localisation sensors.
 
-<a id="obstacle-detection-system" />
 ## Obstacle Detection System
 
 Following successful LiDAR integration, an obstacle detection system was
@@ -1534,10 +1373,7 @@ The emergency stop system provided several benefits:
 
 - Increased system reliability
 
-<figure id="fig-6-3-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image37.png" alt="Figure 6.3.1 Obstacle Detection and Emergency Stop Flowchart" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 6.3.1 Obstacle Detection and Emergency Stop Flowchart</figcaption>
-</figure>
+![Figure 6.3.1 Obstacle Detection and Emergency Stop Flowchart](/images/projects/mdetect/image37.png)
 
 Experimental testing demonstrated that the system could successfully
 detect obstacles and generate stop commands before collision occurred.
@@ -1545,7 +1381,6 @@ detect obstacles and generate stop commands before collision occurred.
 The implementation confirmed the effectiveness of LiDAR sensing for
 real-time obstacle detection in confined environments.
 
-<a id="advanced-navigation-development" />
 ## Advanced Navigation Development
 
 After successful implementation of obstacle detection, additional
@@ -1568,7 +1403,7 @@ Each waypoint consisted of:
 This approach enabled the robot to navigate to a location, pause for a
 specified duration, and then continue to the next waypoint.
 
-\[Insert Figure 6.9: Waypoint Navigation Workflow\]
+The waypoint navigation workflow was designed to support sequential movement through multiple target points.
 
 The waypoint queue system improved mission flexibility and supported
 future autonomous data collection tasks.
@@ -1587,10 +1422,7 @@ cost while avoiding obstacles.
 For this project, A\* concepts were integrated into the Raspberry Pi
 navigation framework to support future obstacle avoidance development.
 
-<figure id="fig-6-4-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image38.png" alt="Figure 6.4.1 A Star Path Planning" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 6.4.1 A Star Path Planning</figcaption>
-</figure>
+![Figure 6.4.1 A* Path Planning](/images/projects/mdetect/image38.png)
 
 Although full autonomous path planning was not completed during the
 project, the software architecture was designed to support future
@@ -1616,10 +1448,7 @@ Obstacle detected
 This approach would allow the robot to respond dynamically to
 environmental changes.
 
-<figure id="fig-6-4-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image39.png" alt="Figure 6.4.2 Automatic Route Replanning Process" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 6.4.2 Automatic Route Replanning Process</figcaption>
-</figure>
+![Figure 6.4.2 Automatic Route Replanning Process](/images/projects/mdetect/image39.png)
 
 The architecture developed during the project provides a foundation for
 future implementation of dynamic obstacle avoidance systems.
@@ -1645,15 +1474,11 @@ The LiDAR system enabled:
 These functions represent the initial stages of a lightweight SLAM
 framework.
 
-<figure id="fig-6-4-3" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image40.png" alt="Figure 6.4.3 LiDAR Mapping and Localisation Concept" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 6.4.3 LiDAR Mapping and Localisation Concept</figcaption>
-</figure>
+![Figure 6.4.3 LiDAR Mapping and Localisation Concept](/images/projects/mdetect/image40.png)
 
 The integration of LiDAR sensing with existing localisation information
 provides a pathway toward future implementation of full SLAM systems.
 
-<a id="lidar-discussion" />
 ## Discussion
 
 The introduction of Raspberry Pi processing and LiDAR sensing
@@ -1680,7 +1505,6 @@ These developments transformed the platform from a localisation-focused
 robot into a semi-autonomous navigation system suitable for future
 underground deployment.
 
-<a id="lidar-summary" />
 ## Summary
 
 This chapter presented the development of the Raspberry Pi and LiDAR
@@ -1698,10 +1522,8 @@ The successful integration of these technologies significantly enhanced
 system capability and established a strong foundation for future
 autonomous navigation and underground sensing applications.
 
-<a id="summary-and-conclusions" />
 # Summary and Conclusions
 
-<a id="final-summary" />
 ## Summary
 
 The objective of this project was to develop a GPS-free localisation and
@@ -1754,10 +1576,6 @@ Overall, the project successfully combined multiple sensing technologies
 into a unified robotic localisation and navigation platform suitable for
 operation in GPS-denied environments.
 
-**  
-**
-
-<a id="conclusions" />
 ## Conclusions
 
 The results obtained throughout this project demonstrate that reliable
@@ -1797,7 +1615,6 @@ of localisation, environmental sensing, and obstacle detection.
 These outcomes provide a strong foundation for future deployment of
 robotic sensing systems within underground and tunnel environments.
 
-<a id="project-limitations" />
 ## Project Limitations
 
 Although the project achieved its primary objectives, several
@@ -1821,7 +1638,6 @@ Although the system provides the foundation for future mapping and
 localisation development, complete autonomous mapping capability has not
 yet been achieved.
 
-<a id="recommendations-for-future-work" />
 ## Recommendations for Future Work
 
 Several opportunities exist for future development and improvement of
@@ -1874,7 +1690,6 @@ Future testing should be conducted in representative tunnel and
 underground environments to evaluate system performance under realistic
 operating conditions.
 
-<a id="final-remarks" />
 ## Final Remarks
 
 This project successfully demonstrated the development of a GPS-free
@@ -1892,7 +1707,6 @@ integration, embedded systems, and autonomous navigation technologies.
 The developed platform provides a valuable foundation for future
 research and industrial deployment within GPS-denied environments.
 
-<a id="acknowledgements" />
 # Acknowledgements
 
 The project team would like to express sincere gratitude to mDetect Pty
@@ -1911,7 +1725,6 @@ Finally, the authors would like to acknowledge the contributions of all
 team members whose collaboration, commitment, and technical efforts were
 essential to the successful completion of this project.
 
-<a id="references" />
 # References
 
 Aghus Sofwan, Hafidz Rizqi Mulyana, Hadha Afrisal & Goni, A 2019,
@@ -1962,7 +1775,7 @@ David, C, Cheng, C & Pisani 2024, *POLITECNICO DI TORINO Implementation
 of a ROS-based Autonomous Multi-Agent Cooperative SLAM Approach*, viewed
 https://webthesis.biblio.polito.it/secure/33980/1/tesi.pdf.
 
-Duncan, D 2019, ‘Arduino and Raspberry Pi serial communciation’,
+Duncan, D 2019, ‘Arduino and Raspberry Pi serial communication’,
 *Blogspot.com*, Blogger, viewed
 https://shepherdingelectrons.blogspot.com/2019/06/serial-uart-gpio-on-raspberry-pi-zero.html.
 
@@ -2089,7 +1902,7 @@ Thrun, S, Burgard, W & Fox, D 2006, ‘Probabilistic Robotics’, *MIT
 Press, The Knowledge Engineering Review*, vol. 21, no. 3, pp. 287–289.
 
 Wang, S & Ahmad, NS 2024, ‘A Comprehensive Review on Sensor Fusion
-Techniques for Localization of a Dynamic Target in GPS-Denied
+Techniques for Localization of a Dynamic Target in GPS-denied
 Environments’, *IEEE Access*, Institute of Electrical and Electronics
 Engineers, pp. 1–1, viewed
 https://ieeexplore.ieee.org/abstract/document/10806702.
@@ -2099,75 +1912,41 @@ https://ieeexplore.ieee.org/abstract/document/10806702.
 CO.,LIMITED*, viewed 4 June 2026,
 https://witmotion-sensor.com/products/witmotion-dtof-laser-lidar-sensor-module-outdoor-light-resistance-60klx-5000hz-12m-360-scanning-support-ros1-ros2-arduino.
 
-<a id="appendices" />
 # Appendices
 
-##  Appendix A: Datasheet and Specifications
+## Appendix A: Datasheet and Specifications
 
-<figure id="fig-10-1-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image41.png" alt="Figure 10.1.1 Arduino UNO R3 Datasheet" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.1.1 Arduino UNO R3 Datasheet</figcaption>
-</figure>
+![Figure 10.1.1 Arduino UNO R3 Datasheet](/images/projects/mdetect/image41.png)
 
-<figure id="fig-10-1-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image42.png" alt="Figure 10.1.2 Raspberry Pi 3 Model B+" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.1.2 Raspberry Pi 3 Model B+</figcaption>
-</figure>
+![Figure 10.1.2 Raspberry Pi 3 Model B+](/images/projects/mdetect/image42.png)
 
-<figure id="fig-10-1-3" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image43.png" alt="Figure 10.1.3 Wiring Circuit Diagram of PCA9685 as Motor Shield" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.1.3 Wiring Circuit Diagram of PCA9685 as Motor Shield</figcaption>
-</figure>
+![Figure 10.1.3 Wiring Circuit Diagram of PCA9685 as Motor Shield](/images/projects/mdetect/image43.png)
 
-<figure id="fig-10-1-4" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image44.png" alt="Figure 10.1.4 MPU6050 Wiring diagram" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.1.4 MPU6050 Wiring diagram</figcaption>
-</figure>
+![Figure 10.1.4 MPU6050 Wiring diagram](/images/projects/mdetect/image44.png)
 
 DC Motor Specifications
 
-<figure id="fig-10-1-5" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image45.png" alt="Figure 10.1.5 DC Motor Model Specification" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.1.5 DC Motor Model Specification</figcaption>
-</figure>
+![Figure 10.1.5 DC Motor Model Specification](/images/projects/mdetect/image45.png)
 
-<img src="/images/projects/mdetect/image46.png" alt="Project image" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
+![Project image](/images/projects/mdetect/image46.png)
 
-<figure id="fig-10-1-6" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image47.png" alt="Figure 10.1.6 Encoder Specification" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.1.6 Encoder Specification</figcaption>
-</figure>
+![Figure 10.1.6 Encoder Specification](/images/projects/mdetect/image47.png)
 
-<figure id="fig-10-1-7" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image48.png" alt="Figure 10.1.7 LiDAR Coin D6 Specifications" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.1.7 LiDAR Coin D6 Specifications</figcaption>
-</figure>
+![Figure 10.1.7 LiDAR Coin D6 Specifications](/images/projects/mdetect/image48.png)
 
-<figure id="fig-10-1-8" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image49.png" alt="Figure 10.1.8 LiDAR Communication interface" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.1.8 LiDAR Communication interface</figcaption>
-</figure>
+![Figure 10.1.8 LiDAR Communication interface](/images/projects/mdetect/image49.png)
 
-## Appendix B: Additional Test Results 
+## Appendix B: Additional Test Results
 
-<figure id="fig-10-2-1" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image50.png" alt="Figure 10.2.1 Raspberry Pi Data Reading and CSV File Data Storing" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.2.1 Raspberry Pi Data Reading and CSV File Data Storing</figcaption>
-</figure>
+![Figure 10.2.1 Raspberry Pi Data Reading and CSV File Data Storing](/images/projects/mdetect/image50.png)
 
-<figure id="fig-10-2-2" style={{ margin: "1.25rem auto", textAlign: "center", width: "100%" }} >
-  <img src="/images/projects/mdetect/image51.png" alt="Figure 10.2.2 CSV data output from robot" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
-  <figcaption style={{ marginTop: "0.45rem", fontSize: "0.85rem", lineHeight: "1.35", opacity: 0.78 }} >Figure 10.2.2 CSV data output from robot</figcaption>
-</figure>
-
-**  
-**
+![Figure 10.2.2 CSV data output from robot](/images/projects/mdetect/image51.png)
 
 ## Appendix C: Important Code Snippets
 
 Motors calibration for scale the motor PWM
 
-<img src="/images/projects/mdetect/image52.png" alt="Project image" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
+![Project image](/images/projects/mdetect/image52.png)
 
 Apply the simple Kalman Filter to fix the spike on Encoder reading
 values
@@ -2175,4 +1954,4 @@ values
 Added simple Kalman filtering to smooth encoder distance and reject
 large spikes.
 
-<img src="/images/projects/mdetect/image53.png" alt="Project image" style={{ width: "clamp(16rem, 82%, 38rem)", maxWidth: "100%", height: "auto", objectFit: "contain", display: "block", margin: "0.75rem auto", borderRadius: "10px" }} loading="lazy" decoding="async" />
+![Project image](/images/projects/mdetect/image53.png)

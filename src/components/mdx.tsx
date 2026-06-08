@@ -10,6 +10,7 @@ import {
   Text,
   InlineCode,
 } from "@/once-ui/components";
+import styles from "./mdx.module.scss";
 import { CodeBlock } from "@/once-ui/modules/code/CodeBlock";
 import { TextProps } from "@/once-ui/interfaces";
 import { SmartImageProps } from "@/once-ui/components/SmartImage";
@@ -43,25 +44,22 @@ function CustomLink({ href, children, ...props }: CustomLinkProps) {
   );
 }
 
-function createImage({ alt, src, ...props }: SmartImageProps & { src: string }) {
+function createImage({ alt, src }: SmartImageProps & { src: string }) {
   if (!src) {
-    console.error("SmartImage requires a valid 'src' property.");
+    console.error("Image requires a valid 'src' property.");
     return null;
   }
 
   return (
-    <SmartImage
-      marginTop="8"
-      marginBottom="16"
-      enlarge
-      radius="m"
-      aspectRatio="16 / 9"
-      border="neutral-alpha-medium"
-      sizes="(max-width: 960px) 100vw, 960px"
-      alt={alt}
-      src={src}
-      {...props}
-    />
+    <figure className={styles.imageFigure}>
+      <img
+        className={styles.mdxImage}
+        src={src}
+        alt={alt || ""}
+        loading="lazy"
+      />
+      {alt && <figcaption className={styles.imageCaption}>{alt}</figcaption>}
+    </figure>
   );
 }
 
