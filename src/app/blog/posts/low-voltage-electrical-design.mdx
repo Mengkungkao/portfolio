@@ -1,0 +1,261 @@
+---
+title: "Low Voltage Electrical Design for La Cozii TK Condominium"
+publishedAt: "2023-01-01"
+summary: "Bachelor thesis project on low-voltage electrical installation design, power demand estimation, equipment sizing, protection, and EcoStruxure Power Design - Ecodial verification."
+image: "/images/projects/electricaldesign/la-cozii-tk-condominium.jpeg"
+tag: "Electrical Design"
+institution: "Institute of Technology of Cambodia"
+---
+
+# Low Voltage Electrical Design for La Cozii TK Condominium
+
+![La Cozii TK Condominium](/images/projects/electricaldesign/la-cozii-tk-condominium.jpeg)
+
+This project was my Bachelor's thesis at the Institute of Technology of Cambodia. It focused on the low-voltage electrical installation design for **La Cozii TK Condominium**, an 18-storey mixed-use residential and commercial building in Tuol Kork, Phnom Penh.
+
+The main purpose of the work was to design a safe and efficient electrical distribution system by estimating power demand, improving the power factor, sizing the transformer and generator, selecting cables and protective devices, and checking the design using **Schneider Electric EcoStruxure Power Design - Ecodial**.
+
+## Project Overview
+
+<FunctionTable
+  caption="Project overview"
+  columns={["Item", "Details"]}
+  rows={[
+    ["Project type", "Bachelor's thesis / electrical building services design"],
+    ["Building", "18-storey residential and commercial condominium"],
+    ["Location", "Tuol Kork District, Phnom Penh, Cambodia"],
+    ["Main focus", "Low-voltage electrical supply and installation design"],
+    ["Standards and guides", "IEC standard, Schneider Electrical Installation Guide 2018, and EDC design requirements"],
+    ["Software used", "Microsoft Excel and EcoStruxure Power Design - Ecodial"],
+    ["Main design areas", "Power demand, capacitor bank, transformer, generator, cable sizing, voltage drop, short-circuit current, and circuit breaker selection"]
+  ]}
+/>
+
+## Problem Statement
+
+In a building electrical system, the rated power of equipment is not always the same as the actual maximum demand. Power factor, utilisation factor, diversity factor, cable size, and protection settings all affect how the system performs. If these values are not properly calculated, the design can suffer from unnecessary power losses, high voltage drop, oversized or undersized equipment, and safety risks.
+
+This thesis addressed these issues by developing a clear design process for estimating real demand and selecting suitable equipment for the building's low-voltage distribution system.
+
+## Objectives
+
+The objective was to design a low-voltage electrical installation that follows international electrical design principles and provides safe, reliable, and efficient power distribution for the building.
+
+The work covered:
+
+- calculating the maximum power demand of the project;
+- correcting the power factor and sizing the capacitor bank;
+- sizing the MV/LV transformer and backup generator;
+- selecting conductor sizes for each circuit;
+- calculating voltage drop and short-circuit current;
+- selecting suitable circuit breakers and protection devices;
+- comparing manual calculation results with EcoStruxure Power Design - Ecodial simulation results.
+
+## Design Methodology
+
+![Electrical design methodology flowchart](/images/projects/electricaldesign/methodology-electrical-design.png)
+
+The design workflow started with load data collection and ended with the final electrical system design. The main steps were:
+
+1. collect the single-line diagram and load data;
+2. calculate the power demand from each load to the distribution boards;
+3. size the capacitor bank to improve the power factor;
+4. size the MV/LV transformer based on the corrected apparent power;
+5. size the generator based on emergency and critical loads;
+6. select the cable size by calculating the maximum load current;
+7. check the voltage drop and short-circuit current;
+8. select circuit breakers based on load current and fault current;
+9. verify the design using EcoStruxure Power Design - Ecodial.
+
+## Building Electrical Distribution Concept
+
+![Model design of the electrical system in the building](/images/projects/electricaldesign/building-electrical-system-model.png)
+
+The building was designed with a main low-voltage switchboard, floor sub-distribution boards, and final distribution boards. The calculation was carried out from the load level up to the main distribution board, so the demand of each circuit, each floor, and the whole building could be checked properly.
+
+The building included parking distribution boards, residential floor distribution boards, and repeated layouts for floors 5F to 12FA. This made the power demand estimation easier to organise while still allowing the design to reflect the actual building layout.
+
+## Main Equations Used
+
+The formulas below are written through a React function instead of raw LaTeX. This avoids MDX parser errors from symbols such as curly braces, underscores, and superscripts.
+
+<MathEquation
+  title="Installed power"
+  label="Eq. 2.1"
+  formula="Pinstalled = Σ(nᵢ × Pnᵢ)"
+  variables={[
+    { symbol: "Pinstalled", meaning: "total installed power", unit: "W" },
+    { symbol: "nᵢ", meaning: "number of each load type" },
+    { symbol: "Pnᵢ", meaning: "nominal power of each load type", unit: "W" }
+  ]}
+/>
+
+<MathEquation
+  title="Estimated power demand of each load type"
+  label="Eq. 2.2"
+  formula="Pe = Ku × n × Pn"
+  variables={[
+    { symbol: "Pe", meaning: "estimated power demand", unit: "W" },
+    { symbol: "Ku", meaning: "utilisation factor" },
+    { symbol: "n", meaning: "number of loads" },
+    { symbol: "Pn", meaning: "nominal power", unit: "W" }
+  ]}
+/>
+
+<MathEquation
+  title="Maximum power demand in a circuit"
+  label="Eq. 2.3"
+  formula="Pmax = Ks × ΣPe"
+  variables={[
+    { symbol: "Pmax", meaning: "maximum active power demand", unit: "W" },
+    { symbol: "Ks", meaning: "diversity factor" },
+    { symbol: "Pe", meaning: "estimated power demand of each load", unit: "W" }
+  ]}
+/>
+
+<MathEquation
+  title="Reactive power demand"
+  label="Eq. 2.4"
+  formula="Q = P × tan(cos⁻¹(PF))"
+  variables={[
+    { symbol: "Q", meaning: "reactive power demand", unit: "var" },
+    { symbol: "P", meaning: "active power demand", unit: "W" },
+    { symbol: "PF", meaning: "power factor" }
+  ]}
+/>
+
+<MathEquation
+  title="Required capacitor bank reactive power"
+  label="Eq. 2.8"
+  formula="Qc = P × (tan φ₁ - tan φ₂)"
+  variables={[
+    { symbol: "Qc", meaning: "required capacitor bank reactive power", unit: "var" },
+    { symbol: "P", meaning: "active power demand", unit: "W" },
+    { symbol: "φ₁", meaning: "phase angle before correction" },
+    { symbol: "φ₂", meaning: "phase angle after correction" }
+  ]}
+/>
+
+<MathEquation
+  title="Transformer sizing"
+  label="Eq. 2.9"
+  formula="STr = Safter correction × Ke"
+  variables={[
+    { symbol: "STr", meaning: "rated apparent power of transformer", unit: "kVA" },
+    { symbol: "Safter correction", meaning: "apparent power after power factor correction", unit: "kVA" },
+    { symbol: "Ke", meaning: "extension factor" }
+  ]}
+/>
+
+<MathEquation
+  title="Three-phase maximum load current"
+  label="Eq. 2.13"
+  formula="Ib = P / (√3 × U × PF × η)"
+  variables={[
+    { symbol: "Ib", meaning: "maximum load current", unit: "A" },
+    { symbol: "P", meaning: "rated active power", unit: "W" },
+    { symbol: "U", meaning: "phase-to-phase voltage", unit: "V" },
+    { symbol: "PF", meaning: "power factor" },
+    { symbol: "η", meaning: "motor efficiency" }
+  ]}
+/>
+
+## Power Demand Calculation
+
+![Power demand calculation flowchart](/images/projects/electricaldesign/power-demand-calculation-flowchart.png)
+
+The power demand calculation used the installed load, utilisation factor, diversity factor, and power factor. This helped estimate the realistic maximum demand instead of simply adding all rated equipment powers together.
+
+The calculation process included:
+
+- estimating individual load demand;
+- grouping loads into circuits;
+- calculating demand for each distribution board;
+- calculating sub-distribution board demand;
+- calculating the main distribution board demand;
+- determining the final active power, reactive power, apparent power, and average power factor.
+
+## Power Factor Correction
+
+![Power triangle after compensation](/images/projects/electricaldesign/power-triangle-compensation.png)
+
+The original system power factor was below the required level, so a capacitor bank was included in the design. The target power factor was set to **0.95** to reduce reactive power demand and improve system efficiency.
+
+From the calculation, a **175 kVAR automatic capacitor bank** was selected. This consisted of **3 x 50 kVAR** and **1 x 25 kVAR** capacitor steps, allowing the system to improve the power factor while avoiding overcompensation.
+
+## Transformer and Generator Sizing
+
+![Power transformer](/images/projects/electricaldesign/power-transformer.png)
+
+The transformer was selected based on the apparent power after power factor correction, with an allowance for future load extension. The final design selected a **630 kVA MV/LV transformer**, giving around **25% spare capacity** for future growth.
+
+![Power generator](/images/projects/electricaldesign/power-generator.jpeg)
+
+The generator was sized based on the emergency and critical loads. Its role was not to supply the full building load, but to provide backup power for selected essential systems during a power outage.
+
+## Cable and Circuit Breaker Sizing
+
+![Cable and circuit breaker sizing flowchart](/images/projects/electricaldesign/cable-circuit-breaker-sizing-flowchart.png)
+
+Cable sizing was completed by calculating the maximum load current, selecting correction factors, checking the current-carrying capacity, and confirming that the voltage drop remained within the allowable limit.
+
+The circuit breaker selection was based on:
+
+- the operating current of each circuit;
+- the cable current-carrying capacity;
+- the expected short-circuit current;
+- overload and short-circuit protection requirements;
+- coordination between upstream and downstream devices.
+
+A **1000 A busway** was selected to distribute power through the building, with an estimated length of **67 m**.
+
+## EcoStruxure Power Design - Ecodial Verification
+
+![EcoStruxure MV network and busway input](/images/projects/electricaldesign/ecodial-mv-network-busway-input.png)
+
+EcoStruxure Power Design - Ecodial was used to verify the Excel-based manual calculations. The simulation included the MV/LV transformer, busway, cable data, loads, capacitor bank, and generator.
+
+![EcoStruxure capacitor bank input](/images/projects/electricaldesign/ecodial-capacitor-bank-input.png)
+
+![EcoStruxure generator input](/images/projects/electricaldesign/ecodial-generator-input.png)
+
+The software helped confirm the design values and gave another way to check voltage drop, short-circuit current, equipment rating, and protection selection.
+
+## Key Results
+
+<FunctionTable
+  caption="Key design results"
+  columns={["Result area", "Outcome"]}
+  rows={[
+    ["Total active power", "approximately 392 kW"],
+    ["Total reactive power", "approximately 291 kVAr"],
+    ["Total apparent power", "approximately 488 kVA"],
+    ["System power factor before correction", "approximately 0.80"],
+    ["Maximum load current", "approximately 704 A"],
+    ["Selected transformer", "630 kVA MV/LV transformer"],
+    ["Capacitor bank", "175 kVAR automatic capacitor bank"],
+    ["Selected busway", "1000 A, approximately 67 m"],
+    ["Voltage drop", "within the design limit, with one higher checked value around 1.87%"],
+    ["Ecodial comparison", "small differences between Excel and Ecodial results due to calculation assumptions and software methods"]
+  ]}
+/>
+
+## Discussion
+
+The result showed that the manual Excel calculation and Ecodial simulation gave similar design directions. Some differences appeared because Excel used approximate values and simplified calculation assumptions, while Ecodial applied built-in design rules and equipment data.
+
+The comparison was useful because it showed that both methods have value. Excel gives more control and is useful for understanding each calculation step, while Ecodial is faster for checking and verifying a complete electrical distribution design.
+
+## What I Learned
+
+This thesis helped me connect electrical theory with real building design practice. I learned how to move from load data to a complete low-voltage system design, including transformer sizing, generator sizing, power factor correction, cable sizing, voltage drop checking, short-circuit calculation, and protection device selection.
+
+It also improved my ability to verify manual calculations using engineering software and gave me a stronger understanding of how electrical design decisions affect safety, efficiency, reliability, and future maintenance.
+
+## References Used in the Thesis
+
+- Schneider Electrical Installation Guide, 2018
+- IEC 60364 Low-Voltage Electrical Installations
+- Electricité du Cambodge Design Standard, 2007
+- EcoStruxure Power Design - Ecodial calculation help
+- Building Design and Construction Handbook

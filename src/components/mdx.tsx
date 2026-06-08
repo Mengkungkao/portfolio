@@ -11,9 +11,13 @@ import {
   Text,
   InlineCode,
 } from "@/once-ui/components";
+
 import { CodeBlock } from "@/once-ui/modules/code/CodeBlock";
 import { TextProps } from "@/once-ui/interfaces";
 import { SmartImageProps } from "@/once-ui/components/SmartImage";
+import { FunctionTable, MathEquation } from "@/components/mdx/ProjectMdxBlocks";
+
+
 
 type CustomLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
@@ -196,6 +200,7 @@ const components = {
   th: createTableHeader as any,
   td: createTableCell as any,
   
+  
   img: createImage as any,
   a: CustomLink as any,
   code: createInlineCode as any,
@@ -205,6 +210,7 @@ const components = {
   Text,
   CodeBlock,
   InlineCode,
+  
   Accordion: dynamic(() => import("@/once-ui/components").then(mod => mod.Accordion)),
   AccordionGroup: dynamic(() => import("@/once-ui/components").then(mod => mod.AccordionGroup)),
   Table: dynamic(() => import("@/once-ui/components").then(mod => mod.Table)),
@@ -217,14 +223,24 @@ const components = {
   Icon: dynamic(() => import("@/once-ui/components").then(mod => mod.Icon)),
   SmartImage: dynamic(() => import("@/once-ui/components").then(mod => mod.SmartImage)),
   SmartLink: dynamic(() => import("@/once-ui/components").then(mod => mod.SmartLink)),
+
+  FunctionTable,
+  MathEquation,
+  
 };
 
 type CustomMDXProps = MDXRemoteProps & {
-  components?: typeof components;
+  components?: Record<string, React.ComponentType<any>>;
 };
 
 export function CustomMDX(props: CustomMDXProps) {
   return (
-    <MDXRemote {...props} components={{ ...components, ...(props.components || {}) }} />
+    <MDXRemote
+      {...props}
+      components={{
+        ...components,
+        ...(props.components || {}),
+      }}
+    />
   );
 }

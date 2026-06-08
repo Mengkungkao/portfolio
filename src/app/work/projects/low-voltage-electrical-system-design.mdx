@@ -1,0 +1,2170 @@
+---
+
+title: "Low Voltage Electrical Design for La Cozii TK Condominium"
+publishedAt: "2022-07-15"
+summary: "Bachelor thesis project on low-voltage electrical installation design, power demand estimation, equipment sizing, protection, and EcoStruxure Power Design - Ecodial verification."
+images: 
+  - "/images/projects/electricaldesign/lacoziitk.jpg"
+tag: "Electrical Design"
+
+---
+
+<FunctionTable
+  caption="Project overview"
+  columns={["Item", "Details"]}
+  rows={[
+    ["Project type", "Bachelor's thesis / electrical building services design"],
+    ["Building", "18-storey residential and commercial condominium"],
+    ["Location", "Tuol Kork District, Phnom Penh, Cambodia"]
+  ]}
+/>
+
+
+# ACKNOWLEDGEMENTS
+
+First and foremost, I'd like to use this opportunity to express my
+sincere thanks to my family for their unending love, support, and
+encouragement. My appreciation to my parents for the sacrifices they
+have made on my behalf is beyond words. I must appreciate my seniors for
+their amazing advice and assistance during the last five years of my
+studies at ITC.
+
+I'd like to express my sincere gratitude to **Dr. PO Kimtho**, ITC's
+general director, for his outstanding leadership and engagement with
+partner institutions both within and beyond the country, as well as for
+improving the quality of engineers and high-level technicians. And I am
+also grateful to **Dr. CHRIN Phok**, head of the Electrical and Energy
+Department, has been extremely helpful in every way. During my time at
+ITC, I was interested in this aspect.
+
+I'd want to convey my gratefulness and admiration for **Mrs. ENG
+Samphors**, my adviser, who has been an amazing mentor to me. I'd want
+to thank him for his explanations, suggestions, and recommendations when
+I was working on my thesis. Without her direction, this project would
+not have been completed.
+
+In addition, I also want to say thank you to **Mr. MEY Thimsovannsao,
+Mr. Morn Pisal** and **Mr. SUNHEANG Ratana** for their suggestions and
+guidance on how to excel in the internship program. He spent time
+discussing my thesis with me as well gave me the details I required to
+complete it.
+
+Ultimately, I'd want to express my gratitude to all of my lecturers who
+have assisted, taught, and advised me so far, as well as my friends and
+classmates who have always encouraged and supported me up to this point
+
+# សេចក្តី​សង្ខេប
+
+គោលបំណងនៃនិក្ខេបបទនេះគឺដើម្បីសិក្សាពីការផ្គត់ផ្គង់ប្រព័ន្ធតង់ស្យុងទាប និងការដំឡើងនៅក្នុងអគារ
+ជាពិសេសអគារ La Cozii TK Condominium ដោយប្រើការគណនាទ្រឹស្តីដោយផ្អែកលើ
+International Electrotechnical Commission Standard មាននៅក្នុង Schneider
+Electrical Installation Guide 2018 និងការផ្ទៀងផ្ទាត់ដោយប្រើកម្មវិធី EcoStruxure
+Power Design-Ecodial ។
+
+ក្នុង​ករណី​សិក្សា​នេះ អគារ​រួម​បញ្ចូល​គ្នារវាង​អគារលំនៅឋាន និង​អគារពាណិជ្ជកម្ម។
+នៅក្នុងនិក្ខេបបទនេះ
+មានរូបមន្តវិធីសាស្រ្តសំខាន់ៗសម្រាប់ការប៉ាន់ប្រមាណតម្រូវការថាមពលសម្រាប់តម្រូវការអគ្គិសនីនៅជាន់នីមួយៗនៃអគារ។
+Capacitor Bank គឺជាឧបករណ៍ដ៏សំខាន់តែមួយគត់នៃការរចនា ដែលបង្កើនកត្តាថាមពលនៃប្រព័ន្ធ
+ដើម្បីបង្កើនប្រសិទ្ធភាពថាមពល។ លើសពីនេះ ការកំណត់ទំហំត្រង់ស្វូ
+គឺមានសារៈសំខាន់ដើម្បីបំពេញតម្រូវការថាមពល
+ខណៈដែលទំហំម៉ាស៊ីនភ្លើងជ្រើសរើសអាស្រ័យលើតម្រូវការថាមពលកំឡុងពេលដាច់ភ្លើង។ ជាងនេះទៅទៀត
+ការជ្រើសរើសប្រភេទខ្សែរ និង មុខកាត់ខ្សែរ មានអត្ថប្រយោជន៍សម្រាប់កាត់បន្ថយការបាត់បង់ថាមពល,
+ភាពធន់នៃខ្សែ ហើយការកំណត់ទំហំត្រឹមត្រូវនៃ ខ្សែរ សម្រាប់កាត់បន្ថយការធ្លាក់ចុះនៃតង់ស្យុង
+ដើម្បីការពារការខូចខាតដល់ឧបករណ៍ ក៏ដូចជាសម្ភារៈប្រើប្រាស់បានយូរ។ ជាងនេះទៅទៀត
+ការឆ្លងចរន្តរបស់សៀគ្វី ក៏ដើរតួយ៉ាងសំខាន់ក្នុងនិក្ខេបបទនេះ
+ហើយចាំបាច់ត្រូវសម្រេចចិត្តត្រឹមត្រូវសម្រាប់ការកំណត់ទំហំឧបករណ៍ការពារប្រព័ន្ធ
+និងការពារគ្រោះថ្នាក់ឆាបឆេះអគ្គីភ័យពីចរន្តអគ្គិសនី។
+
+# ABSTRACT
+
+The goal of this thesis was to study the supply of low voltage systems
+and installation in buildings, specifically the La Cozii TK Condominium,
+using theoretical calculations based on the International
+Electrotechnical Commission Standard as found in the Schneider
+Electrical Installation Guide 2018 and verification using the software
+EcoStruxure Power Design-Ecodial.
+
+In this case study, the building's architectural idea combines
+residential and commercial concepts. There are significant methods for
+estimating the power requirements for the systems on each floor of
+buildings. The capacitor bank is the only significant component of the
+design that increases the power factor of the system to boost power
+efficiency. In addition, the transformer sizing is important to fulfill
+the energy needs, while the generator is sized based on the energy
+requirements during a power outage. Furthermore, the selection of
+conductor cross-section areas is advantageous for reducing power loss on
+cable resistivity, as well as determining the right size of conductor
+for lowering voltage drop to prevent damage to appliances or equipment,
+as well as long-term use. Moreover, short-circuit current also plays an
+important role in this thesis and needs to be decided for sizing the
+circuit-breaker for protection of the system and to prevent the fire
+hazard from electricity.
+
+ABBREVIATIONS AND SYMBOLS
+
+**Al** Aluminum
+
+**CB** Circuit Breaker
+
+**Cu** Copper
+
+**DB** Distribution Board
+
+**IEC** International Electrotechnical Commission
+
+**Ku** Utilization factor
+
+**Ks** Diversity factor
+
+**LV** Low Voltage
+
+**MDB** Main Distribution Board
+
+**MCB** Main Circuit Breaker
+
+**MCCB** Miniature Case Circuit Breaker
+
+**MV** Medium Voltage
+
+**PE** Protective Earth Conductor
+
+**P.F** Power Factor
+
+**S.C** Short-circuit
+
+**SDB** Sub-Distribution Board
+
+**I** Current \[A\]
+
+**P** Real Power \[W\]
+
+**Q** Reactive Power \[VAR\]
+
+**R** Resistance \[Ω\]
+
+**S** Apparent Power \[VA\]
+
+**∆U** Voltage drops \[%\]
+
+**V** Voltage \[V\]
+
+**X** Reactance \[Ω\]
+
+**Z** Impedance \[Ω\]
+
+
+# INTRODUCTION
+
+Since the increase in population, the electrical and energy
+infrastructure has become increasingly important for the Cambodian
+people. Similarly, a group of engineers is supplying construction and
+MEP system, inspection, and consultancy services to analyze and install
+the electrical system at La Cozii TK Condominium to optimize power
+consumption while reducing power loss to boost power efficiency and
+avoid electric hazard.
+
+## Project Description
+
+The La Cozii TK Condominium in **Figure 1.1** is an 18-storey
+residential and commercial building project that is expected to be
+completed in 2023. The development lies in Phnom Penh's Tuol Kork
+District. The La Cozii TK Condominium will have 79 residential units of
+various types and sizes, ranging from two-bedroom to one-bedroom. The
+development is a well-designed home with an advanced fitting and fixture
+system to offer a comfortable living environment with site area 480 sqm.
+
+![La Cozii Tk Condominium](/images/projects/electricaldesign/la-cozii-tk-condominium.jpeg)
+
+**Figure 1.1** La Cozii
+TK Condominium
+
+## Problem Statement
+
+The power factors and utilization factors of the building's equipment
+might cause the rated power of the equipment to differ from the overall
+power consumption, which is essential for determining the sizes of the
+power transformer and generator. Increased power loss may be caused by a
+decline in power factor, improper cable sizing, and other factors.
+Protection is also essential to prevent accidents or impacts to any
+appliances or equipment.
+
+## Objective
+
+The main goal of this thesis is to design an electrical installation to
+supply a low voltage (LV) system into a building while adhering to the
+electrical international standard code, namely the International
+Electrotechnical Commission (IEC), which directs us to design a safe
+electrical installation for the user's safety and convenience. This will
+help to reduce the risks of electricity to people and communities. It
+will assist in ensuring consistent power usage in the facility, lowering
+annual costs through energy conservation.
+
+## Scope of Work
+
+The scope of work covers the following:
+
+- Calculation of maximum power demand of the project
+
+- Correcting the power factor and sizing the capacitor bank
+
+- Sizing transformer and generator
+
+- Calculation of conductor sizes
+
+- Calculation of voltage drop and short-circuit current
+
+- Selection of protective devices
+
+- Comparing the results with EcoStruxure Power Design Simulation
+
+## Company’s Profile
+
+![Vrk Corporation Logo](/images/projects/electricaldesign/vrk-corporation-logo.png)
+
+**Figure 1.2** Logo of
+company
+
+VRK CORPORATION CO., LTD is founded in 2009 in Phnom Penh, Cambodia,
+this company is an EPC contractor for Mechanical, Electrical Plumbing
+(MEP) system for the green building concept projects of Commercial,
+Residential and Industrial Building as well as high-rise buildings, etc.
+for which VRK provides engineering services, supplies materials and
+equipment, performs installation and commissioning. The mission of
+company has a sustainable growth and always close to customer and
+employees with the vision to become a responsible and high-quality
+mechanical, electrical and plumbing contractor with green building
+concept and satisfy our customer with reliable and safe services.
+
+- Company’s contact:
+
+- Email: info@vrkcorporation.com
+
+- Hotline: +855 89 768 077
+
+- Borey Lim Chheang Hak, \#67B, St.198, Sangkat Vealsbov, Khan Chbar
+  Ampov, Phnom Penh, Kingdom of Cambodia.
+
+# LITERATURE REVIEW
+
+This chapter discusses the specifics and formulae required for
+estimating power demand in this project, as well as methods for
+transformer, generator, and electrical conductor sizing, in accordance
+with the IEC standard and Schneider Electrical Installation Guide 2018.
+This chapter also covers voltage drop, short-circuit current
+computation, and circuit-breaker technique sizing following reference
+\[1\].
+
+## Installed Power (kW)
+
+The nominal power rating of most electrical appliances and equipment is
+clearly indicated. The total nominal power of all power-consuming
+equipment in the installation is referred to as the installed power.
+This installed power is not the real power that will be delivered in
+practice. The installed power is calculated mathematically following
+Schneider Electric Installation Guide in reference \[1\].
+
+<MathEquation label={"Eq. 2.1"} formula={"P_installed Power = Σ_i = 1^m( n_i × P_n,i )"} />
+
+Where P_installed Power: Installed Power \[W\]
+
+n_i:The number of each type of load
+
+P_n,i:Nominal Power of each type of load \[W\]
+
+## Estimation of Actual Maximum Power Demand
+
+### Maximum Utilization Factor (ku)
+
+The power consumption of various loads is occasionally less than the
+power consumption indicated by their nominal power rating in normal
+operating conditions, a rather regular situation that supports the use
+of a utilization factor. To estimate the realistic value, this factor in
+**Table 2.1** must be added to each individual load following reference
+\[1\].
+
+**Table 2.1** Diversity
+factor according to circuit function
+
+<FunctionTable
+  caption="Table 2.1 Diversity factor according to circuit function"
+  columns={["Circuit function", "Column 2", "Diversity factor ku"]}
+  rows={[
+    ["Lighting", "", "1.00"],
+    ["Heating and Air conditioning", "", "1.00"],
+    ["Socket-outlets", "", "0.1 to 0.2 or higher"],
+    ["lifts and catering hoist", "for most power full motor", "1.00"],
+    ["", "for the second most powerful motor", "0.75"],
+    ["", "for all motors", "0.60"]
+  ]}
+/>
+
+### Diversity Factor (ks)
+
+It is general knowledge that the simultaneous operation of all installed
+loads of a particular installation never occurs in actuality, implying
+that there is always some degree of variety, which is taken into account
+for estimation purposes by employing a factor (Ks). This factor takes
+into account the non-simultaneity of distinct loads' operation (Ks), as
+shown in the **Table 2.2** below.
+
+**Table 2.2** Rated
+diversity factor for distribution boards
+
+<FunctionTable
+  caption="Table 2.2 Rated diversity factor for distribution boards"
+  columns={["Type of load", "Assumed load factor"]}
+  rows={[
+    ["Distribution 2 and 3 circuits", "0.90"],
+    ["Distribution 4 and 5 circuits", "0.80"],
+    ["Distribution 6 and 9 circuits", "0.70"],
+    ["Distribution 10 or more circuits", "0.60"],
+    ["Electric actuator", "0.20"],
+    ["Motor ≤ 100 kW", "0.80"],
+    ["Motor ≥ 100 kW", "1.00"]
+  ]}
+/>
+
+### Power Demand Calculation
+
+The nominal powers of all electrical appliances and equipment installed
+in the installation are listed, as is their power consumption. An
+electrical installation's design must be based on maximum power demand,
+which can be determined using two variables termed utilization factor
+and simultaneous factor, respectively. It is important to remember that
+installed power and installed apparent power are not the same as the
+power that will be supplied in practice following reference \[1\].
+
+- Estimated power demand of each type of load is given:
+
+<MathEquation label={"Eq. 2.2"} formula={"P_i = n_i × k_u,i × P_nom,i"} />
+
+Where k_u,i : Utilization factor of each type of load
+
+&gt; P_nom,i: Nominal power of each type of load \[W\]
+&gt;
+&gt; n_i : Number of loads
+
+- Estimated maximum power demand in a circuit is given:
+
+<MathEquation label={"Eq. 2.3"} formula={"P_circuit = Σ_i = 1^nP_i"} />
+
+Where k_s : Simultaneous factor of group of loads
+
+&gt; P_i : Estimated power demand of each type of load in a circuit
+&gt; \[W\]
+
+Noted: For DB, SDB, and MDB, Power Demand need to calculate with
+Diversity factor Ks.
+
+- The Estimated maximum reactive power demand in a circuit:
+
+<MathEquation label={"Eq. 2.4"} formula={"Q_circuit = P_circuit × tanφ"} />
+
+Where tanφ: calculation through average power factor
+
+&gt; P_circuit:Estimated maximum power demand in a circuit \[W\]
+
+- Estimated maximum apparent power demand for a circuit by:
+
+  - For single phase:
+
+<MathEquation label={"Eq. 2.5"} formula={"S_circuit = √P_circuit^2 × Q_circuit^2 or S_circuit = V × I_circuit"} />
+
+- For three phases:
+
+<MathEquation label={"Eq. 2.6"} formula={"S_circuit = √P_circuit^2 × Q_circuit^2 or S_circuit = √3 × V × I_circuit"} />
+
+- Average Power Factor of a circuit is calculated through:
+
+<MathEquation label={"Eq. 2.7"} formula={"PF_circuit = cosφ_circuit = (P_circuit) / (S_circuit)"} />
+
+## Power Factor Correction
+
+To determine the quantity of required reactive power to be compensated
+that is shown in **Figure 2.1**, the installation for power factor
+improvement, it is necessary to calculate correctly power factor
+according to the power consumption of the whole installation. This is
+done to avoid overcompensation in the installation resulting reactive
+power becomes a leading characteristic that causes apparent power and
+current increasing again with associated active power loss on feeder as
+well as bus-bars, and voltage increase in the installation from
+Schneider Electric installation \[1\].
+
+![Power Triangle Compensation](/images/projects/electricaldesign/power-triangle-compensation.png)
+
+**Figure 2.1** Power
+triangle after compensation
+
+Required reactive power of capacitor is calculated through:
+
+<MathEquation label={"Eq. 2.8"} formula={"Q_c = Q − Q' = P(tanφ- tanφ^')"} />
+
+Where Q_c ;Required reactive power of capacitor bank to
+compensate \[Var\]
+
+C :The capacitance of installed capacitor bank \[𝜇𝐹\]
+
+X_C :Capacitive reactance of capacitor bank \[Ω\]
+
+## Power Transformer
+
+A **Figure 2.2** power transformer is a device that uses a magnetic
+field to alter AC electric power at one voltage level to AC electric
+power at another voltage level.
+
+![Power Transformer](/images/projects/electricaldesign/power-transformer.png)
+
+**Figure 2.2** Power
+transformer
+
+It is made up of two or more wire coils coiled around a ferromagnetic
+core. We can calculate the rated apparent power of transformer that will
+be used in the electrical installation through the following formula
+following reference \[1\]:
+
+<MathEquation label={"Eq. 2.9"} formula={"S_Tr = S^' × k_e"} />
+
+Where S_Tr : Rated apparent power of transformer \[KVA\]
+
+S^' : Maximum apparent power demand after compensation \[KVA\]
+k_e : Extension factor
+
+## Power Generator
+
+Power generator in **Figure 2.3**, which transforms motive force
+(mechanical energy) into electrical power for use in an external
+circuit. Mechanical energy sources include steam turbines, gas turbines,
+water turbines, internal combustion engines, wind turbines, and even
+hand cranks. The following formula is used to calculate the capacity of
+a power generator. \[1\]
+
+<MathEquation label={"Eq. 2.10"} formula={"S_G = S_emg"} />
+
+Where S_G :Rated apparent power of power generator \[KVA\]
+
+&gt; S_emg :The maximum apparent power of emergency load \[KVA\]
+
+![SD300, MD300](/images/projects/electricaldesign/power-generator.jpeg)
+
+**Figure 2.3** Power
+generator
+
+Note: If the power generator in this project only supplies backup power
+during periods of power outage on select critical facilities and
+emergency equipment, S_emgis reliant on critical loads.
+
+## Cable and Circuit Breaker Sizing
+
+The size of the conductor or cable is one of the most critical aspects
+of any electrical design. The size of the conductor used in a circuit is
+determined by the amount of current it must carry. Overheating,
+excessive power losses, high voltage drop, incorrect cable protection,
+fire for under-sizing cable, and economic concerns for large cable can
+all result from incorrect conductor or cable sizing. \[1\]
+
+### Conductor Insulation Type and Busway
+
+- XLPE insulated:
+
+XLPE is a great insulation material with a lot of benefits over
+traditional thermoplastic insulation. Zero halogen, increased
+durability, extended operating life, and outstanding chemical resistance
+are just a few of the benefits. It can operate at a greater temperature
+of up to 90 degrees Celsius. Where larger cables are necessary for main
+power supply, XLPE-insulated cables are commonly used.
+
+- PVC insulated:
+
+PVC-insulated cables are often used and have a long-term operating
+temperature of up to 70 degrees Celsius. For voltage needs of 1 kV and
+lower, these cables can be utilized both indoors and outdoors in cable
+tray and conduit in power and switching stations, local distribution
+systems, industrial facilities, and commercial buildings. The cables'
+superb bending qualities make them the ideal choice for interior light
+fittings, risers, and control equipment applications since they are
+straightforward to install and maintain.
+
+- Busway
+
+Busway in **Figure 2.4**, also referred to as busbar trunking systems,
+comprises a set of conductors protected by an enclosure, stand out for
+their ease of installation, flexibility and number of possible
+connection points.
+
+**Figure 2.4** Busway
+trunking system
+
+### Maximum Load Current
+
+Maximum load current is defined as current proportional to the load's
+apparent power or current proportional to the supplied apparent power,
+taking into account both the utilization factor and the simultaneous
+factor. This current is divided into two sections, according to the
+International Electrotechnical Commission: Maximum load current at final
+circuit level & Maximum load current at all upstream circuit level.
+
+According to International Electrotechnical Vocabulary (IEV 826-11-10),
+this current is defined as design current that corresponds to rated
+apparent power of load. In a case of motor starting or other loads which
+take a high inrush current, is determined following reference \[1\]:
+
+- For single equipment
+
+<MathEquation label={"Eq. 2.11"} formula={"I_B = (P_n) / (V × cosφ) = (S) / (V)"} />
+
+- For single phase motor
+
+<MathEquation label={"Eq. 2.12"} formula={"I_B = (P_n × 10^3) / (V × η × cosφ)"} />
+
+- For three phases motor
+
+<MathEquation label={"Eq. 2.13"} formula={"I_B = (P_n × 10^3) / (√3 × V × η × cosφ)"} />
+
+Where I_B : maximum load current \[A\]
+
+&gt; V : Phase-to-neutral voltage \[V\]
+&gt;
+&gt; P_n :Nominal or rated active power \[W\]
+&gt;
+&gt; cosφ :Power factor of electrical equipment
+&gt;
+&gt; η :Efficiency of electrical motor \[%\]
+
+### Corrected Factor
+
+In order to take environment or special conditions of installation into
+building, correction factors have been introduced. The cross-sectional
+area of cables is determined by comparing corrected load current which
+obtain by using the rated load current I_B divided by
+different correction factors, k_1, k_2, … following
+by reference \[1\].
+
+<MathEquation label={"Eq. 2.14"} formula={"I_z^' = I_z × k"} />
+
+Where I_z : current carrying capacity of the cable in the
+reference installation method
+
+&gt; I_z^' : "corrected" current carrying capacity of the cable in
+&gt; real installation conditions
+
+<MathEquation label={""} formula={"k = k_1 × k_2× k_3× k_4 × ldots :"} />
+
+total corrections factors
+
+- Correction factor of ambient temperature (k_1)
+
+The current-carrying capacities of cables in the air are based on
+average air temperature equal to 30℃. For other temperature, the
+correction factor for PVC, EPR and XLPE insulation material is given in
+[**Appendix B**](#k1).
+
+- Correction factor depends on ground temperature (k_2)
+
+The current-carrying capacities of cables in the ground are based on an
+average ground temperature equal to 20 °C. For other temperatures, the
+correction factor is given in for PVC, EPR and XLPE insulation material.
+
+- Correction factor for soil thermal resistivity (k_3)
+
+The current-carrying capacities of cables in the ground are based on a
+ground resistivity equal to 2.5 K.m/W.
+
+- Correction factor depends on different configurations of installed
+  cables (k_4)
+
+The value of correction factor for different configurations of cables or
+conductors laid directly in the ground following **Appendix B**.
+
+### Voltage Drop
+
+According to IEC 60364, the impedance of the phase conductor of the
+circuit is low, but not insignificant. The voltage-drop problem is
+critical for loads that require their terminal voltage to be near to
+rated value in order to perform properly, such as motors and lighting
+systems. As a result, the voltage-drop of the circuit conductor and the
+voltage at the load terminal must be determined within the acceptable
+limits for proper operation.
+
+- Maximum voltage-drop
+
+The IEC 60364 recommends maximum allowable voltage-drop for low voltage
+installation that “these voltage-drop limits refer to nominal operation
+condition and do not apply at the times of starting motor, simultaneous
+switch of several loads. When voltage-drop exceeds maximum allowable
+value, larger cables must be used to correct the condition”.
+
+![Voltage Drop Limitation](/images/projects/electricaldesign/voltage-drop-limitation.png)
+
+**Figure 2.5** Voltage
+drop limitation
+
+- Voltage-drop in normal condition
+
+The voltage-drop of conductor supplied to each load in an installation
+can be calculated through two methods following Schneider Electric
+installation guide \[1\]:
+
+- For phase-to-phase circuit
+
+<MathEquation label={"Eq. 2.15"} formula={"Δ U = 2 × I_B × ( Rcosφ + Xsinφ )L[ V];Δ U = (100 × Δ U) / (U_n) [%]"} />
+
+- For phase to neutral circuit
+
+<MathEquation label={"Eq. 2.16"} formula={"Δ U = 2 × I_B × ( Rcosφ + Xsinφ )L[ V] ;Δ U = (100 × Δ U) / (V_n) [%]"} />
+
+- For balanced 3-phase (with or without neutral)
+
+<MathEquation label={"Eq. 2.17"} formula={"Δ U = √3 × I_B × ( Rcosφ + Xsinφ )L[ V];Δ U = (100 × Δ U) / (U_n) [%]"} />
+
+&gt; Where I_B :the full load current \[A\]
+&gt;
+&gt; L :Length of the cable \[km\]
+&gt;
+&gt; R :Resistance of the cable conductor \[Ω/km\]
+&gt;
+&gt; U_n :Phase-to-phase voltage \[V\]
+&gt;
+&gt; V_n :Phase-to-neutral voltage \[V\]
+&gt;
+&gt; φ :Phase angle between voltage and current in the circuit
+&gt; considered
+
+- The resistance of the cable conductor is given:
+
+  - For Cu
+
+<MathEquation label={"Eq. 2.18"} formula={"R = (23.70 Ωmm^2/ km^2) / (S(c.s.a in mm^2))"} />
+
+- For Al
+
+<MathEquation label={"Eq. 2.19"} formula={"R = (37.60 Ωmm^2/ km^2) / (S(c.s.a in mm^2))"} />
+
+Note: Resistance (𝑅) is negligible above cross-sectional area of 500
+mm² and reactance (X) is negligible for conductor of
+cross-sectional area less than 50mm² in the absence of any
+other information, take X as being equal to 0.08 Ω/km²
+
+- For Simplified Method: type of circuit, single-phase or 3-phase. Thus,
+  voltage drop in a cable is given by:
+
+<MathEquation label={"Eq. 2.20"} formula={"Δ U = k × I_B × L"} />
+
+Where k :is given by the table (mV/A/m)
+
+&gt; I_B :is the full-load current (A)
+&gt;
+&gt; L :is the length of cable (km)
+
+### Neutral Conductor
+
+According to IEC 60364 recommends that the cross-sectional area of
+neutral conductor is sized apart from its current-carrying requirement
+of live conductor, but depends on three main factors as know following:
+\[1\]
+
+- TT and TN-S systems
+
+  - For single-phase circuit with cable of cross-sectional area ≤16 𝑚𝑚2
+    for copper or 25 𝑚𝑚2 for aluminum, the cross-sectional area of the
+    neutral conductor must be equal to that of the phases.
+
+  - For three-phase circuit with cross-sectional area &gt;16 𝑚𝑚2 for
+    copper or 25 𝑚𝑚2 for aluminum, the cross-sectional area of the
+    neutral conductor can be equal to that of the live conductor, or can
+    be smaller than that of live conductor (without taken harmonic
+    current into account).
+
+  - The neutral conductor is protected against short-circuit.
+
+- TN-C system: The same conditions as the TT and TN-S system are applied
+  in TN-C system, but in practice, the neutral conductor must not be
+  open-circuit under any circumstance since it constitutes a PE as well
+  as a neutral conductor.
+
+- IT system: In general, it is not recommended to distribute the neutral
+  conductor, i.e., a 3-phase 3- wire scheme is preferred. When a 3-phase
+  4-wire installation is necessary, however, the condition mentioned for
+  TT and TN-S system are applicable.
+
+### Protective Earth Conductor
+
+Protective earth conductor (PE) is the conductor that creates the main
+equipotential bonding system by providing the bonding connection for all
+exposed and extraneous portions of an installation. Because of
+insulation failure, this conductor carries the fault current to the
+source's earthed neutral. The earthing electrode must be attached to the
+PE conductor, which is insulated and colored yellow and green (stripes)
+and also protected against mechanical and chemical damage in reference
+\[1\]
+
+- Simplified method
+
+This method is used to calculate size of protective earth conductor
+related to the live conductors, assuming that the same conductor
+material is used in each case. \[1\]
+
+- For S_ph ≤ 16 mm²
+
+<MathEquation label={"Eq. 2.21"} formula={"S_PE = S_ph"} />
+
+- For 16 mm² &lt; S_ph ≤ 35 mm²
+
+<MathEquation label={"Eq. 2.22"} formula={"S_PE = S_ph"} />
+
+- For S_ph &gt; 35 mm²
+
+<MathEquation label={"Eq. 2.23"} formula={"S_PE = (S_ph) / (2)"} />
+
+Where S_ph : Cross-sectional area of live or phase conductor
+\[mm²\]
+
+&gt; S_PE :Cross-sectional area of protective conductor
+&gt; \[mm²\]
+
+It will be noted that in TT earthing system, the cross-sectional area of
+protective earth conductor can be limited to 25mm² for copper
+and 35mm² for aluminum. TN earthing system, the neutral
+conductor cannot be used as a PEN conductor unless its cross-sectional
+area is equal to or larger than 10mm² for copper or 16mm2 for
+aluminum.
+
+### Short-Circuit Current
+
+Following reference \[1\], the simplified approach, the impedance of the
+MV system is assumed to be negligibly small, so that:
+
+<MathEquation label={"Eq. 2.24"} formula={"I_SC = (I_n × 100) / (U_sc)"} />
+
+While:
+
+<MathEquation label={""} formula={"I_n = (S × 1000) / (U_20√3)"} />
+
+In a 3-phase installation Isc at any point is given by:
+
+<MathEquation label={"Eq. 2.25"} formula={"I_SC = (U_20) / (√3 × Z_T)"} />
+
+Where U_20 : Phase-to-phase voltage of the open circuit secondary
+winding of the supply MV/LV transformer \[V\]
+
+&gt; Z_T : Total impedance per phase upstream installation of the
+&gt; fault location \[Ω\]
+
+- Method of calculating Z_T:
+
+Each component of an installation (MV network, transformer, cable,
+busbar, and so on...) is characterized by its impedance Z, comprising an
+element of resistance (R) and an inductive reactance (X). It may be
+noted that capacitive reactances are not important in short-circuit
+current calculations.
+
+<MathEquation label={"Eq. 2.26"} formula={"Z_T = √R_T^2 + X_T^2"} />
+
+- Network upstream of the MV/LV transformer
+
+**Table 2.3** The
+impedance LV side of the MV network
+
+<FunctionTable
+  caption="Table 2.3 The impedance LV side of the MV network"
+  columns={["P_sc", "U_20", "Ra [mΩ]", "Xa [mΩ]"]}
+  rows={[
+    ["250 MVA", "420", "0.07", "0.7"],
+    ["500 MVA", "420", "0.035", "0.351"]
+  ]}
+/>
+
+The impedance of MV network that is upstream transformer can be
+calculated from the following formula: \[1\]
+
+<MathEquation label={"Eq. 2.27"} formula={"Z_a = (U_20^2) / (P_SC)"} />
+
+Where Z_a :impedance of the MV network \[mΩ\]
+
+&gt; U_20 : Phase-to-phase no-load LV voltage \[V\]
+&gt;
+&gt; P_SC :3-phase short-circuit apparent power of MV
+&gt; network \[MVA\]
+
+Note: The upstream (MV) resistance Ra is generally found to be
+negligible compared with the corresponding Xa, the latter then being
+taken as the ohmic value for Za. If more accurate calculations are
+necessary, Xa may be taken to be equal to 0.995 Za and Ra equal to 0.1
+Xa.
+
+- Transformer
+
+The impedance Ztr of a transformer, viewed from the LV terminals, is
+given by the formula:
+
+<MathEquation label={"Eq. 2.28"} formula={"Z_Tr = (U_20^2) / (S_n) × (U_SC) / (100)"} />
+
+The transformer windings resistance Rtr can be derived from the total
+load-losses as follows:
+
+<MathEquation label={"Eq. 2.29"} formula={"R_Tr = (P_Cu) / (3I_n^2) × 1000"} />
+
+Where S_n : Rated apparent power of power transformer \[VA\]
+
+&gt; U_SC :The short-circuit impedance voltage of the power
+&gt; transformer \[%\]
+&gt;
+&gt; P_Cu :Total load-losses \[W\]
+
+From equation **(Eq. 2.33)**, reactance of transformer Xtr is calculated
+by:
+
+<MathEquation label={"Eq. 2.30"} formula={"X_Tr = √Z_Tr^2 − R_Tr^2"} />
+
+Note: For an approximation calculation, in the absence of more precise
+information on transformer characteristics. If U_20 is
+unknown, it may be assumed to be 1.05Un,
+
+- Busway
+
+The resistance of busbars is generally negligible, so that the impedance
+is practically all reactive, and amounts to approximately 0.15 mΩ/metre.
+
+- Circuit-breaker impedances
+
+In LV circuit, the impedance of the circuit-breaker upstream of the
+fault location must be taken into account. The reactance values
+conventionally assumed is 0.15 mΩ per CB, while the resistance is
+neglected. \[1\]
+
+- Circuit conductor impedances
+
+The resistance of a conductor is determined by following formula: \[1\]
+
+<MathEquation label={"Eq. 2.31"} formula={"R = ρ × (l) / (S)"} />
+
+Where ρ : The resistivity of the conductor material at the
+normal operating temperature
+
+&gt; l : The length of conductor \[m\]
+&gt;
+&gt; S :Cross-sectional area of conductor \[mm²\]
+
+Note: The short-circuit calculation is determined following **Appendix
+C**, short-circuit part.
+
+### Selection of Circuit Breaker
+
+A circuit breaker is an automatically-operated electrical switch
+designed to protect an electrical circuit from damage caused by overload
+or short-circuit. Its basic function is to detect a fault condition and,
+by interrupting continuity, to immediately discontinue electrical flow.
+Unlike a fuse, which operates once and then has to be replaced, a
+circuit breaker can be reset (either manually or automatically) to
+resume normal operation.
+
+![Circuit Breaker](/images/projects/electricaldesign/circuit-breaker.jpeg)
+
+**Figure 2.6** Circuit
+breaker
+
+The choice of a CB is made following the reference \[1\] in terms of:
+
+- Electrical characteristics (AC or DC, Voltage...) of the installation
+  for which the CB is intended
+
+- Its environment: ambient temperature, in a kiosk or switchboard
+  enclosure, climatic conditions, etc.
+
+- Presumed short-circuit current at the point of installation
+
+- Characteristics of the protected cables, busbars, busbar trunking
+  system and application (distribution, motor...)
+
+- Co-ordination with upstream and/or downstream device: selectivity,
+  cascading, coordination with switch disconnector, contactor...
+
+- Operational specifications: requirements (or not) for remote control
+  and indication and related auxiliary contacts, auxiliary tripping
+  coils, connection
+
+- Installation regulations; in particular: protection against electric
+  shock and thermal effect (See Protection against electric shocks and
+  electrical fires)
+
+- Load characteristics, such as motors, fluorescent lighting, LED
+  lighting, LV/LV transformers
+
+Circuit-breaker mainly serve for overload and short-circuit protection.
+By the category of low-voltage switching devices. There are several
+factors that we need to take into consideration to select a
+circuit-breaker based on the following parameters following reference
+\[1\]:
+
+<MathEquation label={"Eq. 2.32"} formula={"I_B ≤ I_n ≤ I_Z"} />
+
+Where I_B :is operating current of the circuit-breaker
+
+&gt; I_Z :is continuous current carrying capacity of the line
+&gt;
+&gt; I_n :is rated current of circuit-breaker
+
+The breaking capacity of circuit-breaker must be greater than or
+equivalent to the short-circuit current of circuit.
+
+# METHODOLOGY
+
+The techniques for calculating power demand for installation, capacitor
+bank, power transformer, generator, cable & protective earth cable
+sizing, voltage drop, short-circuit current, and circuit breaker in this
+project are all covered in this chapter. It is a practical part in which
+all of the theories and methods from the literature review are applied
+to the calculation in this section, as shown in **Figure 3.1**. The
+calculation as well as the steps of the whole project calculation are
+shown below.
+
+![Methodology Electrical Design](/images/projects/electricaldesign/methodology-electrical-design.png)
+
+**Figure 3.1**
+Methodology for electrical design
+
+Following the flowchart e in **Figure 3.1**:
+
+- Step 1: the single line diagram and load data collection in **APPENDIX
+  D** shown all the load data of equipment and appliances.
+
+- Step 2: Determine Power demand from each equipment to main
+  distribution board.
+
+- Step 3: Calculating and sizing a capacitor bank to improve the power
+  factor.
+
+- Step 4: Calculate & estimating the Transformer size based on the power
+  requirement.
+
+- Step 5: Estimate the size of the generator depending on the power
+  demand.
+
+- Step 6: Choosing the cable by calculating the maximum current each
+  circuit.
+
+- Step 7: Calculating the voltage drop and the short-circuit current
+  using the cable data.
+
+- Step 8: Following the short-circuit current, selecting protective
+  device.
+
+- Step 9: The completed design of electrical system.
+
+## Power Demand Calculation
+
+![Building Electrical System Model](/images/projects/electricaldesign/building-electrical-system-model.png)
+
+**Figure 3.2** Model
+design of electrical system in building
+
+![Power Demand Calculation Flowchart](/images/projects/electricaldesign/power-demand-calculation-flowchart.png)
+
+**Figure 3.3** Power
+demand calculation flowchart
+
+In this project, the building has 18 floors with 17 distribution boards,
+which contain:
+
+- Distribution board parking 1 to 3 (DB-P1, DB-P2, and DB-P3)
+
+- Distribution boards (DB-3F and DB-3FA) on the 3F and 3FA floors
+
+- Floors 5F to 12FA (SDB-5F to SDB-12FA) with the same design and
+  carrying three types of DB with eight DBs:
+
+  - DB-N01 & N04
+
+  - DB-N02, N07 & N08
+
+  - DB-N03, N05 & N06
+
+- Distribution boards (DB-14F to DB-17F) on the 14F to 17F floors
+
+The power demand is calculated by following the procedures in the
+flowchart in **Figure 3.2 & 3.3**, which is calculated from each load to
+distribution board, from DB to SDB and SDB to MDB, which based on the
+equation from the literature review in steps below:
+
+- **Individual Load Power Demand** is the multiply the utilization
+  factor by the nominal power of each appliance or equipment following
+  **(Eq. 2.1 & 2.2)**:
+
+<MathEquation label={""} formula={"⇒ P_app,i = K_u,app × n × P_n,app"} />
+
+For 2 power sockets in **DB-5F-N01-S01** in **SDB-5F** of **Appendix C**
+with nominal power 250Watt, and ultilization factor equal 0.75.
+
+<MathEquation label={""} formula={"⇒ P_socket = 0.75 × 2 × 250 = 375W"} />
+
+- Power Demand in a circuit calculation
+
+  - The maximum load power of a circuit calculated by multiplying the
+    total power of each load in each circuit by the simultaneous factor
+    based on **(Eq. 2.3)**:
+
+<MathEquation label={""} formula={"⇒ P_circuit,appliance = Σ_^P_app,i"} />
+
+- The reactive power is determined by equation **(Eq. 2.4)** in order to
+  claim the maximum estimated apparent power by using equation **(Eq.
+  2.5)** or **(Eq. 2.6)**:
+
+<MathEquation label={""} formula={"tanφ = tan(arccos(PF))"} />
+
+<MathEquation label={""} formula={"⇒ Q_circuit = P_circuit × tanφ"} />
+
+<MathEquation label={""} formula={"⇒ S_circuit = √P_circuit^2 + Q_circuit^2"} />
+
+- The average power factor is claimed by the following equation **(Eq.
+  2.7)**:
+
+<MathEquation label={""} formula={"PF_circuit = cosφ_circuit = (P_circuit) / (S_circuit)"} />
+
+For **DB-5F-N01-S01** in **Appendix C** circuit has 4 x 250W and 4 x
+500W power sockets within power factor 0.73 and Ku equal 0.75.
+
+<MathEquation label={""} formula={"⇒ P_250W = 0.75 × 4 × 250W = 750W"} />
+
+<MathEquation label={""} formula={"⇒ P_500W = 0.75 × 4 × 500W = 1500W"} />
+
+<MathEquation label={""} formula={"⇒ P_DB − 5F − N01 − S01 = Σ_^P_app,i = 750 + 1500 = 2250W"} />
+
+<MathEquation label={""} formula={"tanφ = tan(arccos(0.73)) ≈ 0.94"} />
+
+<MathEquation label={""} formula={"⇒ Q_250W = P_250W × tanφ = 750 × 0.94 ≈ 705VAR"} />
+
+<MathEquation label={""} formula={"⇒ Q_500W = P_500W × tanφ = 1500 × 0.94 ≈ 1410VAR"} />
+
+<MathEquation label={""} formula={"⇒ Q_DB − 5F − N01 − S01 = Σ_^Q_app,i = 705 + 1410 = 2115VAR"} />
+
+<MathEquation label={""} formula={"⇒ S_DB − 5F − N01 − S01 = √2250^2 + 2115^2 ≈ 3088VA"} />
+
+<MathEquation label={""} formula={"⇒ PF_DB − 5F − N01 − S01 = (2250W) / (3088VA)≈0.73"} />
+
+- Distribution Board, Sub and Main Distribution Board are Calculated
+  following the same procedure below:
+
+  - The maximum load power of a circuit calculated by multiplying the
+    total power of each load in each circuit by the simultaneous factor
+    based on **(Eq. 2.3)**:
+
+<MathEquation label={""} formula={"⇒ P_DB,circuit = K_s × Σ_^P_cicuit,i"} />
+
+- The reactive power is determined by equation **(Eq. 2.4)** in order to
+  claim the maximum estimated apparent power by using equation **(Eq.
+  2.5)** or **(Eq. 2.6)**:
+
+<MathEquation label={""} formula={"tanφ = tan(arccos(PF))"} />
+
+<MathEquation label={""} formula={"⇒ Q_DB = P_DB × tanφ"} />
+
+<MathEquation label={""} formula={"⇒ S_DB = √P_DB^2 + Q_DB^2"} />
+
+- The average power factor is claimed by the following equation **(Eq.
+  2.7)**:
+
+<MathEquation label={""} formula={"PF_DB = cosφ_DB = (P_DB) / (S_DB)"} />
+
+For **DB-N03** of **SDB-5F**, which contain 6 circuits: Air conditioner,
+Water heater, Isolator , Power socket for kitchen, Normal power socket
+and Lighting circuit in **Appendix C** thus Ks equal 0.7 for, which is
+selected from **Table 2.2**:
+
+<MathEquation label={""} formula={"⇒ P_DB − P2 = 0.7 × (0.9 + 2 + 2.4 + 1.6 + 0.8 + 0.1)kW ≈ 5.46kW"} />
+
+<MathEquation label={""} formula={"⇒ Q_DB − P2 = 0.7 × (0.84 + 0.28 + 1.8 + 1.5 + 0.82 + 0.05)kVAR ≈ 3.7kVAR"} />
+
+<MathEquation label={""} formula={"⇒ S_DB − P2 = √5.46^2 + 3.7^2 ≈ 6.6kVA"} />
+
+<MathEquation label={""} formula={"⇒ PF_DB − 5F − N01 − S01 = (5.46kW) / (6.6kVA)≅0.83"} />
+
+## Selection of Capacitor Bank
+
+According to the Design Standard of Electricité du Cambodge (EDC), the
+power factor has to be maintained at a higher than 0.85, so in this
+study, the power factor of the system is corrected to 0.95 in order to
+avoid power losses or electricity costs in reference \[5\].
+
+<MathEquation label={""} formula={"cosφ' = 0.95"} />
+
+The whole system power factor cosφ is below the required as a
+result of the power demand calculation, and it has to be boosted by
+adding a capacitor bank. To do so, **(Eq 2.8)** is used to calculate the
+power of capacitor Q_C:
+
+<MathEquation label={""} formula={"Q_c = Q − Q' = P(tanφ- tanφ^')"} />
+
+Note: the simplify method, we can select the value of
+(tanφ- tanφ^') in **Appendix A** in correction
+power factor part, and our P.F of the system in MDB is 0.82 correcting
+to 0.95, while active power is 392kW so:
+
+<MathEquation label={""} formula={"(tanφ- tanφ^') = 0.421"} />
+
+<MathEquation label={""} formula={"⇒ Q_c = 392kW × 0.421 ≈ 165kVAR"} />
+
+Accoding to catalog in **Appendix A**, the optimization of Qc is 175kVAR
+with 3x50kVAR & 1x25kVAR automatic capacitor bank in order to corrent
+the PF to 0.95 or higher.
+
+## MV/LV Power Transformer Sizing
+
+After compensation, we got the new power factor of the installation and
+the new apparent power of installation is calculated. The new apparent
+power is used to determine the size of MV/LV Power Transformer.
+
+Apparent power after compensation:
+
+<MathEquation label={""} formula={"S' = √P_MDB^2 + Q_MDB, Corrected^2"} />
+
+<MathEquation label={""} formula={"S' = √P_MDB^2 + (Q_MDB − Q_C)^2"} />
+
+By extension load demand 25% (𝑘𝑒 = 1.25) and using **(Eq. 2.9)**, the
+size of MV/LV power transformer is determined by:
+
+<MathEquation label={""} formula={"S_Tr = S^' × k_e = 1.25 × S'"} />
+
+After calculation the power transformer, we can obtain the result of
+calculation which can let us to select the rated of Power Transformer.
+
+## Power Generator Sizing
+
+The Power generator sizing is performed following by equation **(Eq. 2.10)**:
+
+<MathEquation label={""} formula={"S_G = S^'"} />
+
+The power generator in this project only supplies backup power during
+periods of power outage on select critical facilities and emergency
+equipment, hence S^'is reliant on critical loads.
+
+## Cable & Circuit Breaker Sizing
+
+![Cable Circuit Breaker Sizing Flowchart](/images/projects/electricaldesign/cable-circuit-breaker-sizing-flowchart.png)
+
+**Figure 3.4**
+Methodology for cable & circuit breaker sizing
+
+The cross-sectional areas of conductors are determined by the general
+method and by flowchart in **Figure 3.4** steps below:
+
+- Step 1: Collect the power demand such as apparent power, nominal
+  active power and Power factor of each load **Appendix** **C**.
+
+- Step 2: Calculate the maximum load current from apparent power
+  following by **(Eq.2.11)**, **(Eq. 2.12)**, & **(Eq. 2.13)**
+
+<MathEquation label={""} formula={"I_B = (P_n) / (V × cosφ)"} />
+
+<MathEquation label={""} formula={"I_B = (P_n × 10^3) / (V × η × cosφ)"} />
+
+<MathEquation label={""} formula={"I_B = (P_n × 10^3) / (√3 × V × η × cosφ)"} />
+
+- Step 3: After I_B is determined, the next tasks are:
+
+  - The correction factor is chosen based on the method of installation
+    in **Appendix B** of correction factor:
+
+    - the ambient temperature is 35 degrees Celsius, thus k1 = 0.94
+
+    - k2 & k3 both equal 1 (depend on ground)
+
+    - k4 = 0.98 for method 31-F without additional circuit
+
+    - k4 = 0.87 for method 31-F with 2 additional circuit is touching
+
+  - Select the conductor type PVC or XLPE, Cu or Al and select Iz from
+    **Appendix B**, in cable sizing part for calculation the I_z^'
+    following by **(Eq. 2.14)**, which is leading to get cross section
+    area (c.s.a) for each cable and selected the basway. Then the
+    protected earth cable is selected by following **(Eq. 2.21, 2.22 &
+    2.23)**.
+
+- Step 4: Determination Voltage drop is required the Eq. **(2.15),
+  (2.16), (2.17) & (2.20)**:
+
+  - For phase to neutral circuit
+
+<MathEquation label={""} formula={"Δ U = 2 × I_B × ( Rcosφ + Xsinφ )L[ V]"} />
+
+<MathEquation label={""} formula={"Δ U = (Δ U) / (V_n) × 100 [%]"} />
+
+- For balanced 3-phase (with or without neutral)
+
+<MathEquation label={""} formula={"Δ U = √3 × I_B × ( Rcosφ + Xsinφ )L[ V]"} />
+
+<MathEquation label={""} formula={"Δ U = (Δ U) / (U_n) × 100 [%]"} />
+
+&gt; where resistance R is calculated from **(Eq. 2.18)** or **(Eq. 2.19)**
+
+<MathEquation label={""} formula={"R_Cu = (23.70 Ωmm^2/ km^2) / (S(c.s.a in mm^2)) or R_Al = (37.60 Ωmm^2/ km^2) / (S(c.s.a in mm^2))"} />
+
+- Step 5: Verify the current-carry I_Z is higher than rated load
+  current I_B and Δ U ≤ 5%.
+
+- Step 6: Short-circuit current can be determined by simplify method
+  from **(Eq. 2.24)** or **(Eq. 2.25)**, which is calculated with
+  impedance Z_T by following the example in **Appendix B.**
+
+Find the resistance R & reactance X of all circuit from upstream of MV
+Network refer to LV, Transformer, Busway, & Cable so that we can
+calculate the total resistance Rt and total reactance Xt from upstream
+to downstream.
+
+Using Rt, Xt, **Eq. 2.25 & 2.26** to calculate Isc
+
+<MathEquation label={""} formula={"I_SC = (U_20) / (√3 × √R_T^2 + X_T^2)"} />
+
+- Step 7: Select the circuit-breaker with rated current, trip current
+  and short-circuit
+
+  current higher than load current & short-circuit calculation.
+
+- Step 8: Confirm I_B≤ I_n≤ I_Z^',
+  V_sys ≤ V_n & I_SC≤ I_SC,CB of selected
+  circuit-breaker for finally protected system.
+
+## Simulation with EcoStruxure Power Design - Ecodial 
+
+EcoStruxure Power Design–Ecodial is a user-friendly software from
+Schneider Electric that helps you optimize equipment and costs while
+managing operating specifications, all along with the design of your
+power distribution projects. [Click here for downloading the Ecodial
+Application](https://www.se.com/ww/en/product-range/61013-ecostruxure-power-design-ecodial/#overview).
+
+This point will cover the basics of designing the Ecodial electrical
+system steps:
+
+- Firstly, create a project and place a project’s name and author then
+  go to **Project Parameters** on the top left and input the parameter
+  such as frequency of network, target of PF, ambient temperature or
+  maximum voltage drop ∆U_max. After that, select the
+  distribution busbar for connecting the load and source below.
+
+- Go to **Design and Sizing** to add any type of load, switch board,
+  transformer, LV/MV source then input the data. For passive load SDB-5F
+  in **Figure 3.5**, the loads active power is input Pr = 35.7kW with
+  P.F = 0.84, then the apparent power and load current Ib are
+  automatically determined.
+
+**Figure 3.5** Load data
+Input
+
+- The LV cable W-SDB-5F also needs to input value of cable length and
+  select the type of cable & the method installation in order to
+  calculate the carry current.
+
+- The next step is selecting the MV/LV transformer for our system in
+  **Figure 3.6**, then input the transformer data for our project is
+  630kVA with 4% of short-circuit impedance voltage, 6.5kW total losses.
+
+**Figure 3.6** MV/LV
+Transformer data input
+
+- Then we selecting the cable type as BTS (Busway Trunking System) in
+  **Figure 3.7** with length 67m of BTS for distribute in building from
+  P1 to 17F.
+
+![Ecodial Mv Network Busway Input](/images/projects/electricaldesign/ecodial-mv-network-busway-input.png)
+
+**Figure 3.7** MV network
+& BTS input
+
+- For the capacitor bank in **Figures 3.8 and 3.9**, the input value of
+  the target power factor is 0.95, and then adding the generator with
+  backup mode. After that, adjust the cable sizing following our project
+  so that the simulation is able to run.
+
+![Ecodial Capacitor Bank Input](/images/projects/electricaldesign/ecodial-capacitor-bank-input.png)
+
+**Figure 3.8** Capacitor
+bank data input
+
+![Ecodial Generator Input](/images/projects/electricaldesign/ecodial-generator-input.png)
+
+**Figure 3.9** Generator
+input
+
+# Results and Discussion
+
+## Power Demand of Each Floor
+
+After following the methodology's phases, we arrived at the power demand
+result, where the left axis represented the values of bar charts for
+active power P, reactive power Q, and apparent power S, respectively, as
+in **Figure 4.1**. The right axis, in contrast, displays a line graph of
+the power factor. The biggest power consumption in the building is on
+the 5F to 12FA floors, or the SDB-5F to SDB-12FA, while the average
+power demand per sub distribution board is approximately 35.67kW within
+0.80 power factor. The DB-P2 parking place, however, has the lowest
+power demand at only 1.6kW, supplying only a small number of sockets and
+lights as in **Appendix C,** in the main distribution board part.
+
+**Figure 4.1** Result of
+power demand calculation of each floor
+
+**Figure 4.2** The result
+of maximum load currents each distribution board
+
+After power demand calculation, the active power and power factor of
+each distribution board are obtained, so the maximum load current result
+can be determined as shown in **Figure 4.2** and **Appendix C**. The
+maximum load current result of each distribution board fluctuates
+following the power demand.
+
+## Total Power Demand
+
+**Figure 4.3** Total
+power demand
+
+**Figure 4.2**'s bar chart displays the statistics for the overall power
+consumption in the main distribution board. The total active power P is
+roughly 392 kW, the total reactive power A is around 291 kVA, and the
+total apparent power is equivalent to 488 kVA if we assume a diversity
+factor of 0.8. After that, with a system power factor of 0.80, the
+maximum load current Ib is around 704A. As a result, the power
+transformer's sizing would be 630 kVA with approximately 25% spare and a
+capacitor bank of 175 kVAR for correcting PF to 0.95 as shown in
+**Appendix C,** the main distribution board**.** The result, which is
+calculated from the transformer, is 909A, which leads to the use of a
+busway 1000A rating with a length of 67 meters for distribution to the
+distribution board.
+
+**Figure 4.4** Voltage
+drop and short-circuit
+
+After the power demand calculation, we move on to the cable sizing
+process. In **Figure 4.3**, there are 5 noticeable varieties of single
+core cable with cross section areas of 6 mm², 16
+mm², 25 mm², and lengths of 5 m and 10 m, which
+are indicated by different types of color: light green, green, dark
+green, blue, and light blue, respectively. The green bar chart
+represents the result of a voltage drop in percentage \[%\], while the
+blue line graph illustrates the short-circuit current in kiloamps
+\[kA\]. The green bar chart represents the result of a voltage drop in
+percentage \[%\], while the blue line graph illustrates the
+short-circuit current in kiloamps \[kA\]. The illustration of DB-P1, P2
+& P3 shows that 3 bar charts with light green color describe the voltage
+drop with c.s.a 6mm², while 3 bar graphs with dark green
+color use the cable c.s.a 16mm². In that case, the car lift
+motor, which has the highest maximum load current in a length of 10m and
+a diameter of 25mm², has a voltage drop of 1.87%, while the
+lowest drop is approximately 1.76%. The data input in the chart below is
+obtained from **Appendix C,** and finally, the circuit breaker can be
+selected.
+
+## Result of Ecodial and Comparison
+
+All cable input data to be delivered to distribution boards from the
+busway is modified to the same length and c.s.a. as in the excel
+calculation after the simulation in Ecodial has run. As seen in Figure
+4.5, the Excel calculation for the transfer pump has seen the least
+change, while the Excel calculation for the fire pump has had the
+largest variation, which is around 1.6 percent. The data imported into
+the graphic below comes entirely from **Appendix C**, the comparison
+part.
+
+**Figure 4.5** Voltage
+drop comparison
+
+Another significant issue for debate is short-circuit. **Figure 4.6**
+illustrates how Excel calculation and Ecodial simulation experience a
+little variation in short-circuit current on all levels of floor or
+distribution board and circuits.
+
+**Figure 4.6**
+Short-circuit comparison
+
+# CONCLUSIONS
+
+By following all the methodology and using the software to determine the
+total power demand step by step, from the load to the circuit, then to
+the DB, SDB, and MDB, the total power demand with the power factor
+dropped below the required value, the capacitor bank needs to be
+calculated and sized, the transformer and the generator are almost
+significantly the same. In that case, the error values of both
+operations are different because of the approximate values used in the
+calculation. In such situation, due to the approximations utilized in
+the computation, the error values of the two procedures are different.
+Both Ecodial and Excel calculations have their advantages and
+disadvantages when compared for use. While Ecodial is quick and simple,
+the computation in Excel is difficult and time-consuming, but for the
+complexity, the use of Excel is more advanced.
+
+Recommendation for future work, is to use the Excel calculation for the
+complexity of electrical system design and also using other software
+from ABB or Siemen for verify our excel calculation to improve the
+estimation more accuracy.
+
+REFERENCES
+
+\[1\] [Etienne TISON, (2018), *Schneider Electrical installation
+guide*](https://drive.google.com/file/d/1QFtn5om_BdhrIeSF1Qy3Sk0KFA5HRhQ1/view?usp=sharing)
+
+\[2\] [NEC 285, (2011), *Surge protective
+devices*](http://www.powerqualityworld.com/2011/05/surge-protective-devices-spds-nec-285.html)
+
+\[3\] [IEC 60364, *Low-voltage electrical
+installations*](https://drive.google.com/file/d/1c2cSlFZt-lcTLOC4EoPuqDr6-u2Sc347/view?usp=sharing)
+
+\[4\] [Frederick S. Merritt, *Building Design and Construction Handbook,
+6th
+Edition*](https://drive.google.com/file/d/1ZgNxZRS7nR-XjbR37qE3BQD4L8_QJv7J/view?usp=sharing)
+
+\[5\] [Electricité du Cambodge, (2007), *Design Standard of
+EDC*](https://drive.google.com/file/d/1HRvl_lpacmpboxt-vNUixtbVG4Y3e6dz/view?usp=sharing)
+
+\[6\] [Schneider, *Ecodial Advance Calculation
+Help*](https://drive.google.com/file/d/1zBzl4BcTYB9k1aUZkX3qsaL36p9uK137/view?usp=sharing)
+
+\[7\] [Canalis, (2020), *KTA 800 –
+5000A*](https://drive.google.com/file/d/1EMKMuYSF3mLaKqmjcFhEWkgQWjcIKEWJ/view?usp=sharing)
+
+\[8\] [Fuji, *Oil immersed
+Transformer*](https://drive.google.com/file/d/1rbMEELc3n8meYpAxyYhGHBuCEqadm2dR/view?usp=sharing)
+
+APPENDICES
+
+1.  Power factor and capacitor bank
+
+Power factor
+
+![Power Factor Correction Table](/images/projects/electricaldesign/power-factor-correction-table.png)
+
+Qc to be installed per kW of load, to improve the power factor
+
+Capacitor bank selection
+
+Genrac Generator selection
+
+Transformer specification
+
+2.  Cable sizing, voltage drop, impedance & short-circuit
+
+Correction factors for ambient air temperatures other than 30 °C
+
+Reduction factors (table B.52.17 of IEC 60364-5-52)
+
+Reduction factors - method of installation F.
+
+Current-carrying capacity in amperes (table C.52.1 of IEC 60364-5-52)
+
+Busway charateristics
+
+Resistance & Reactance calculation
+
+![Appendix Resistance Reactance Calculation](/images/projects/electricaldesign/appendix-resistance-reactance-calculation.png)
+
+Short-circuit current calculation
+
+![Appendix Transformer Specification](/images/projects/electricaldesign/appendix-transformer-specification.png)
+
+Circuit breaker selection
+
+![Appendix Cable Sizing Table 1](/images/projects/electricaldesign/appendix-cable-sizing-table-1.png)
+
+MCCB selection
+
+![Appendix Cable Sizing Table 2](/images/projects/electricaldesign/appendix-cable-sizing-table-2.png)
+
+3.  Load Data Collection & Power Factor
+
+Distribution board parking 1 (DB-P1)
+
+<FunctionTable
+  caption="Distribution board parking 1 (DB-P1)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-P1", "AC01", "", "", "", "1.13", "1.05", "1.54", "0.73", "6.7"],
+    ["CASSETTE AC 2.0HP", "", "1", "1,500", "0.75", "", "", "", "", ""],
+    ["DB-P1", "AC01", "", "", "", "1.13", "1.05", "1.54", "0.73", "6.7"],
+    ["CASSETTE AC 2.0HP", "", "1", "1,500", "0.75", "", "", "", "", ""],
+    ["DB-P1", "S01", "", "", "", "0.75", "0.77", "1.07", "0.70", "4.7"],
+    ["POWER SOCKET", "", "4", "250", "0.75", "", "", "", "", ""],
+    ["DB-P1", "S02", "", "", "", "0.84", "0.86", "1.20", "0.70", "5.2"],
+    ["POWER SOCKET", "", "3", "350", "0.80", "", "", "", "", ""],
+    ["DB-P1", "S03", "", "", "", "0.56", "0.57", "0.80", "0.70", "3.5"],
+    ["POWER SOCKET", "", "2", "350", "0.80", "", "", "", "", ""],
+    ["DB-P1", "S04", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
+    ["POWER SOCKET", "", "4", "250", "0.80", "", "", "", "", ""],
+    ["DB-P1", "S05", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
+    ["POWER SOCKET", "", "4", "250", "0.80", "", "", "", "", ""],
+    ["DB-P1", "S06", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
+    ["POWER SOCKET", "", "4", "250", "0.80", "", "", "", "", ""],
+    ["DB-P1", "L01", "", "", "", "0.17", "0.08", "0.19", "0.90", "0.8"],
+    ["LED LIGHT 12W", "", "14", "12", "1.00", "", "", "", "", ""],
+    ["DB-P1", "L02", "", "", "", "0.29", "0.14", "0.32", "0.90", "1.4"],
+    ["LED PANEL 36W", "", "8", "36", "1.00", "", "", "", "", ""],
+    ["DB-P1", "L01", "", "", "", "0.25", "0.26", "0.36", "0.70", "1.6"],
+    ["SPARE SDB-5F TO RF", "", "1", "250", "1.00", "", "", "", "", ""],
+    ["DB-P1, Ks = 0.6", "", "", "", "", "4.50", "4.33", "6.25", "0.72", "9.02"]
+  ]}
+/>
+
+Distribution board parking 2 (DB-P2)
+
+<FunctionTable
+  caption="Distribution board parking 2 (DB-P2)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-P2", "S01", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
+    ["POWER SOCKET", "", "4", "250", "0.60", "", "", "", "", ""],
+    ["DB-P2", "S02", "", "", "", "0.63", "0.64", "0.90", "0.70", "3.9"],
+    ["POWER SOCKET", "", "3", "350", "0.60", "", "", "", "", ""],
+    ["DB-P2", "L01", "", "", "", "0.35", "0.17", "0.38", "0.90", "1.7"],
+    ["LED LIGHTING 12W", "", "6", "12", "0.80", "", "", "", "", ""],
+    ["LED PANEL 36W", "", "10", "36", "0.80", "", "", "", "", ""],
+    ["DB-P2", "L02", "", "", "", "0.20", "0.10", "0.22", "0.90", "1.0"],
+    ["SPARE LIGHTING", "", "1", "250", "0.80", "", "", "", "", ""],
+    ["DB-P2, Ks = 0.9", "", "", "", "", "1.60", "1.37", "2.10", "0.76", "3.04"]
+  ]}
+/>
+
+Distribution board parking 3 (DB-P3)
+
+<FunctionTable
+  caption="Distribution board parking 3 (DB-P3)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-P3", "S01", "", "", "", "1.08", "1.10", "1.54", "0.70", "6.7"],
+    ["POWER SOCKET", "", "6", "300", "0.60", "", "", "", "", ""],
+    ["DB-P3", "S02", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
+    ["POWER SOCKET", "", "4", "250", "0.60", "", "", "", "", ""],
+    ["DB-P3", "L01", "", "", "", "0.35", "0.17", "0.38", "0.90", "1.7"],
+    ["LED 12W", "", "6", "12", "0.80", "", "", "", "", ""],
+    ["LED PANEL 36W", "", "10", "36", "0.80", "", "", "", "", ""],
+    ["DB-P3", "L02", "", "", "", "0.20", "0.10", "0.22", "0.90", "1.0"],
+    ["SPARE", "", "1", "250", "0.80", "", "", "", "", ""],
+    ["DB-P3, Ks = 0.9", "", "", "", "", "2.00", "1.78", "2.68", "0.75", "3.87"]
+  ]}
+/>
+
+Distribution board 3 floor (DB-3F)
+
+<FunctionTable
+  caption="Distribution board 3 floor (DB-3F)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-3F", "", "", "", "", "", "", "", "", ""],
+    ["DB-3F", "AC01", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
+    ["DB-3F", "AC02", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
+    ["DB-3F", "AC03", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
+    ["DB-3F", "AC04", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
+    ["DB-3F", "AC05", "", "", "", "2.25", "2.11", "3.08", "0.73", "4.4"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", "", ""],
+    ["DB-3F", "S01", "", "", "", "2.40", "2.45", "3.43", "0.70", "14.9"],
+    ["POWER SOCKET", "", "4", "1,000.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S02", "", "", "", "2.40", "2.45", "3.43", "0.70", "14.9"],
+    ["POWER SOCKET", "", "4", "1,000.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S03", "", "", "", "0.90", "0.92", "1.29", "0.70", "5.6"],
+    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S04", "", "", "", "1.05", "1.07", "1.50", "0.70", "6.5"],
+    ["POWER SOCKET", "", "7", "250.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S05", "", "", "", "0.90", "0.92", "1.29", "0.70", "5.6"],
+    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S06", "", "", "", "0.90", "0.92", "1.29", "0.70", "5.6"],
+    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S07", "", "", "", "0.90", "0.92", "1.29", "0.70", "5.6"],
+    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S08", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
+    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S09", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
+    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S10", "", "", "", "0.84", "0.86", "1.20", "0.70", "5.2"],
+    ["POWER SOCKET", "", "4", "350.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "S11", "", "", "", "1.05", "1.07", "1.50", "0.70", "6.5"],
+    ["POWER SOCKET", "", "5", "350.00", "0.60", "", "", "", "", ""],
+    ["DB-3F", "L01", "", "", "", "0.36", "0.17", "0.40", "0.90", "1.7"],
+    ["LED LIGHTING 12W", "", "30", "12.00", "1.00", "", "", "", "", ""],
+    ["DB-3F", "L02", "", "", "", "0.36", "0.17", "0.40", "0.90", "1.7"],
+    ["LED LIGHTING 12W", "", "30", "12.00", "1.00", "", "", "", "", ""],
+    ["DB-3F", "L02", "", "", "", "0.04", "0.02", "0.04", "0.90", "0.2"],
+    ["SPARE LIGHTING", "", "1", "36.00", "1.00", "", "", "", "", ""],
+    ["DB-3F, Ks = 0.6", "", "", "", "", "14.73", "14.22", "20.47", "0.72", "29.54"]
+  ]}
+/>
+
+Distribution board 3A floor (DB-3FA)
+
+<FunctionTable
+  caption="Distribution board 3A floor (DB-3FA)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-3FA", "", "", "", "", "", "", "", ""],
+    ["DB-3FA", "AC01", "", "", "", "1.97", "1.84", "2.70", "0.73"],
+    ["CASSETTE AC 3.5HP", "", "1", "2,625.00", "0.75", "", "", "", ""],
+    ["DB-3FA", "AC02", "", "", "", "1.97", "1.84", "2.70", "0.73"],
+    ["CASSETTE AC 3.5HP", "", "1", "2,625.00", "0.75", "", "", "", ""],
+    ["DB-3FA", "AC03", "", "", "", "1.41", "1.32", "1.93", "0.73"],
+    ["CASSETTE AC 2.5HP", "", "1", "1,875.00", "0.75", "", "", "", ""],
+    ["DB-3FA", "AC04", "", "", "", "2.25", "2.11", "3.08", "0.73"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", ""],
+    ["DB-3FA", "AC05", "", "", "", "2.25", "2.11", "3.08", "0.73"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.75", "", "", "", ""],
+    ["DB-3FA", "S01", "", "", "", "2.40", "2.45", "3.43", "0.70"],
+    ["POWER SOCKET", "", "4", "1,000.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "S02", "", "", "", "0.60", "0.61", "0.86", "0.70"],
+    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "S03", "", "", "", "3.60", "3.67", "5.14", "0.70"],
+    ["POWER SOCKET", "", "6", "1,000.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "S04", "", "", "", "0.60", "0.61", "0.86", "0.70"],
+    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "S05", "", "", "", "0.90", "0.92", "1.29", "0.70"],
+    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "S06", "", "", "", "0.60", "0.61", "0.86", "0.70"],
+    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "S07", "", "", "", "0.90", "0.92", "1.29", "0.70"],
+    ["POWER SOCKET", "", "6", "250.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "S08", "", "", "", "0.60", "0.61", "0.86", "0.70"],
+    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "S09", "", "", "", "0.60", "0.61", "0.86", "0.70"],
+    ["POWER SOCKET", "", "4", "250.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "S10", "", "", "", "0.84", "0.86", "1.20", "0.70"],
+    ["POWER SOCKET", "", "4", "350.00", "0.60", "", "", "", ""],
+    ["DB-3FA", "L01", "", "", "", "0.84", "0.41", "0.93", "0.90"],
+    ["LED LIGHTING 12W", "", "70", "12.00", "1.00", "", "", "", ""],
+    ["DB-3FA", "L02", "", "", "", "0.22", "0.10", "0.24", "0.90"],
+    ["LED PANEL 36W", "", "6", "36.00", "1.00", "", "", "", ""],
+    ["DB-3FA", "SP01", "", "", "", "0.22", "0.10", "0.24", "0.90"],
+    ["SPARE LIGHTING", "", "6", "36.00", "1.00", "", "", "", ""],
+    ["DB-3FA, Ks = 0.6", "", "", "", "13.65", "13.02", "18.87", "0.72", "27.24"]
+  ]}
+/>
+
+Distribution board 1 in 5 floor (DB-5F-N01)
+
+<FunctionTable
+  caption="Distribution board 1 in 5 floor (DB-5F-N01)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-5F-N0(1)", "", "", "", "", "", "", "", "", ""],
+    ["DB-5F-N0(1)", "AC01", "", "", "", "0.56", "0.53", "0.77", "0.73", "3.4"],
+    ["WALL MOUNTED 1HP", "", "1", "750.00", "0.75", "", "", "", "", ""],
+    ["DB-5F-N0(1)", "AC02", "", "", "", "0.84", "0.79", "1.16", "0.73", "5.0"],
+    ["WALL MOUNTED 1.5HP", "", "1", "1,125.00", "0.75", "", "", "", "", ""],
+    ["DB-5F-N0(1)", "WH02", "", "", "", "2.50", "0.36", "2.53", "0.99", "11.0"],
+    ["WATER HEATER", "", "1", "2,500.00", "1.00", "", "", "", "", ""],
+    ["DB-5F-N0(1)", "ISO03", "", "", "", "3.00", "2.25", "3.75", "0.80", "16.3"],
+    ["ISOLATOR", "", "1", "3,000.00", "1.00", "", "", "", "", ""],
+    ["DB-5F-N0(1)", "S01", "", "", "", "2.25", "2.1065", "3.08", "0.73", "13.4"],
+    ["KITCHEN SOCKET", "", "4", "500.00", "0.75", "", "", "", "", ""],
+    ["DB-5F-N0(1)", "S02", "4", "250.00", "0.75", "", "", "", "", ""],
+    ["POWER SOCKET", "", "", "", "", "1.05", "1.07", "1.50", "0.70", "6.5"],
+    ["DB-5F-N0(1)", "SP01", "7", "250.00", "0.60", "", "", "", "", ""],
+    ["SPARE AC", "", "", "", "", "0.60", "0.45", "0.75", "0.80", "3.3"],
+    ["DB-5F-N0(1)", "L01", "1", "750.00", "0.80", "", "", "", "", ""],
+    ["EXHUSTING FAN", "", "", "", "", "0.12", "0.03", "0.12", "0.97", "0.5"],
+    ["LED LIGHTING 12W", "", "1", "20.00", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 18W", "", "6", "12.00", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(1), Ks = 0.7", "", "", "", "", "7.65", "5.31", "9.31", "0.82", "13.43"]
+  ]}
+/>
+
+Distribution board 2 in 5 floor (DB-5F-N02)
+
+<FunctionTable
+  caption="Distribution board 2 in 5 floor (DB-5F-N02)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-5F-N0(2)", "", "", "", "", "", "", "", "", ""],
+    ["DB-5F-N0(2)", "AC01", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
+    ["WALL MOUNT 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(2)", "AC02", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
+    ["WALL MOUNT 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(2)", "AC03", "", "", "", "0.90", "0.84", "1.23", "0.73", "5.4"],
+    ["WALL MOUNT 1.5HP", "", "1", "1,125.00", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(2)", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(2)", "WH02", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(2)", "ISO03", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
+    ["ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(2)", "S01", "", "", "", "1.50", "1.40", "2.05", "0.73", "8.9"],
+    ["KICHEN SOCKET", "", "4", "500", "0.75", "", "", "", "", ""],
+    ["DB-5F-N0(2)", "S02", "", "", "", "2.40", "2.45", "3.43", "0.70", "14.9"],
+    ["SOCKET", "", "12", "250", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(2)", "L01", "", "", "", "0.24", "0.12", "0.27", "0.90", "1.2"],
+    ["EXHUSTING FAN", "", "1", "20", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 12W", "", "19", "12", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 18W", "", "3", "18", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(2), Ks = 0.7", "", "", "", "", "8.85", "5.81", "10.59", "0.84", "15.28"]
+  ]}
+/>
+
+Distribution board 3 in 5 floor (DB-5F-N03)
+
+<FunctionTable
+  caption="Distribution board 3 in 5 floor (DB-5F-N03)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-5F-N0(3)", "", "", "", "", "", "", "", "", ""],
+    ["DB-5F-N0(3)", "AC01", "", "", "", "0.90", "0.84", "1.23", "0.73", "5.4"],
+    ["WALL MOUNTED 1.5HP", "", "1", "1,125", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(3)", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["WATER HEATER", "", "1", "2,500", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(3)", "S03", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
+    ["ISOLATOR", "", "1", "3,000", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(3)", "S02", "", "", "", "1.60", "1.50", "2.19", "0.73", "9.5"],
+    ["KITCHEN SOCKET", "", "4", "500", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(3)", "S01", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
+    ["POWER SOCKET", "", "4", "250", "0.80", "", "", "", "", ""],
+    ["DB-5F-N0(3)", "L01", "", "", "", "0.10", "0.05", "0.11", "0.90", "0.5"],
+    ["EXHUSTING FAN", "", "1", "20", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 12W", "", "7", "12", "1.00", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["DB-5F-N0(3), Ks = 0.7", "", "", "", "", "5.460", "3.70", "6.60", "0.83", "9.52"]
+  ]}
+/>
+
+Sub-distribution board floor (SDB-5F)
+
+<FunctionTable
+  caption="Sub-distribution board floor (SDB-5F)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["SDB-5F", "", "", "", "", "", "", "", "", ""],
+    ["SDB-5F", "DB01", "", "", "", "7.65", "5.31", "9.31", "0.82", "40.5"],
+    ["DB-5F-N0 (1)", "", "1", "7,646", "1.00", "", "", "", "", ""],
+    ["SDB-5F", "DB02", "", "", "", "8.85", "5.81", "10.59", "0.84", "46.0"],
+    ["DB-5F-N0 (2)", "", "1", "8,849", "1.00", "", "", "", "", ""],
+    ["SDB-5F", "DB03", "", "", "", "5.46", "3.70", "6.60", "0.83", "28.7"],
+    ["DB-5F-N0 (3)", "", "1", "5,460", "1.00", "", "", "", "", ""],
+    ["SDB-5F", "DB04", "", "", "", "7.65", "5.31", "9.31", "0.82", "40.5"],
+    ["DB-5F-N0 (4)", "", "1", "7,646", "1.00", "", "", "", "", ""],
+    ["SDB-5F", "DB05", "", "", "", "5.46", "3.70", "6.60", "0.83", "28.7"],
+    ["DB-5F-N0 (5)", "", "1", "5,460", "1.00", "", "", "", "", ""],
+    ["SDB-5F", "DB06", "", "", "", "5.46", "3.70", "6.60", "0.83", "28.7"],
+    ["DB-5F-N0 (6)", "", "1", "5,460", "1.00", "", "", "", "", ""],
+    ["SDB-5F", "DB07", "", "", "", "8.85", "5.81", "10.59", "0.84", "46.0"],
+    ["DB-5F-N0 (7)", "", "1", "8,849", "1.00", "", "", "", "", ""],
+    ["SDB-5F", "DB08", "", "", "", "8.85", "5.81", "10.59", "0.84", "46.0"],
+    ["DB-5F-N0 (8)", "", "1", "8,849", "1.00", "", "", "", "", ""],
+    ["SDB-5F", "S01", "", "", "", "1.08", "1.10", "1.54", "0.70", "6.7"],
+    ["POWER SOCKET", "", "6", "300", "0.60", "", "", "", "", ""],
+    ["SDB-5F", "L01", "", "", "", "0.16", "0.08", "0.17", "0.90", "0.8"],
+    ["LED LIGHTING 12W", "", "13", "12", "1.00", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["SDB-5F, Ks = 0.6", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"]
+  ]}
+/>
+
+Distribution board 14 floor (DB-14F)
+
+<FunctionTable
+  caption="Distribution board 14 floor (DB-14F)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-14F", "AC01", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
+    ["WALL MOUNT AC 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "AC02", "", "", "", "1.20", "1.12", "1.64", "0.73", "7.1"],
+    ["WALL MOUNT AC 2HP", "", "1", "1,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "AC03", "", "", "", "1.50", "1.40", "2.05", "0.73", "8.9"],
+    ["WALL MOUNT AC 2.5HP", "", "1", "1,875.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "AC04", "", "", "", "1.20", "1.12", "1.64", "0.73", "7.1"],
+    ["WALL MOUNT AC 2HP", "", "1", "1,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "AC05", "", "", "", "1.20", "1.12", "1.64", "0.73", "7.1"],
+    ["WALL MOUNT AC 2HP", "", "1", "1,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "AC06", "", "", "", "1.50", "1.40", "2.05", "0.73", "8.9"],
+    ["WALL MOUNT AC 2.5HP", "", "1", "1,875.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "AC07", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "AC08", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
+    ["15F CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "AC09", "", "", "", "1.20", "1.12", "1.64", "0.73", "2.4"],
+    ["15MF CASSETTE 2.0HP", "", "1", "1,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "AC10", "", "", "", "1.80", "1.69", "2.47", "0.73", "3.6"],
+    ["15MF CASSETTE 3.0HP", "", "1", "2,250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "SP01", "", "", "", "0.40", "0.30", "0.50", "0.80", "2.2"],
+    ["SPARE", "", "2", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "SP02", "", "", "", "0.40", "0.30", "0.50", "0.80", "2.2"],
+    ["SPARE", "", "2", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "WH02", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "WH03", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "WH04", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "ISO01", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
+    ["ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S01", "", "", "", "2.25", "1.69", "2.81", "0.80", "12.2"],
+    ["KITCHEN SOCKET", "", "6", "500.00", "0.75", "", "", "", "", ""],
+    ["DB-14F", "S02", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
+    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S03", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
+    ["POWER SOCKET", "", "3", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S04", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
+    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S05", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
+    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S06", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
+    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S07", "", "", "", "1.20", "1.22", "1.71", "0.70", "7.5"],
+    ["POWER SOCKET", "", "6", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S08", "", "", "", "0.40", "0.41", "0.57", "0.70", "2.5"],
+    ["15F POWER SOCKET", "", "2", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S09", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["15F POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "ISO01", "", "", "", "2.40", "2.45", "3.43", "0.70", "14.9"],
+    ["15F ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S10", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["15F POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S11", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["15F POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S12", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["15MF POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["15MF WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "WH02", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["15MF WATER HEATER", "", "1", "2,500.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "S13", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["15F POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "SP03", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["SPARE", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "SP04", "", "", "", "2.03", "1.09", "2.30", "0.88", "10.0"],
+    ["SPARE", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "L01", "", "", "", "0.04", "0.02", "0.04", "0.90", "0.2"],
+    ["LED LIGHTING 12W", "", "4", "12.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "L02", "", "", "", "0.35", "0.17", "0.39", "0.90", "1.7"],
+    ["EXHUASTING FAN", "", "2", "20.00", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 12W", "", "27", "12.00", "0.80", "", "", "", "", ""],
+    ["DÉCOR LIGHTING 36W", "", "2", "36.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "L03", "", "", "", "0.53", "0.26", "0.59", "0.90", "2.6"],
+    ["EXHUASTING FAN", "", "1", "20.00", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 12W", "", "45", "12.00", "0.80", "", "", "", "", ""],
+    ["DÉCOR LIGHTING 36W", "", "3", "36.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "L01", "", "", "", "0.21", "0.10", "0.23", "0.90", "1.0"],
+    ["15F LED LIGHTING 12W", "", "20", "12.00", "0.80", "", "", "", "", ""],
+    ["15F EXHUASTING FAN", "", "1", "20.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "L01", "", "", "", "0.47", "0.23", "0.52", "0.90", "2.3"],
+    ["15MZ EXHUASTING FAN", "", "1", "20.00", "0.80", "", "", "", "", ""],
+    ["15MZ LED LIGHTING 12W", "", "38", "12.00", "0.80", "", "", "", "", ""],
+    ["15MZ DESIGN LED 36W", "", "3", "36.00", "0.80", "", "", "", "", ""],
+    ["DB-14F", "L06", "", "", "", "0.23", "0.11", "0.26", "0.90", "1.1"],
+    ["16F LED LIGHTING 12W", "", "24", "12.00", "0.80", "", "", "", "", ""],
+    ["DB-14F, Ks = 0.6", "", "", "", "", "28.14", "19.58", "34.28", "0.82", "49.48"]
+  ]}
+/>
+
+Distribution board 1 in 15 floor (DB-15F-N01)
+
+<FunctionTable
+  caption="Distribution board 1 in 15 floor (DB-15F-N01)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-15F-N0(1)", "", "", "", "", "", "", "", "", ""],
+    ["DB-15F-N0(1)", "AC01", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
+    ["WALL MOUNT 1HP", "", "1", "750", "0.80", "", "", "", "", ""],
+    ["DB-15F-N0(1)", "AC02", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
+    ["WALL MOUNT 1HP", "", "1", "750", "0.80", "", "", "", "", ""],
+    ["DB-15F-N0(1)", "AC02", "", "", "", "0.90", "0.84", "1.23", "0.73", "5.4"],
+    ["WALL MOUNT 1.5HP", "", "1", "1,125", "0.80", "", "", "", "", ""],
+    ["DB-15F-N0(1)", "WH01", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["WATER HEATER", "", "1", "2,500", "0.80", "", "", "", "", ""],
+    ["DB-15F-N0(1)", "WH02", "", "", "", "2.00", "0.28", "2.02", "0.99", "8.8"],
+    ["WATER HEATER", "", "1", "2,500", "0.80", "", "", "", "", ""],
+    ["DB-15F-N0(1)", "ISO01", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
+    ["ISOLATOR", "", "1", "3,000", "0.80", "", "", "", "", ""],
+    ["DB-15F-N0(1)", "S01", "", "", "", "2.25", "1.69", "2.81", "0.80", "12.2"],
+    ["KICTCHEN SOCKET", "", "6", "500", "0.75", "", "", "", "", ""],
+    ["DB-15F-N0(1)", "S02", "", "", "", "2.00", "2.04", "2.86", "0.70", "12.4"],
+    ["POWER SOCKET", "", "10", "250", "0.80", "", "", "", "", ""],
+    ["DB-15F-N0(1)", "L01", "", "", "", "0.26", "0.13", "0.29", "0.90", "1.3"],
+    ["EXHUASTING FAN", "", "2", "20", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 12W", "", "18", "12", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 18W", "", "2", "18", "0.80", "", "", "", "", ""],
+    ["DECOR LED 36W", "", "1", "36", "0.80", "", "", "", "", ""],
+    ["DB-15F-N0(1), Ks = 0.7", "", "", "", "", "9.11", "5.73", "10.76", "0.85", "15.54"]
+  ]}
+/>
+
+Sub-distribution board 15 floor (SDB-15F)
+
+<FunctionTable
+  caption="Sub-distribution board 15 floor (SDB-15F)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["SDB-15F", "", "", "", "", "", "", "", "", ""],
+    ["SDB-15F", "DB01", "", "", "", "8.33", "5.24", "9.85", "0.85", "42.8"],
+    ["DB-15F-N0 (1)", "", "1", "10,414.69", "0.80", "", "", "", "", ""],
+    ["SDB-15F", "DB02", "", "", "", "8.33", "5.24", "9.85", "0.85", "42.8"],
+    ["DB-15F-N0 (2)", "", "1", "10,414.69", "0.80", "", "", "", "", ""],
+    ["SDB-15F", "DB03", "", "", "", "8.33", "5.24", "9.85", "0.85", "42.8"],
+    ["DB-15F-N0 (3)", "", "1", "10,414.69", "0.80", "", "", "", "", ""],
+    ["SDB-15F", "L01", "", "", "", "0.10", "0.05", "0.11", "0.90", "0.5"],
+    ["LED LIGHTING 12W", "", "10", "12.00", "0.80", "", "", "", "", ""],
+    ["SDB-15F", "S01", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["SDB-15F", "L02", "", "", "", "0.20", "0.10", "0.22", "0.90", "1.0"],
+    ["SPARE LIGHTING", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["SDB-15F, Ks = 0.7", "", "", "", "", "15.29", "9.65", "18.08", "0.85", "26.10"]
+  ]}
+/>
+
+Distribution board 16 floor (DB-16F)
+
+<FunctionTable
+  caption="Distribution board 16 floor (DB-16F)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-16F", "", "", "", "", "", "", "", "", ""],
+    ["DB-16F", "AC01", "", "", "", "1.80", "1.69", "2.47", "0.73", "3.6"],
+    ["CASSETTE AC 3.0HP", "", "1", "2,250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "AC02", "", "", "", "1.80", "1.69", "2.47", "0.73", "3.6"],
+    ["CASSETTE AC 3.0HP", "", "1", "2,250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "AC03", "", "", "", "1.80", "1.69", "2.47", "0.73", "3.6"],
+    ["CASSETTE AC 3.0HP", "", "1", "2,250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "AC04", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
+    ["WALL MOUNT AC 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "AC05", "", "", "", "0.60", "0.56", "0.82", "0.73", "3.6"],
+    ["WALL MOUNT AC 1HP", "", "1", "750.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "AC06", "", "", "", "0.60", "0.45", "0.75", "0.80", "3.3"],
+    ["SPARE AC", "", "1", "750.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "AC07", "", "", "", "0.60", "0.45", "0.75", "0.80", "3.3"],
+    ["SPARE AC", "", "1", "750.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "ISO01", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
+    ["ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "S01", "", "", "", "0.60", "0.61", "0.86", "0.70", "3.7"],
+    ["POWER SOCKET", "", "3", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "S02", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
+    ["POWER SOCKET", "", "4", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "S03", "", "", "", "0.80", "0.82", "1.14", "0.70", "5.0"],
+    ["POWER SOCKET", "", "4", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "S04", "", "", "", "1.00", "1.02", "1.43", "0.70", "6.2"],
+    ["POWER SOCKET", "", "5", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "S05", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "S06", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["POWER SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "S07", "", "", "", "2.25", "1.69", "2.81", "0.80", "12.2"],
+    ["KICTCHEN SOCKET", "", "6", "500.00", "0.75", "", "", "", "", ""],
+    ["DB-16F", "L01", "", "", "", "0.39", "0.19", "0.44", "0.90", "1.9"],
+    ["LED LIGHTING 12W", "", "41", "12.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "L02", "", "", "", "0.09", "0.04", "0.10", "0.90", "0.4"],
+    ["LED LIGHTING 18W", "", "6", "18.00", "0.80", "", "", "", "", ""],
+    ["DB-16F", "L02", "", "", "", "0.20", "0.10", "0.22", "0.90", "1.0"],
+    ["SPARE LIGHTING", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-16F, Ks = 0.6", "", "", "", "", "10.04", "8.74", "13.31", "0.75", "19.21"]
+  ]}
+/>
+
+Distribution board 17 floor (DB-17F)
+
+<FunctionTable
+  caption="Distribution board 17 floor (DB-17F)"
+  columns={["CIRCUIT LABEL", "Column 2", "Qty", "Pn (W)", "Ku", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "I (A)"]}
+  rows={[
+    ["DB-17F", "", "", "", "", "", "", "", "", ""],
+    ["DB-17F", "SP01", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
+    ["SPARE 3PH LOAD", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "SP02", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
+    ["SPARE 3PH LOAD", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "AC01", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "AC02", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "AC03", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "AC04", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "AC05", "", "", "", "2.40", "2.25", "3.29", "0.73", "4.7"],
+    ["CASSETTE AC 4.0HP", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "SP03", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["SPARE SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "SP04", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["SPARE SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "SP05", "", "", "", "0.20", "0.20", "0.29", "0.70", "1.2"],
+    ["SPARE SOCKET", "", "1", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "SP06", "", "", "", "0.40", "0.41", "0.57", "0.70", "2.5"],
+    ["SPARE SOCKET", "", "2", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "S04", "", "", "", "0.40", "0.41", "0.57", "0.70", "2.5"],
+    ["POWER SOCKET", "", "2", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "ISO01", "", "", "", "2.40", "1.80", "3.00", "0.80", "13.0"],
+    ["18F ISOLATOR", "", "1", "3,000.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "S01", "", "", "", "2.25", "1.69", "2.81", "0.80", "12.2"],
+    ["18F KITCHEN SOCKET", "", "6", "500.00", "0.75", "", "", "", "", ""],
+    ["DB-17F", "S02", "", "", "", "0.40", "0.30", "0.50", "0.80", "2.2"],
+    ["18F POWER SOCKET", "", "2", "250.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "S03", "", "", "", "0.80", "0.60", "1.00", "0.80", "4.3"],
+    ["18F SOCKET WM", "", "2", "500.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "L01", "", "", "", "0.35", "0.17", "0.39", "0.90", "1.7"],
+    ["EXHUASTING FAN", "", "2", "20.00", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 12W", "", "30", "12.00", "0.80", "", "", "", "", ""],
+    ["LED LIGHTING 36W", "", "1", "36.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "L02", "", "", "", "0.27", "0.13", "0.30", "0.90", "1.3"],
+    ["LED LIGHTING 12W", "", "28", "12.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "L03", "", "", "", "0.33", "0.16", "0.37", "0.90", "1.6"],
+    ["18F EXHUASTING FAN", "", "1", "20.00", "0.80", "", "", "", "", ""],
+    ["18F LED 12W", "", "30", "12.00", "0.80", "", "", "", "", ""],
+    ["18F LED 36W", "", "1", "36.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "L04", "", "", "", "0.06", "0.03", "0.06", "0.90", "0.3"],
+    ["19F LED 12W", "", "6", "12.00", "0.80", "", "", "", "", ""],
+    ["DB-17F", "L05", "", "", "", "0.02", "0.01", "0.02", "0.90", "0.1"],
+    ["20F LED 12W", "", "2", "12.00", "0.80", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["DB-17F, Ks = 0.6", "", "", "", "", "15.05", "13.23", "20.03", "0.75", "28.91"]
+  ]}
+/>
+
+MDB Power Demand Calculation
+
+<FunctionTable
+  caption="MDB Power Demand Calculation"
+  columns={["CIRCUIT LABEL", "Column 2", "Ph", "Qty", "Pn (kW)", "Ku", "PF", "Pavg,t (kW)", "Qavg,t (kVAR)", "Savg,t (kVA)", "PF", "Ib (A)"]}
+  rows={[
+    ["MDB", "P1", "3", "", "", "", "", "4.50", "4.33", "6.25", "0.72", "9.02"],
+    ["DB-P1", "", "", "1", "4.50", "1.00", "0.72", "", "", "", "", ""],
+    ["MDB", "P2", "3", "", "", "", "", "1.60", "1.37", "2.10", "0.76", "3.04"],
+    ["DB-P2", "", "", "1", "1.60", "1.00", "0.76", "", "", "", "", ""],
+    ["MDB", "P3", "3", "", "", "", "", "2.00", "1.78", "2.68", "0.75", "3.87"],
+    ["DB-P3", "", "", "1", "2.00", "1.00", "0.75", "", "", "", "", ""],
+    ["MDB", "3F", "3", "", "", "", "", "14.73", "14.22", "20.47", "0.72", "29.54"],
+    ["DB-3F", "", "", "1", "14.73", "1.00", "0.72", "", "", "", "", ""],
+    ["MDB", "3FA", "3", "", "", "", "", "13.65", "13.02", "18.87", "0.72", "27.24"],
+    ["DB-3FA", "", "", "1", "13.65", "1.00", "0.72", "", "", "", "", ""],
+    ["MDB", "5F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
+    ["SDB-5F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
+    ["MDB", "6F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
+    ["SDB-6F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
+    ["MDB", "7F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
+    ["SDB-7F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
+    ["MDB", "8F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
+    ["SDB-8F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
+    ["MDB", "9F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
+    ["SDB-9F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
+    ["MDB", "9FA", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
+    ["SDB-9A", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
+    ["MDB", "11F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
+    ["SDB-11F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
+    ["MDB", "12F", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
+    ["SDB-12F", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
+    ["MDB", "12FA", "3", "", "", "", "", "35.67", "24.20", "43.11", "0.83", "62.22"],
+    ["SDB-12A", "", "", "1", "35.67", "1.00", "0.83", "", "", "", "", ""],
+    ["MDB", "14F", "3", "", "", "", "", "28.14", "19.58", "34.28", "0.82", "49.48"],
+    ["DB-14F", "", "", "1", "28.14", "1.00", "0.82", "", "", "", "", ""],
+    ["MDB", "15F", "3", "", "", "", "", "15.29", "9.65", "18.08", "0.85", "26.10"],
+    ["SDB-15F", "", "", "1", "15.29", "1.00", "0.85", "", "", "", "", ""],
+    ["MDB", "16F", "3", "", "", "", "", "10.04", "8.74", "13.31", "0.75", "19.21"],
+    ["DB-16F", "", "", "1", "10.04", "1.00", "0.75", "", "", "", "", ""],
+    ["MDB", "17F", "3", "", "", "", "", "15.05", "13.23", "20.03", "0.75", "28.91"],
+    ["DB-17F", "", "", "1", "15.05", "1.00", "0.75", "", "", "", "", ""],
+    ["MDB", "PL", "3", "", "", "", "", "16.50", "15.45", "22.60", "0.73", "32.62"],
+    ["P- LIFT", "", "", "2", "11.00", "0.75", "0.73", "", "", "", "", ""],
+    ["MDB", "CL", "3", "", "", "", "", "22.50", "21.07", "30.82", "0.73", "44.49"],
+    ["C- LIFT", "", "", "2", "15.00", "0.75", "0.73", "", "", "", "", ""],
+    ["MDB", "TP", "3", "", "", "", "", "8.25", "7.72", "11.30", "0.73", "16.31"],
+    ["T- PUMP", "", "", "1", "11.00", "0.75", "0.73", "", "", "", "", ""],
+    ["MDB", "FP", "3", "", "", "", "", "11.25", "10.53", "15.41", "0.73", "22.24"],
+    ["F-PUMP", "", "", "1", "15.00", "0.75", "0.73", "", "", "", "", ""],
+    ["MDB", "BP", "3", "", "", "", "", "5.63", "5.27", "7.71", "0.73", "11.12"],
+    ["B-PUMP", "", "", "1", "7.50", "0.75", "0.73", "", "", "", "", ""],
+    ["MDB, Ks = 0.8", "", "3", "Tr (kVA)", "", "630", "", "392.15", "291.03", "488.35", "0.80", "704.87"],
+    ["Capacitor bank (kVAR)", "", "", "", "", "175", "", "", "", "", "", ""]
+  ]}
+/>
+
+Cable sizing & Voltage drop
+
+**CABLE SIZING TERM**
+
+<FunctionTable
+  caption="CABLE SIZING TERM"
+  columns={["Des", "MAT", "k1", "k4", "Iz", "I'z", "Ib", "c.s.a 1x4C", "L(m)", "R (mΩ/m)", "X (mΩ/m)", "∆U", "V End", "∆U (%)"]}
+  rows={[
+    ["DB-P1", "Cu", "0.94", "0.98", "46", "42.38", "9.02", "6", "5", "3.95", "-", "7.08", "392.92", "1.77"],
+    ["DB-P2", "Cu", "0.94", "0.87", "46", "37.62", "3.04", "6", "5", "3.95", "-", "6.93", "393.07", "1.73"],
+    ["DB-P3", "Cu", "0.94", "0.98", "46", "42.38", "3.87", "6", "5", "3.95", "-", "6.95", "393.05", "1.74"],
+    ["DB-3F", "Cu", "0.94", "0.98", "110", "101.33", "29.54", "25", "5", "0.948", "-", "7.03", "392.97", "1.76"],
+    ["DB-3FA", "Cu", "0.94", "0.98", "110", "101.33", "27.24", "25", "5", "0.948", "-", "7.01", "392.99", "1.75"],
+    ["SDB-5F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
+    ["SDB-6F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
+    ["SDB-7F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
+    ["SDB-8F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
+    ["SDB-9F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
+    ["SDB-9A", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
+    ["SDB-11F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
+    ["SDB-12F", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
+    ["SDB-12A", "Cu", "0.94", "0.98", "110", "101.33", "62.22", "25", "5", "0.948", "-", "7.28", "392.72", "1.82"],
+    ["DB-14F", "Cu", "0.94", "0.98", "110", "101.33", "49.48", "25", "5", "0.948", "-", "7.19", "392.81", "1.80"],
+    ["SDB-15F", "Cu", "0.94", "0.98", "110", "101.33", "26.10", "25", "5", "0.948", "-", "7.03", "392.97", "1.76"],
+    ["DB-16F", "Cu", "0.94", "0.98", "110", "101.33", "19.21", "25", "5", "0.948", "-", "6.97", "393.03", "1.74"],
+    ["DB-17F", "Cu", "0.94", "0.87", "110", "89.96", "28.91", "25", "5", "0.948", "-", "7.03", "392.97", "1.76"],
+    ["P- LIFT", "Cu", "0.94", "0.87", "110", "89.96", "32.62", "25", "5", "0.948", "-", "7.05", "392.95", "1.76"],
+    ["C-LIFT", "Cu", "0.94", "0.87", "110", "89.96", "44.49", "25", "10", "0.948", "-", "7.39", "392.61", "1.85"],
+    ["B- PUMP", "Cu", "0.94", "0.87", "85", "69.51", "16.31", "25", "10", "0.948", "-", "7.16", "392.84", "1.79"],
+    ["F-PUMP", "Cu", "0.94", "0.87", "85", "69.51", "22.24", "16", "10", "1.48125", "-", "7.27", "392.73", "1.82"],
+    ["T-PUMP", "Cu", "0.94", "0.87", "85", "69.51", "11.12", "16", "10", "1.48125", "-", "7.06", "392.94", "1.77"],
+    ["Busway", "AL", "Max Load Current", "909.33", "704.87", "210.00", "67", "0.069", "0.016", "6.95", "393.05", "6.85", "", ""]
+  ]}
+/>
+
+Short-circuit & Circuit-breaker
+
+<FunctionTable
+  caption="Short-circuit &amp; Circuit-breaker"
+  columns={["SHORT-CIRCUIT CURRENT", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8", "CB RATING", "Column 10", "Column 11"]}
+  rows={[
+    ["Description", "c.s.a(mm2)", "L(m)", "R(mΩ)", "X(mΩ)", "Rt(mΩ)", "Xt(mΩ)", "Isc(kA)", "Ib(A)", "In (A)", "Isc,cb(kA)"],
+    ["MV Network", "", "", "0.04", "0.35", "0.04", "0.35", "264.08", "", "", ""],
+    ["Transformer", "", "", "2.38", "10.94", "2.38", "10.94", "20.62", "688.14", "909", "40"],
+    ["DB-P1", "6", "5", "15.43", "0", "17.81", "10.94", "11.05", "9.02", "32", "25"],
+    ["DB-P2", "6", "5", "15.43", "0", "17.81", "10.94", "11.05", "3.04", "25", "25"],
+    ["DB-P3", "6", "5", "15.43", "0", "17.81", "10.94", "11.05", "3.87", "25", "25"],
+    ["SDB-3F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "26.57", "80", "25"],
+    ["SDB-3FA", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "21.90", "80", "25"],
+    ["SDB-5F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
+    ["SDB-6F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
+    ["SDB-7F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
+    ["SDB-8F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
+    ["SDB-9F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
+    ["SDB-9FA", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
+    ["SDB-11F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
+    ["SDB-12F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
+    ["SDB-12FA", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "62.22", "100", "25"],
+    ["DB-14F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "48.77", "100", "25"],
+    ["SDB-15F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "26.10", "63", "25"],
+    ["DB-16F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "18.65", "100", "25"],
+    ["DB-17F", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "27.20", "63", "25"],
+    ["P-LIFT", "25", "5", "3.70", "0", "6.08", "10.94", "18.44", "29.77", "63", "25"],
+    ["C-LIFT", "25", "10", "7.40", "0", "9.79", "10.94", "15.73", "40.59", "63", "25"],
+    ["B-PUMP", "16", "10", "11.57", "0", "13.95", "10.94", "13.02", "10.15", "63", "25"],
+    ["F-PUMP", "16", "10", "11.57", "0", "13.95", "10.94", "13.02", "20.30", "63", "25"],
+    ["T-PUMP", "16", "10", "11.57", "0", "13.95", "10.94", "13.02", "14.88", "63", "25"]
+  ]}
+/>
+
+Voltage drop & short-circuit comparison
+
+<FunctionTable
+  caption="Voltage drop &amp; short-circuit comparison"
+  columns={["Column 1", "Voltage Drop", "Column 3", "Short-circuit", "Column 5"]}
+  rows={[
+    ["DB", "Excel", "Ecodial", "Excel", "Ecodial"],
+    ["DB-P1", "1.77", "1.80", "11.05", "10.80"],
+    ["DB-P2", "1.73", "1.77", "11.05", "10.80"],
+    ["DB-P3", "1.74", "1.77", "11.05", "10.80"],
+    ["DB-3F", "1.76", "1.79", "18.44", "18.10"],
+    ["DB-3FA", "1.75", "1.79", "18.44", "18.10"],
+    ["SDB-5F", "1.82", "1.85", "18.44", "18.10"],
+    ["SDB-6F", "1.82", "1.85", "18.44", "18.10"],
+    ["SDB-7F", "1.82", "1.85", "18.44", "18.10"],
+    ["SDB-8F", "1.82", "1.85", "18.44", "18.10"],
+    ["SDB-9F", "1.82", "1.85", "18.44", "18.10"],
+    ["SDB-9FA", "1.82", "1.85", "18.44", "18.10"],
+    ["SDB-11F", "1.82", "1.85", "18.44", "18.10"],
+    ["SDB-12F", "1.82", "1.85", "18.44", "18.10"],
+    ["SDB-12FA", "1.82", "1.85", "18.44", "18.10"],
+    ["DB-14F", "1.80", "1.83", "18.44", "18.10"],
+    ["DB-15F", "1.76", "1.81", "18.44", "18.10"],
+    ["DB-16F", "1.74", "1.78", "18.44", "18.10"],
+    ["DB-17F", "1.76", "1.79", "18.44", "18.10"],
+    ["P-LIFT", "1.76", "1.80", "18.44", "18.10"],
+    ["C-LIFT", "1.85", "1.88", "15.73", "14.90"],
+    ["T-PUMP", "1.79", "1.82", "13.02", "12.50"],
+    ["F-PUMP", "1.82", "1.85", "13.02", "12.50"],
+    ["B-PUMP", "1.77", "1.80", "13.02", "12.50"]
+  ]}
+/>
