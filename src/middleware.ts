@@ -4,9 +4,8 @@ const PUBLIC_FILE = /\.(.*)$/;
 
 // Add project slugs that should be open without password
 const PUBLIC_PROJECTS = [
-  "/work/mdetect-autonomous-robot",
-  "/work/build-fpv-drone",
-  "/work/low-voltage-electrical-system-design",
+  "/work/mdetect",
+
 ];
 
 function isProjectPath(pathname: string) {
