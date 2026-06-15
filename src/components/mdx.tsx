@@ -48,10 +48,42 @@ function CustomLink({ href, children, ...props }: CustomLinkProps) {
   );
 }
 
+function getYouTubeId(src: string) {
+  const youtubeRegex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
+  const match = src.match(youtubeRegex);
+  return match ? match[1] : null;
+}
+
 function createImage({ alt, src }: SmartImageProps & { src: string }) {
   if (!src) {
     console.error("Image requires a valid 'src' property.");
     return null;
+  }
+
+  const youTubeId = getYouTubeId(src);
+  if (youTubeId) {
+    return (
+      <div className={styles.videoWrapper}>
+        <iframe
+          className={styles.videoFrame}
+          src={`https://www.youtube.com/embed/${youTubeId}`}
+          title={alt || "YouTube video"}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  const isImageUrl = /\.(avif|jpe?g|png|gif|webp|svg|bmp|tiff)(\?.*)?$/i.test(src);
+
+  if (!isImageUrl) {
+    return (
+      <a href={src} target="_blank" rel="noopener noreferrer">
+        {alt || src}
+      </a>
+    );
   }
 
   return (
@@ -237,6 +269,10 @@ export function CustomMDX(props: CustomMDXProps) {
   return (
     <MDXRemote
       {...props}
+      options={{
+        ...(props.options || {}),
+        blockJS: false,
+      }}
       components={{
         ...components,
         ...(props.components || {}),
