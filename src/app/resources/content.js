@@ -99,8 +99,31 @@ const about = {
     title: "Work Experience",
     experiences: [
       {
+        company: "mDetect Pty Ltd",
+        timeframe: "Mar 2026 - June 2026",
+        role: "Master's Student Project",
+        achievements: [
+          <>
+            Design and develop an autonomous robotic platform for mDetect Muon Detector
+          </>,
+          <>
+            Delivered a robotic platform that can navigate autonomously with odometry data collection
+          </>,
+        ],
+        images: [
+          // optional: leave the array empty if you don't want to display images
+          {
+            
+            src: "/images/projects/project-01/teammdetect.jpg",
+            alt: "mDetect Pty Ltd",
+            width: 16,
+            height: 9,
+          },
+        ],
+      },
+      {
         company: "Universal Biosensor",
-        timeframe: "2025 - Present",
+        timeframe: "July 2025 - Dec 2025",
         role: "Engineering Intern",
         achievements: [
           <>
