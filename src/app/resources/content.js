@@ -122,6 +122,24 @@ const about = {
         ],
       },
       {
+        company: "W Melbourne",
+        timeframe: "Oct 2025 - Present",
+        role: "Banquet Talent",
+        achievements: [
+          <>
+            Teamwork and Communication: Collaborated effectively with colleagues to ensure smooth banquet operations and exceptional guest experiences
+          </>,
+          <>
+            Time Management: Managed time efficiently to meet tight schedules and deliver high-quality service during events
+          </>,
+        ],
+        images: [
+          // optional: leave the array empty if you don't want to display images
+          
+        ],
+        
+      },
+      {
         company: "Universal Biosensor",
         timeframe: "July 2025 - Dec 2025",
         role: "Engineering Intern",
@@ -214,7 +232,7 @@ const about = {
     institutions: [
       {
         name: "Swinburne University of Technology",
-        timeframe: "2024 - present",
+        timeframe: "2024 - 2026",
         description: <>Master of Professional Engineering (Electrical & Electronic Engineering)</>,
                 
       },
