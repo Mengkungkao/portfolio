@@ -1,0 +1,39 @@
+---
+title: "mDetect Autonomous Robotic Platform"
+summary: "A compact autonomous mobile robot developed for mapping, navigation, and data collection in GPS-denied environments."
+image: "/images/projects/mdetect/mdetect-robot-cover.jpg"
+publishedAt: "2026-06-21"
+tag: "Robotics"
+---
+
+## Building an Autonomous Robot for GPS-Denied Environments
+
+The **mDetect Autonomous Robotic Platform** was developed to support inspection and data collection in locations where GPS is unavailable, such as underground tunnels and enclosed industrial environments. The main goal was to create a mobile robot that could follow predefined waypoints, estimate its position, detect obstacles, and safely adjust its route.
+
+![mDetect autonomous robotic platform](/images/projects/mdetect/image2.png)
+
+## System Design
+
+The platform combines an **Arduino Uno**, a **Raspberry Pi**, four encoder-equipped DC motors, an **MPU6050 IMU**, and a **COIN-D6 LiDAR**. The Arduino manages low-level motor control, encoder readings, PID speed control, braking, and emergency-stop behaviour. The Raspberry Pi runs ROS 2 and connects the robot to the workstation through the network.
+
+On the workstation, **RViz2**, **SLAM Toolbox**, and **Navigation2** are used to display the map, monitor the robot, plan paths, and send movement commands.
+
+![mDetect system architecture](/images/projects/mdetect/image12.png)
+
+## Navigation and Control
+
+The robot receives waypoint commands containing position, heading, and waiting time. Wheel encoder measurements and IMU heading data are combined to estimate the robot's movement. LiDAR scans are used for mapping and front-obstacle detection.
+
+When an obstacle enters the emergency safety range, the robot stops before recalculating a safer route. Individual motor-speed adjustment is also used to reduce the effect of mechanical differences between the four motors and improve straight-line movement.
+
+![ROS 2 RViz navigation and mapping](/images/projects/mdetect/mdetect-rviz-navigation.png)
+
+## Development Outcome
+
+This project brought together mechanical design, embedded programming, sensor integration, motor control, serial communication, and ROS 2 navigation. It also showed how important calibration and repeated testing are when several sensors and control systems must operate together.
+
+The current platform can receive waypoint commands, control four motors, collect encoder and IMU feedback, display LiDAR data, and support autonomous navigation through ROS 2.
+
+## Future Development
+
+Future work will focus on improving odometry accuracy, tuning the motor and heading controllers, strengthening LiDAR-based localisation, and testing the platform in longer tunnel environments. The system can also be extended with improved obstacle avoidance, automatic route recovery, and more reliable sensor fusion.
