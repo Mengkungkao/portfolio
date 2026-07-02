@@ -27,4 +27,164 @@ To manage heat, battery thermal management systems (BTMS) are implemented. This 
 - Heat transfer within cells and modules to enclosure with ambient temperature.
 - Convective cooling using a liquid cooling loop.
 
+For a Formula SAE accumulator, this is not just an academic exercise. The accumulator has to be designed and validated on paper before a single cell is bought, and the rulebook enforces hard limits on segment voltage (120 V) and segment energy (6 MJ). To do that with confidence, Team Swinburne uses **Batemo**, an electrochemical-thermal battery cell model that plugs directly into Simulink/Simscape, giving cycle-accurate voltage, state of charge and heat generation for a specific commercial cell rather than a generic equivalent-circuit approximation.
 
+I put together the Batemo modelling workflow for the powertrain sub-team, covering the toolchain setup, the model architecture, and a series of worked scenarios that mirror the real segment-design questions the team needed answered: how many cells in series and parallel, how long the accumulator can sustain a continuous discharge, and how much the accumulator shell heats up under load.
+
+## Why Batemo
+
+Most datasheet-level battery models estimate heat using I²R losses from a single internal resistance value. That's a reasonable first pass, but it doesn't capture how resistance and heat generation change with state of charge, temperature, or C-rate, all of which matter when a segment is being pushed close to its continuous discharge limit. Batemo instead uses a parameterized electrochemical model (built from real cell testing) that outputs voltage, state of charge, and both bulk and surface heat generation for a given current or power demand.
+
+Combined with Simulink and Simscape, this makes it possible to:
+- Size a segment's series/parallel configuration against the rulebook's voltage and energy limits before committing to a BOM.
+- Predict how long an accumulator can sustain a given current draw.
+- Model the resulting heat generation and feed it into a thermal circuit (convective/conductive) to see how hot the accumulator casing gets.
+
+![Batemo cell model in the Simulink Library Browser](/images/projects/batemo-accumulator/library-cell-block.png)
+
+## Toolchain
+
+The simulation stack is:
+- **MATLAB / Simulink 2024a** with the Simscape add-on.
+- **Batemo Cell Model Custom** library, licensed to the team and validated against the Molicel INR21700-P42A cell used in the accumulator.
+- **CodeMeter** for licence management, since the Batemo library is dongle/cloud-licensed rather than open source.
+
+Before any model produces results Batemo can vouch for, the Simulink solver has to be configured to match Batemo's own validation settings (solver type, tolerances, max step size) — this has to be redone for every new model, so I saved it as a reusable `.sltx` template for the rest of the team.
+
+## Model Architecture
+
+The Batemo block is available as both a **Simulink** version (abstracted current/voltage inputs) and a **Simscape** version (physical electrical + thermal ports). Both expose the same three output busses:
+
+<table>
+  <thead>
+    <tr>
+      <th>Bus</th>
+      <th>Contents</th>
+      <th>Scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>bc</strong> (Battery Cell)</td>
+      <td>Voltage, current, SOC, capacity, surface temperature</td>
+      <td>Pack-level, always available</td>
+    </tr>
+    <tr>
+      <td><strong>pe</strong> (Power &amp; Energy)</td>
+      <td>Energy throughput and losses</td>
+      <td>Pack-level, requires add-on</td>
+    </tr>
+    <tr>
+      <td><strong>ac</strong> (Anode &amp; Cathode)</td>
+      <td>Electrode-level electrochemical detail</td>
+      <td>Per-cell, requires add-on</td>
+    </tr>
+  </tbody>
+</table>
+
+### Simulink version
+
+The Simulink block takes an abstract current draw (`I`) and surface heat flux (`Jsurf`) as inputs — positive values charge/heat the cell, negative values discharge/cool it. This is the fastest way to test segment sizing and energy questions where the surrounding circuit doesn't need to be modelled explicitly.
+
+![Simple Simulink test circuit: constant current and heat flux driving a single Molicel cell, read out on a scope](/images/projects/batemo-accumulator/simulink-test-circuit.png)
+
+![Scope output of the simple test circuit](/images/projects/batemo-accumulator/simulink-test-output.png)
+
+### Simscape version
+
+The Simscape block instead exposes real electrical (`+`/`-`) and thermal ports, so it can be wired directly into an electrical schematic and a physical thermal network — a current source, a thermal mass, a convective/conductive heat path — rather than an abstract input. This is the version needed for any question that involves modelling heat leaving the cell and entering the accumulator structure.
+
+![Simscape test circuit: a current source and thermal mass wired directly to the cell's electrical and heat ports](/images/projects/batemo-accumulator/simscape-test-circuit.png)
+
+### Pack topology
+
+Cell topology is described as **nPmS**: `n` cells in parallel form a group, and `m` of those groups are wired in series, for a total of `n × m` cells. Both Simulink and Simscape versions support building packs this way — Simulink packs need a `BatemoParallelizer` block and a common OCV initial condition, while Simscape packs are simply wired like a real electrical circuit (`+`/`-` in parallel, chained in series).
+
+![nPmS pack topology naming convention](/images/projects/batemo-accumulator/npms-topology.png)
+
+![A parallel and series combination of Batemo packs](/images/projects/batemo-accumulator/series-parallel-pack.png)
+
+## Worked Scenarios
+
+To validate the model and produce numbers the powertrain team could actually use, I worked through a set of segment-design scenarios using the Molicel INR21700-P42A cell (4.2 V max, 45 A continuous, 4200 mAh), against the rulebook's per-segment limit of **120 V and 6 MJ**.
+
+### Scenario 1 — Segment sizing for 120 A continuous draw
+
+**Question:** design a segment topology that can sustain 120 A continuously, then find the energy needed to hold that segment at 25°C for 20 seconds under that load.
+
+Working from the cell's maximum voltage and continuous current rating gives the maximum series count (bounded by the 120 V limit) and the minimum parallel count (bounded by the 120 A requirement), which converges on a **28S3P** segment — 84 cells, within both the voltage and 6 MJ energy limits.
+
+![Pack Design dialog configured for 28 cells in series, 3 in parallel](/images/projects/batemo-accumulator/scenario1-pack-design.png)
+
+With the segment modelled in Simulink (current input driving `I`, a constant 25°C on `Tsurf`), integrating the `Jsurf` heat output over the 20 second window gives the answer directly from the scope.
+
+![Scope showing the integrated surface heat energy, giving 500 J](/images/projects/batemo-accumulator/scenario1-result.png)
+
+**Result: 500 J** to hold the segment at 25°C for 20 seconds at 120 A.
+
+### Scenario 2 — Accumulator runtime from 90% to 40% SOC
+
+**Question:** assemble the segment from Scenario 1 into a full accumulator (≤ 600 V, made of whole segments) and find how long it can sustain 120 A from 90% down to 40% state of charge.
+
+600 V / (28S × 4.2 V) allows **5 segments** in series (5 × 28S3P = 15P28S, 420 cells). Rather than eyeballing the SOC trace, I added a relational block that zeroes the current draw once SOC drops to 40% — effectively modelling a low-voltage cutoff — so the runtime reads directly off the point where the discharge curve flattens.
+
+![Five segment models wired with a shared surface temperature input, current not yet gated](/images/projects/batemo-accumulator/scenario2-segment-model.png)
+
+![SOC scope showing the accumulator reaching the 40% cutoff at t ≈ 175 s](/images/projects/batemo-accumulator/scenario2-result.png)
+
+**Result: ≈ 175 seconds** from 90% to 40% SOC at 120 A.
+
+### Scenario 3 — Redesigning for a 500 second runtime
+
+**Question:** using the same draw and SOC window, redesign the segments so the accumulator can run for at least 500 seconds.
+
+A quick hand calculation (total charge capacity ÷ current draw, scaled to the 90–40% SOC window) suggested 8P would be close, but that ignores the non-linear tail of the discharge curve and the energy lost to internal heating that the hand calculation can't see — both of which the Batemo simulation accounts for automatically. Iterating in Simulink showed 8P only reached ~475 s, and **10P** was needed to clear 500 s.
+
+Bumping parallel count to 10 pushed segment energy over the 6 MJ rulebook limit, so the segment had to be redesigned to fewer cells in series at the higher parallel count to bring the energy back under the cap, while re-checking against the 120 V/120 A requirements. The final topology met all three constraints and exceeded the runtime target.
+
+![SOC discharge curve for the redesigned topology, running out to t ≈ 550 s](/images/projects/batemo-accumulator/scenario3-result.png)
+
+**Result:** a revised segment topology sustaining **~550 seconds**, comfortably over the 500 s target while staying within the segment voltage and energy limits.
+
+### Scenario 4 — Sinusoidal current draw
+
+**Question:** find the energy needed to hold the accumulator at 25°C for 50 seconds under a time-varying current draw of the form `I(t) = A·sin(ωt) + B`.
+
+The segment topology from Scenario 1 was reused; the sinusoidal draw was built from a Sine Wave block (amplitude and frequency matched to the given equation, bias added to offset it) summed with a constant, then inverted with a gain of -1 since the segment is discharging.
+
+![Sine Wave Function block parameters used to build the time-varying current draw](/images/projects/batemo-accumulator/scenario4-sinewave-setup.png)
+
+Integrating the resulting surface heat flux over the 50 second run, as in Scenario 1, gives the total energy needed.
+
+![Scope showing the integrated heat energy for the sinusoidal draw](/images/projects/batemo-accumulator/scenario4-result.png)
+
+**Result: ≈ 20.7 kJ** over the 50 second sinusoidal draw.
+
+### Scenario 5 — Accumulator shell heating (Simscape thermal model)
+
+**Question:** for a 5P28S × 5 configuration under 100 A, starting at 300 K (26.85°C), with each segment convectively coupled to a 5 kg aluminium casing (heat transfer coefficient 100 W/(K·m²), 0.01 m² per segment), how much does the casing heat up in 50 seconds — and is convective cooling alone enough?
+
+This is where the Simscape version of the model earns its place: rather than manually tracking heat balances, the physical thermal network is wired directly onto the cells' `heat` ports.
+
+![Five Simscape Batemo cells with electrical and thermal ports exposed](/images/projects/batemo-accumulator/scenario5-thermal-model.png)
+
+The segments are wired in series electrically with a 100 A current source and an electrical ground reference, plus the mandatory Simscape solver configuration block.
+
+![Segments wired in series with a 100 A current source, ground reference, and solver configuration block](/images/projects/batemo-accumulator/scenario5-electrical-wiring.png)
+
+On the thermal side, each segment's heat output feeds a **Convective Heat Transfer** block (area and heat transfer coefficient from the question) in parallel into a shared **Thermal Mass** representing the aluminium casing (5 kg, 900 J/(kg·K), initial temperature 300 K). A temperature probe on the thermal mass reads out in Kelvin, converted to °C for direct comparison against the cells' surface temperature.
+
+![Convective Heat Transfer and Thermal Mass block parameters](/images/projects/batemo-accumulator/scenario5-heat-transfer-config.png)
+
+![Cell surface temperature (top curve) diverging from the casing temperature (flat line) over 50 seconds](/images/projects/batemo-accumulator/scenario5-result.png)
+
+**Result:** the accumulator casing only rose by **0.028°C** over 50 seconds — but that's the problem, not the answer. The cell *surface* temperature climbed steadily over the same window while the casing barely moved, meaning the convective path alone can't move heat out of the cells fast enough to keep pace with generation at 100 A; the casing is effectively thermally decoupled from the cells on this timescale. That points to a **conductive** heat path (direct contact rather than air gap) being needed between the segments and the accumulator chassis to keep the cells within safe operating temperature.
+
+## Outcome
+
+The Batemo/Simulink workflow gave Team Swinburne's powertrain group a way to answer segment-design questions — series/parallel sizing, runtime under load, and thermal margin — against the FSAE rulebook's voltage and energy limits before committing to hardware. The worked scenarios above also doubled as onboarding material: they gave newer members of the team a concrete, checkable set of examples for building their own segment and accumulator models rather than starting from a blank Simulink canvas.
+
+The key finding from Scenario 5 — that convective cooling alone is insufficient and a conductive path to the chassis is needed — directly fed into the accumulator's thermal management design for the following build.
+
+
+## To Be continue...
