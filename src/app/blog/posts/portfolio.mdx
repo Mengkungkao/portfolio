@@ -1,18 +1,24 @@
 ---
-title: "Magic Portfolio"
-summary: "Magic Portfolio is a comprehensive, MDX-based, SEO-friendly, responsive portfolio template built with Once UI and Next.js."
+title: "My Portfolio: My Story"
+summary: "I'm an electrical engineer, not a web developer — here's how I taught myself Next.js and MDX to build this site, broke it more than once, and got it working."
 image: "/images/og/home.jpg"
 publishedAt: "2025-09-01"
 tag: "Magic Portfolio"
 ---
 
-## About
+## The Motivation
 
-Magic Portfolio is a comprehensive, MDX-based, SEO-friendly, responsive portfolio template built with Once UI and Next.js.
+Most of my work lives in places nobody outside engineering ever sees — Excel sheets full of power demand calculations, AutoCAD drawings, MATLAB/Simulink models, ROS logs from a robot that only my team gets to watch drive around. A PDF resume couldn't show any of that. It couldn't show a wiring diagram, a thesis equation, a video of the mDetect robot navigating on its own, or a table comparing my hand calculations against an EcoStruxure simulation.
 
-## Quick start
+I wanted one place where all of it lived together — the electrical design thesis, the FPV drone build, the Formula SAE work, the STEM tutoring — written the way I'd actually explain it to someone, not buried in a report nobody will open. So I decided to build a website.
 
-Clone the git repository:
+The catch: I'm an Electrical & Electronic Engineer. My comfort zone is circuits, power systems, and control code — not React, not Next.js, not npm. I'd never shipped a website before this one.
+
+## Where I Started
+
+I didn't start from a blank file. I found **Magic Portfolio**, an open-source Next.js template by Once UI, and used it as my foundation. That decision alone saved me from having to learn routing, styling, and SEO from scratch on day one — I could focus on learning by editing something that already worked, instead of staring at an empty folder.
+
+Getting it running was the easy part:
 
 <CodeBlock compact marginBottom="16" codeInstances={[
   {
@@ -21,8 +27,6 @@ Clone the git repository:
   }
 ]} />
 
-Install the necessary dependencies:
-
 <CodeBlock compact marginBottom="16" codeInstances={[
   {
     code: "npm install",
@@ -30,11 +34,44 @@ Install the necessary dependencies:
   }
 ]} />
 
-Start the local development server:
-
 <CodeBlock compact marginBottom="16" codeInstances={[
   {
     code: "npm run dev",
     language: "bash"
   }
 ]} />
+
+Three commands, and suddenly a real website was running on my laptop. That was the moment it stopped feeling theoretical.
+
+## Making It Mine
+
+The next step was ripping out the template's placeholder content and putting myself in. Nearly everything about the site — my name, role, bio, social links, the sections shown on the homepage — lives in one config file, `src/app/resources/content.js`. Every new project or blog post is just a new `.mdx` file dropped into `src/app/blog/posts` or `src/app/work/projects`.
+
+That part clicked quickly: write in something close to plain Markdown, add a few headings and images, and the page builds itself. My first real project write-up was my bachelor's thesis on low-voltage electrical design — and that's where things stopped being simple.
+
+## Then Things Started Breaking
+
+A thesis isn't a blog post. It has dozens of equations, subscripts, Greek symbols, and data tables. The moment I pasted my formulas in as raw text, the site's MDX compiler choked — curly braces, underscores, and angle-bracket comparisons (`<`, `>`) all mean something special in JSX, and my equations were full of them. Pages failed to build with cryptic parser errors that told me *where* things broke but not *why*.
+
+That was my first real lesson in this: MDX isn't just Markdown — it's Markdown compiled into React. So I built my own components, `MathEquation` and `FunctionTable`, so formulas and tables could be passed in as safe data (strings and arrays) instead of raw symbols the parser would trip over. It fixed the crashes, but I later discovered a quieter bug: my `MathEquation` component was silently dropping the equation titles and variable legends because I forgot to read those props in the component itself. The formulas rendered, but a big part of the explanation was invisible on the live page — no error, no warning, just missing content. That one took actually diffing the built HTML output to catch.
+
+A few other things went sideways along the way:
+
+- The **table of contents** on project pages kept drifting out of sync with the actual headings every time I restructured a page — fixed by generating it straight from the markdown instead of trying to track it by hand.
+- I wanted some project pages **private** (like full client-facing thesis content), so I built a simple password-gated `/access` page and login route — my first time writing authentication logic.
+- A dependency update quietly introduced a **React Server Components CVE**, which meant patching and re-deploying under a bit of pressure.
+- YouTube embeds and code blocks in MDX broke more than once whenever I changed how components were passed in.
+
+None of these were glamorous bugs. They were the kind you only find by actually using the site, clicking every project, and reading your own build output line by line.
+
+## How I Got Through It
+
+No formal process — just the engineering habit I already had from lab work: change one thing, rebuild, check the output, repeat. When the build failed, I read the error instead of guessing. When something looked fine but felt wrong, I checked the actual rendered HTML instead of trusting that "no errors" meant "correct." That's the same instinct that catches a miswired circuit before it catches fire — verify the real output, not just that nothing crashed.
+
+## Where It Stands Now
+
+The site is live, deployed, and holding real work: the La Cozii TK Condominium electrical design thesis with working equations and tables, the mDetect autonomous robot platform, the FPV drone build, Formula SAE contributions, and my STEM tutoring story — each written as its own case study instead of a line on a resume.
+
+It's still not "finished," and it never really will be — there's always another project to document or another rough edge to smooth out. But it went from three commands on a blank laptop to a working, deployed engineering portfolio, and that's more than I expected to build when I started.
+
+[Check out the source on GitHub](https://github.com/Mengkungkao)
