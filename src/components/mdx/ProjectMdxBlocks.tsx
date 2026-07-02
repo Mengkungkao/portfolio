@@ -84,12 +84,20 @@ export function FunctionTable({
   );
 }
 
-type MathEquationProps = {
-  label?: string;
-  formula?: string;
+type MathVariable = {
+  symbol: string;
+  meaning: string;
+  unit?: string;
 };
 
-export function MathEquation({ label, formula }: MathEquationProps) {
+type MathEquationProps = {
+  title?: string;
+  label?: string;
+  formula?: string;
+  variables?: MathVariable[];
+};
+
+export function MathEquation({ title, label, formula, variables = [] }: MathEquationProps) {
   if (!formula) {
     return null;
   }
@@ -104,15 +112,19 @@ export function MathEquation({ label, formula }: MathEquationProps) {
         overflowX: "auto",
       }}
     >
-      {label && (
+      {(title || label) && (
         <div
           style={{
             marginBottom: "8px",
             fontWeight: 600,
             fontSize: "0.9rem",
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "12px",
           }}
         >
-          {label}
+          {title && <span>{title}</span>}
+          {label && <span style={{ opacity: 0.7 }}>{label}</span>}
         </div>
       )}
 
@@ -125,6 +137,25 @@ export function MathEquation({ label, formula }: MathEquationProps) {
       >
         {formula}
       </code>
+
+      {Array.isArray(variables) && variables.length > 0 && (
+        <ul
+          style={{
+            marginTop: "10px",
+            marginBottom: 0,
+            paddingLeft: "20px",
+            fontSize: "0.85rem",
+            lineHeight: 1.6,
+          }}
+        >
+          {variables.map((variable, index) => (
+            <li key={`${variable.symbol}-${index}`}>
+              <code>{variable.symbol}</code>: {variable.meaning}
+              {variable.unit ? ` [${variable.unit}]` : ""}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
