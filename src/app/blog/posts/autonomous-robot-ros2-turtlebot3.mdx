@@ -1,0 +1,72 @@
+---
+title: "From Pygame to ROS 2: Giving the mDetect Robot a Real Robotics Brain"
+summary: "Why we rebuilt the mDetect robot's control software on ROS 2 Humble, how it compares to the old Pygame waypoint controller, and what it took to get there."
+image: "/images/projects/mdetect/image1.png"
+publishedAt: "2026-07-04"
+tag: "Robotics"
+---
+
+## Why Rebuild What Already Worked?
+
+The original mDetect robot could already do something impressive: find its own position in a tunnel with no GPS, using just wheel encoders, an IMU, and a LiDAR. But the software driving it was a single Python script with a Pygame window — you pressed a key, it sent one command down a serial cable, and that was the whole system.
+
+That setup was great for proving the localisation idea worked, but it had a ceiling. There was no real map, no path planning, no way to add more sensors without rewriting everything, and no simple way for two computers to share the workload. So the goal of this next stage, called **AutonomousRobot**, was simple: keep the exact same physical robot, but give it a proper robotics operating system underneath it — **ROS 2 Humble**, structured the same way TurtleBot3 does it.
+
+## Pygame Console vs. ROS 2: What Actually Changed
+
+<table>
+  <thead>
+    <tr>
+      <th>Old system (Pygame)</th>
+      <th>New system (ROS 2)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>One script, one computer, talking directly to the Arduino</td>
+      <td>Two computers (Raspberry Pi + workstation) sharing data automatically over the network</td>
+    </tr>
+    <tr>
+      <td>No map — the robot only knew its own estimated position</td>
+      <td>Live mapping with SLAM Toolbox, viewable in RViz2</td>
+    </tr>
+    <tr>
+      <td>You had to drive it manually to a location</td>
+      <td>Click a point on the map and Nav2 plans and drives the route itself</td>
+    </tr>
+    <tr>
+      <td>One input source — whatever key you pressed</td>
+      <td>Teleop, manual test commands, and autonomous navigation all safely arbitrated by one node (<code>cmd_mux</code>)</td>
+    </tr>
+    <tr>
+      <td>No standard, reusable safety layer — obstacle handling depended entirely on whatever the script author happened to code by hand</td>
+      <td>A dedicated safety layer stops the robot near obstacles before any command reaches the motors</td>
+    </tr>
+    <tr>
+      <td>Adding a new sensor meant editing the main script</td>
+      <td>A new sensor is just a new ROS 2 node publishing its own topic</td>
+    </tr>
+  </tbody>
+</table>
+
+In short: the old system was a remote control. The new system is a robot that can look at a map and figure out how to get somewhere on its own.
+
+## The Hard Parts
+
+Nothing about this migration was just "install ROS 2 and go":
+
+- **Two machines, one brain.** The Raspberry Pi and the workstation had to agree on network settings before they could even see each other's data — this took real troubleshooting on Wi-Fi.
+- **Nav2 doesn't ask permission.** Nav2 always publishes its final drive command on the same topic name no matter what, so the safety-arbitration node had to be built around that fact instead of fighting it.
+- **Two identical-looking USB cables.** The Arduino and the LiDAR use the same USB chip, so the Pi couldn't always tell them apart — solved with rules based on which physical USB port each one is plugged into.
+- **A workspace that quietly stops updating itself.** Early on, the robot's ROS 2 package could end up as a disconnected copy instead of a live link back to the code, so new changes silently never took effect until that was caught and automated away.
+- **New Arduino firmware.** The Arduino code itself had to be rewritten with a cleaner command format, a watchdog that stops the robot if the network link drops, and a safety stop that has to be cleared on purpose rather than releasing itself.
+
+## What I Achieved
+
+By the end of this stage, the same physical robot that once needed a person at a keyboard could instead be pointed at a location on a map and drive there by itself — planning its own path, watching for obstacles with the LiDAR, and stopping safely if anything went wrong. The whole install process for a new machine was also reduced to a single script, which matters far more than it sounds like, because it means the project can now actually be repeated and handed off instead of only living in one person's head.
+
+## What's Next
+
+The next milestone is combining all three sensors — encoders, IMU, and LiDAR — into a single, better position estimate instead of relying on them separately, and then testing all of this in a real tunnel rather than a lab.
+
+[Read the full technical writeup](https://www.mengkung.site/work/autonomous-robot-ros2-turtlebot3)

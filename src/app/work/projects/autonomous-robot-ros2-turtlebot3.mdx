@@ -1,0 +1,306 @@
+---
+title: "AutonomousRobot: Transforming mDetect project to a ROS 2 Humble TurtleBot3-Style Project"
+publishedAt: "2026-07-04"
+summary: "Rebuilding the mDetect robot's control software from a Pygame waypoint controller into a full ROS 2 Humble stack with Nav2, SLAM Toolbox, a custom cmd_mux safety layer, and an updated Arduino base controller."
+images:
+  - "/images/projects/mdetect/image1.png"
+  - "/images/projects/mdetect/image12.png"
+team:
+  - name: "Meng Kung Kao"
+    role: "Electrical & Electronic Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/mengkung"
+---
+
+## Overview
+
+The original mDetect platform ([mDetect Autonomous Robotic Platform](/work/mdetect-autonomous-robot)) proved that encoder odometry, an MPU6050 IMU, and a COIN-D6 LiDAR could localise a four-wheel robot in a GPS-denied tunnel environment. Its navigation layer, however, was a Python/Pygame waypoint controller talking to the Arduino directly over serial — functional for demonstrating localisation, but not built to scale into real path planning, mapping, or multi-node robotics software.
+
+**AutonomousRobot** is the next iteration of that same physical robot, rebuilt around **ROS 2 Humble**, following the same split-brain layout TurtleBot3 uses: a Raspberry Pi runs the low-level driver stack and publishes sensor/odometry data, while a full Ubuntu workstation runs RViz2, SLAM Toolbox, and Nav2 for mapping and autonomous navigation. This project's focus wasn't localisation theory (already solved by the previous project) — it was **systems integration**: getting ROS 2 installed correctly on both machines, structuring a colcon workspace, writing the nodes and services that bridge Arduino to Nav2, and updating the Arduino firmware to speak a cleaner serial protocol with proper safety behaviour.
+
+## System Architecture
+
+```text
+Ubuntu Workstation (ROS 2 Humble desktop)
+ ├── RViz2                            visualisation
+ ├── SLAM Toolbox                     mapping (while exploring)
+ ├── Nav2 bringup
+ │    ├── AMCL                        localisation against a saved map
+ │    ├── Global costmap + NavFn A*   global path planning
+ │    ├── Local costmap + Regulated Pure Pursuit  path following
+ │    └── Waypoint follower           /follow_waypoints action server
+ └── waypoint_cli                     predefined-route client
+              │
+              │  ROS 2 DDS over Ethernet / Wi-Fi (ROS_DOMAIN_ID, multicast or Discovery Server)
+              ▼
+Raspberry Pi (Ubuntu Server 22.04 + ROS 2 Humble base)
+ ├── robot_state_publisher            TF tree from URDF
+ ├── coin_d6_lidar          ───────►  /scan
+ ├── cmd_mux                          arbitrates /cmd_vel (Nav2), /cmd_vel_teleop,
+ │                                    /cmd_vel_manual + LiDAR-based front-stop gate
+ │                          ───────►  /cmd_vel_out
+ └── serial_bridge  ◄──────────────►  /cmd_vel_out → Arduino, Arduino → /odom, /imu/data,
+                                      /joint_states, TF
+              │
+              │  USB serial, 500000 baud
+              ▼
+Arduino Uno (updated firmware)
+ ├── 4x quadrature encoder reading
+ ├── MPU6050 yaw + yaw-rate
+ ├── 4x independent wheel-speed PID loops
+ ├── Forward / reverse / left / right / stop command handling
+ ├── 500 ms communication watchdog
+ └── Latched emergency stop (software + serial commanded)
+```
+
+One integration detail worth calling out: Nav2's `navigation_launch.py` hardcodes its internal `velocity_smoother` to publish on the plain `/cmd_vel` topic, and that remap can't be renamed without namespacing the entire Nav2 stack. So instead of fighting Nav2's topic naming, `cmd_mux` simply subscribes to `/cmd_vel` as its "Nav2 input" and republishes the arbitrated, safety-gated result on `/cmd_vel_out` — the only topic the serial bridge actually listens to. Manual test commands and teleop stay isolated on their own `/cmd_vel_manual` and `/cmd_vel_teleop` topics so they can never be silently overridden by a stale Nav2 goal.
+
+## Installing ROS 2 Humble
+
+Both machines needed a clean, repeatable ROS 2 install, so this became a single idempotent shell script (`scripts/bootstrap_robot_stack.sh`) rather than a list of manual steps copy-pasted onto two different machines.
+
+**Raspberry Pi (robot side):**
+
+```bash
+git clone <this-repository-url> AutonomousRobot
+cd AutonomousRobot
+bash scripts/bootstrap_robot_stack.sh pi
+```
+
+This installs `ros-humble-ros-base`, `robot_state_publisher`, `xacro`, and the Python serial/YAML/colcon tooling, adds the user to `dialout` for serial access, symlinks the robot package into `~/ros2_ws/src/`, runs `rosdep install` + `colcon build --symlink-install`, installs the udev rules for stable serial device names, and appends the ROS 2 environment (domain ID, `ROS_LOCALHOST_ONLY=0`) to `~/.bashrc`.
+
+**Ubuntu workstation:**
+
+```bash
+bash scripts/bootstrap_robot_stack.sh desktop
+```
+
+This installs `ros-humble-desktop`, Nav2, SLAM Toolbox, and `teleop_twist_keyboard`, then builds and sources the same workspace layout.
+
+A recurring installation failure worth documenting: apt refusing to update with `Conflicting values set for option Signed-By` for `packages.ros.org`. That happens when two apt source files describe the ROS 2 repo with different keyrings — typically the official deb822 `ros2.sources` (from the `ros2-apt-source` package) alongside a legacy `ros2.list` left over from following ROS's older curl-key install instructions. The bootstrap script now installs the ROS 2 apt source exclusively through `ros2-apt-source` and removes any leftover `ros2.list`, so a re-run self-heals the conflict.
+
+## Workspace Layout and Build Files
+
+```text
+arduino_ros2_base_controller/
+  arduino_ros2_base_controller.ino     sketch uploaded to the Arduino Uno
+  QGPMaker_MotorShield.*                motor shield driver
+  QGPMaker_Encoder.h                    quadrature encoder driver
+  Adafruit_MS_PWMServoDriver.*          PCA9685 PWM driver used by the shield
+  PinChangeInterrupt*.*                 pin-change interrupt library for the encoders
+ros2_ws/src/mdetect_robot/
+  package.xml                          ROS 2 package manifest / dependencies
+  setup.py, setup.cfg                  ament_python build files
+  mdetect_robot/serial_bridge.py       Arduino <-> ROS 2 bridge
+  mdetect_robot/coin_d6_lidar.py       COIN-D6 -> LaserScan
+  mdetect_robot/cmd_mux.py             teleop/manual/Nav2 priority + safety gate
+  mdetect_robot/waypoint_cli.py        predefined Nav2 routes
+  mdetect_robot/teleop_keyboard.py     WASD keyboard teleop
+  launch/robot.launch.py               Raspberry Pi launch
+  launch/desktop_slam.launch.py        RViz + SLAM Toolbox + Nav2
+  launch/desktop_navigation.launch.py  saved map + AMCL + Nav2
+  config/base.yaml                     serial bridge + cmd_mux parameters
+  config/lidar.yaml                    COIN-D6 driver parameters
+  config/nav2_params.yaml              costmaps, A*, pure pursuit tuning
+  config/slam_toolbox.yaml
+  config/waypoints.yaml
+  urdf/mdetect_robot.urdf.xacro
+scripts/
+  bootstrap_robot_stack.sh             one-shot installer (desktop or pi mode)
+  verify_robot_stack.sh                checks the stack is wired up correctly
+  ros_network_env.sh                   sourced to set ROS 2 DDS network env vars
+  99-mdetect-robot.rules.example       udev rules template for stable serial ports
+```
+
+The package is a plain `ament_python` package built with `colcon`, keeping it on the same footing as most TurtleBot3 example packages rather than reaching for `ament_cmake` where nothing here needs to be compiled:
+
+```bash
+cd ~/ros2_ws
+colcon build --symlink-install
+source install/setup.bash
+```
+
+`--symlink-install` matters here: it symlinks the Python sources and launch files into `install/` instead of copying them, so editing a node or launch file and re-running `colcon build` picks up the change immediately without a full rebuild.
+
+One build-file trap surfaced repeatedly during development: `~/ros2_ws/src/mdetect_robot` is supposed to be a **symlink** back into this repo (set up by the bootstrap script), not a real directory. If it's ever a real directory instead — e.g. from an early manual checkout — `colcon build` keeps happily building a stale, disconnected copy of the package. `git pull` in the repo then does nothing, and `ros2 launch` fails on launch files that were renamed or added since. The giveaway symptoms: `ros2 pkg prefix mdetect_robot` failing after sourcing the workspace (symlink missing entirely), or an old launch file name still working while the documented one doesn't. Re-running the bootstrap script now detects and fixes this automatically by moving the stale directory aside and re-linking.
+
+## ROS 2 Nodes
+
+<table>
+  <thead>
+    <tr>
+      <th>Node</th>
+      <th>Package location</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>mdetect_serial_bridge</code></td>
+      <td><code>serial_bridge.py</code></td>
+      <td>Publishes <code>/odom</code>, <code>/imu/data</code>, <code>/joint_states</code>, TF from Arduino telemetry; forwards <code>/cmd_vel_out</code> to Arduino as <code>VEL,&lt;mm_s&gt;,&lt;deg_s&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code>coin_d6_lidar</code></td>
+      <td><code>coin_d6_lidar.py</code></td>
+      <td>Decodes the COIN-D6 serial protocol into <code>sensor_msgs/LaserScan</code> on <code>/scan</code></td>
+    </tr>
+    <tr>
+      <td><code>mdetect_cmd_mux</code></td>
+      <td><code>cmd_mux.py</code></td>
+      <td>Priority-arbitrates Nav2 (<code>/cmd_vel</code>), teleop, and manual velocity commands; gates forward motion using <code>/scan</code></td>
+    </tr>
+    <tr>
+      <td><code>waypoint_cli</code></td>
+      <td><code>waypoint_cli.py</code></td>
+      <td>Interactive client that sends predefined routes to Nav2's waypoint follower</td>
+    </tr>
+    <tr>
+      <td><code>teleop_keyboard</code></td>
+      <td><code>teleop_keyboard.py</code></td>
+      <td>WASD keyboard teleop, remapped onto <code>/cmd_vel_teleop</code></td>
+    </tr>
+    <tr>
+      <td><code>robot_state_publisher</code></td>
+      <td>ROS 2 core</td>
+      <td>Publishes the URDF-derived TF tree</td>
+    </tr>
+    <tr>
+      <td><code>slam_toolbox</code> / <code>nav2_bringup</code> nodes</td>
+      <td>upstream packages</td>
+      <td>SLAM, AMCL, costmaps, planner, controller, waypoint follower (workstation side)</td>
+    </tr>
+  </tbody>
+</table>
+
+## ROS 2 Services
+
+All safety-critical actions are exposed as `std_srvs/srv/Trigger` services under a common `/base/` namespace, rather than as ad hoc topics, so they can be called synchronously and give a clear success/failure result:
+
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/base/emergency_stop</code></td>
+      <td>Sends <code>ESTOP</code> to Arduino; latches a hard stop until cleared</td>
+    </tr>
+    <tr>
+      <td><code>/base/clear_emergency_stop</code></td>
+      <td>Sends <code>CLEAR_ESTOP</code>; releases the latched stop</td>
+    </tr>
+    <tr>
+      <td><code>/base/reset_odometry</code></td>
+      <td>Sends <code>RESET_ODOM</code>; zeroes <code>/odom</code> position</td>
+    </tr>
+    <tr>
+      <td><code>/base/zero_yaw</code></td>
+      <td>Sends <code>ZERO_YAW</code>; resets the heading reference</td>
+    </tr>
+    <tr>
+      <td><code>/base/calibrate_imu</code></td>
+      <td>Sends <code>CAL_IMU</code>; re-runs IMU calibration (robot must be still)</td>
+    </tr>
+  </tbody>
+</table>
+
+```bash
+ros2 service call /base/emergency_stop std_srvs/srv/Trigger {}
+ros2 service call /base/clear_emergency_stop std_srvs/srv/Trigger {}
+ros2 service call /base/reset_odometry std_srvs/srv/Trigger {}
+```
+
+## Updated Arduino Firmware
+
+The Arduino sketch was rewritten around a small, explicit line-based serial protocol so the ROS 2 `serial_bridge` node has a stable contract to parse against, instead of the ad hoc format the Pygame controller used previously.
+
+**Commands the Pi sends:**
+
+```text
+VEL,<linear_mm_s>,<angular_deg_s>
+STOP
+ESTOP
+CLEAR_ESTOP
+RESET_ODOM
+ZERO_YAW
+CAL_IMU
+PING
+```
+
+**Telemetry the Arduino publishes at 20 Hz:**
+
+```text
+T,time_ms,x_mm,y_mm,yaw_deg,vx_mm_s,wz_deg_s,
+  tick1,tick2,tick3,tick4,
+  wheel_speed1,wheel_speed2,wheel_speed3,wheel_speed4,
+  pwm1,pwm2,pwm3,pwm4,estop,watchdog
+```
+
+Each of the four wheels runs its own independent PID loop (`Kp = 0.25`, `Ki = 0.034`, `Kd = 0.003` by default), because equal target speed does not mean equal PWM once motor torque, gearbox friction, and wheel loading differ slightly between the four corners. Gains can be tuned live over serial without reflashing:
+
+```text
+PID,0.25,0.034,0.003          # all four motors
+PIDM,4,0.28,0.040,0.003       # motor 4 only
+```
+
+Two firmware-level safety behaviours were built in rather than left to the ROS 2 side: a **500 ms communication watchdog** that stops the robot if the Pi goes silent (network drop, node crash, `Ctrl+C` on a manual test), and a **latched emergency stop** that must be explicitly cleared with `CLEAR_ESTOP` rather than releasing itself once the triggering condition goes away.
+
+## ROS 2 Networking
+
+Getting DDS discovery working reliably between the Pi and workstation needed both machines on the same `ROS_DOMAIN_ID` with multicast/localhost-only settings aligned:
+
+```bash
+export ROS_DOMAIN_ID=30
+export ROS_LOCALHOST_ONLY=0
+```
+
+On Wi-Fi networks that block multicast, a Fast DDS discovery server on the Pi replaces multicast discovery entirely:
+
+```bash
+fastdds discovery --server-id 0 -l 192.168.1.50 -p 11811
+```
+
+```bash
+export ROS_DISCOVERY_SERVER=192.168.1.50:11811
+```
+
+## Commissioning Checks
+
+Before trusting any of this on the floor, several sign/scale checks have to be verified against the physical robot, all pointing at specific constants in the firmware or URDF:
+
+- **Encoder direction** — all four wheel-speed values must go positive under forward motion; flip the offending entry in `ENCODER_SIGN[4]` if not.
+- **IMU direction** — a hand-rotated left turn must increase both `/imu/data` and `/odom` yaw; flip `IMU_YAW_SIGN` if inverted.
+- **Straight-line PID** — compare all four wheel-speed telemetry values over a 1 m run at 0.10 m/s; nudge `Kp`/`Ki` per-motor if one lags.
+- **Distance calibration** — measure real travel over 1 m against odometry and correct `WHEEL_DIAMETER_MM` / `COUNTS_PER_REV`.
+- **Track width** — an in-place 360° turn should match `TRACK_WIDTH_MM`; heading itself still comes from the IMU, not this constant.
+- **LiDAR alignment** — a wall directly ahead must read at angle zero in `/scan`; adjust the `laser_joint` yaw in the URDF if RViz shows it rotated.
+
+## Challenges
+
+**Stable serial port identification.** The LiDAR and Arduino are both CH340-based USB-serial adapters sharing the same vendor/product ID with no serial EEPROM, so `udevadm`'s `ATTRS{serial}` lookup returns identical values for both — it can't distinguish them. The fix was udev rules keyed on the physical `ID_PATH` (USB port path) instead of serial number, which is stable as long as each adapter stays plugged into the same port.
+
+**Nav2's hardcoded `/cmd_vel` output.** As covered in the architecture section, Nav2's velocity smoother can't be renamed without namespacing the whole stack. Rather than fight it, `cmd_mux` was designed to treat `/cmd_vel` as just one more input to arbitrate, keeping teleop and manual test topics completely separate so a stray Nav2 goal can never hijack a manual test.
+
+**apt repository conflicts.** ROS 2's official `ros2-apt-source` package and the legacy manual curl-key installation method both write config for the same `packages.ros.org` repo with different keyrings, and apt refuses to reconcile the two. Standardising the bootstrap script on the official package (and having it clean up any legacy `ros2.list`) removed this as a recurring issue across re-installs.
+
+**Stale package symlinks.** As described above, an accidental real-directory checkout instead of a symlink silently disconnects the built package from the git repo, and the failure symptoms (missing launch files, old behaviour persisting) don't obviously point back to that cause. The bootstrap script's self-healing symlink check turned this from a recurring debugging session into a non-issue.
+
+**Coordinating two machines' clocks and network config.** DDS discovery over Wi-Fi is flaky by default; needing a documented fallback (Fast DDS discovery server) rather than debugging multicast issues live in the field each time was necessary to make demos reliable.
+
+## Achievements
+
+- Migrated the robot's control stack from a single-machine Pygame waypoint controller to a proper two-machine ROS 2 Humble architecture matching the TurtleBot3 pattern (robot-side driver stack + workstation-side Nav2/SLAM/RViz).
+- Built a one-shot, idempotent `bootstrap_robot_stack.sh` installer that reliably provisions both the Raspberry Pi and the Ubuntu workstation, including self-healing for the apt keyring conflict and the stale-symlink package issue.
+- Implemented a safety-aware `cmd_mux` node that arbitrates Nav2, teleop, and manual commands and adds an independent LiDAR-based front-obstacle stop gate ahead of the serial bridge.
+- Rewrote the Arduino firmware around an explicit serial protocol with per-motor PID tuning, a 500 ms communication watchdog, and a latched, explicitly-cleared emergency stop.
+- Got full SLAM Toolbox mapping and Nav2 (AMCL + A* global planning + Regulated Pure Pursuit local control) working live against the real robot, including saved-map reuse for repeat navigation.
+- Added a `verify_robot_stack.sh` script that checks all expected nodes, topics, and services are present, turning "is the robot actually working?" into a single command instead of manual `ros2 topic echo` spelunking.
+- Documented and solved the CH340 dual-adapter identification problem with `ID_PATH`-based udev rules, producing stable `/dev/arduino_mdetect` and `/dev/coin_d6` device names regardless of enumeration order.
+
+## Future Work
+
+The next steps are the same ones identified at the end of the original mDetect project, now with a proper ROS 2 foundation to build them on: sensor fusion via an Extended Kalman Filter across encoder, IMU, and LiDAR data (`robot_localization` is a natural fit here), fully autonomous obstacle avoidance rather than a stop-and-wait gate, and longer-duration field testing in real tunnel environments to validate SLAM and Nav2 tuning under realistic conditions.

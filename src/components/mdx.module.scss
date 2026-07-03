@@ -65,17 +65,13 @@
   text-align: left;
   font-weight: 600;
   color: var(--neutral-on-background-strong);
-  border-bottom: 1px solid var(--neutral-alpha-medium);
+  border: 1px solid var(--neutral-alpha-medium);
   white-space: nowrap;
 }
 
 .tableCell {
   padding: var(--static-space-12) var(--static-space-16);
   color: var(--neutral-on-background-medium);
-  border-bottom: 1px solid var(--neutral-alpha-weak);
+  border: 1px solid var(--neutral-alpha-medium);
   vertical-align: top;
-}
-
-.mdxTable tr:last-child .tableCell {
-  border-bottom: none;
 }
