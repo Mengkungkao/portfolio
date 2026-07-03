@@ -5,6 +5,7 @@ const PUBLIC_FILE = /\.(.*)$/;
 // Add project slugs that should be open without password
 const PUBLIC_PROJECTS = [
   "/work/mdetect",
+  "/work/low-voltage-electrical-system-design",
 
 ];
 
