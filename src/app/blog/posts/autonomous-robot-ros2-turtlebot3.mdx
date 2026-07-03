@@ -14,40 +14,18 @@ That setup was great for proving the localisation idea worked, but it had a ceil
 
 ## Pygame Console vs. ROS 2: What Actually Changed
 
-<table>
-  <thead>
-    <tr>
-      <th>Old system (Pygame)</th>
-      <th>New system (ROS 2)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>One script, one computer, talking directly to the Arduino</td>
-      <td>Two computers (Raspberry Pi + workstation) sharing data automatically over the network</td>
-    </tr>
-    <tr>
-      <td>No map — the robot only knew its own estimated position</td>
-      <td>Live mapping with SLAM Toolbox, viewable in RViz2</td>
-    </tr>
-    <tr>
-      <td>You had to drive it manually to a location</td>
-      <td>Click a point on the map and Nav2 plans and drives the route itself</td>
-    </tr>
-    <tr>
-      <td>One input source — whatever key you pressed</td>
-      <td>Teleop, manual test commands, and autonomous navigation all safely arbitrated by one node (<code>cmd_mux</code>)</td>
-    </tr>
-    <tr>
-      <td>No standard, reusable safety layer — obstacle handling depended entirely on whatever the script author happened to code by hand</td>
-      <td>A dedicated safety layer stops the robot near obstacles before any command reaches the motors</td>
-    </tr>
-    <tr>
-      <td>Adding a new sensor meant editing the main script</td>
-      <td>A new sensor is just a new ROS 2 node publishing its own topic</td>
-    </tr>
-  </tbody>
-</table>
+<FunctionTable
+  caption="Pygame console vs. ROS 2"
+  columns={["Old system (Pygame)", "New system (ROS 2)"]}
+  rows={[
+    ["One script, one computer, talking directly to the Arduino", "Two computers (Raspberry Pi + workstation) sharing data automatically over the network"],
+    ["No map — the robot only knew its own estimated position", "Live mapping with SLAM Toolbox, viewable in RViz2"],
+    ["You had to drive it manually to a location", "Click a point on the map and Nav2 plans and drives the route itself"],
+    ["One input source — whatever key you pressed", "Teleop, manual test commands, and autonomous navigation all safely arbitrated by one node (cmd_mux)"],
+    ["No standard, reusable safety layer — obstacle handling depended entirely on whatever the script author happened to code by hand", "A dedicated safety layer stops the robot near obstacles before any command reaches the motors"],
+    ["Adding a new sensor meant editing the main script", "A new sensor is just a new ROS 2 node publishing its own topic"]
+  ]}
+/>
 
 In short: the old system was a remote control. The new system is a robot that can look at a map and figure out how to get somewhere on its own.
 

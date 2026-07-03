@@ -126,87 +126,35 @@ One build-file trap surfaced repeatedly during development: `~/ros2_ws/src/mdete
 
 ## ROS 2 Nodes
 
-<table>
-  <thead>
-    <tr>
-      <th>Node</th>
-      <th>Package location</th>
-      <th>Role</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>mdetect_serial_bridge</code></td>
-      <td><code>serial_bridge.py</code></td>
-      <td>Publishes <code>/odom</code>, <code>/imu/data</code>, <code>/joint_states</code>, TF from Arduino telemetry; forwards <code>/cmd_vel_out</code> to Arduino as <code>VEL,&lt;mm_s&gt;,&lt;deg_s&gt;</code></td>
-    </tr>
-    <tr>
-      <td><code>coin_d6_lidar</code></td>
-      <td><code>coin_d6_lidar.py</code></td>
-      <td>Decodes the COIN-D6 serial protocol into <code>sensor_msgs/LaserScan</code> on <code>/scan</code></td>
-    </tr>
-    <tr>
-      <td><code>mdetect_cmd_mux</code></td>
-      <td><code>cmd_mux.py</code></td>
-      <td>Priority-arbitrates Nav2 (<code>/cmd_vel</code>), teleop, and manual velocity commands; gates forward motion using <code>/scan</code></td>
-    </tr>
-    <tr>
-      <td><code>waypoint_cli</code></td>
-      <td><code>waypoint_cli.py</code></td>
-      <td>Interactive client that sends predefined routes to Nav2's waypoint follower</td>
-    </tr>
-    <tr>
-      <td><code>teleop_keyboard</code></td>
-      <td><code>teleop_keyboard.py</code></td>
-      <td>WASD keyboard teleop, remapped onto <code>/cmd_vel_teleop</code></td>
-    </tr>
-    <tr>
-      <td><code>robot_state_publisher</code></td>
-      <td>ROS 2 core</td>
-      <td>Publishes the URDF-derived TF tree</td>
-    </tr>
-    <tr>
-      <td><code>slam_toolbox</code> / <code>nav2_bringup</code> nodes</td>
-      <td>upstream packages</td>
-      <td>SLAM, AMCL, costmaps, planner, controller, waypoint follower (workstation side)</td>
-    </tr>
-  </tbody>
-</table>
+<FunctionTable
+  caption="ROS 2 nodes"
+  columns={["Node", "Package location", "Role"]}
+  rows={[
+    ["mdetect_serial_bridge", "serial_bridge.py", "Publishes /odom, /imu/data, /joint_states, TF from Arduino telemetry; forwards /cmd_vel_out to Arduino as VEL,<mm_s>,<deg_s>"],
+    ["coin_d6_lidar", "coin_d6_lidar.py", "Decodes the COIN-D6 serial protocol into sensor_msgs/LaserScan on /scan"],
+    ["mdetect_cmd_mux", "cmd_mux.py", "Priority-arbitrates Nav2 (/cmd_vel), teleop, and manual velocity commands; gates forward motion using /scan"],
+    ["waypoint_cli", "waypoint_cli.py", "Interactive client that sends predefined routes to Nav2's waypoint follower"],
+    ["teleop_keyboard", "teleop_keyboard.py", "WASD keyboard teleop, remapped onto /cmd_vel_teleop"],
+    ["robot_state_publisher", "ROS 2 core", "Publishes the URDF-derived TF tree"],
+    ["slam_toolbox / nav2_bringup nodes", "upstream packages", "SLAM, AMCL, costmaps, planner, controller, waypoint follower (workstation side)"]
+  ]}
+/>
 
 ## ROS 2 Services
 
 All safety-critical actions are exposed as `std_srvs/srv/Trigger` services under a common `/base/` namespace, rather than as ad hoc topics, so they can be called synchronously and give a clear success/failure result:
 
-<table>
-  <thead>
-    <tr>
-      <th>Service</th>
-      <th>Effect</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>/base/emergency_stop</code></td>
-      <td>Sends <code>ESTOP</code> to Arduino; latches a hard stop until cleared</td>
-    </tr>
-    <tr>
-      <td><code>/base/clear_emergency_stop</code></td>
-      <td>Sends <code>CLEAR_ESTOP</code>; releases the latched stop</td>
-    </tr>
-    <tr>
-      <td><code>/base/reset_odometry</code></td>
-      <td>Sends <code>RESET_ODOM</code>; zeroes <code>/odom</code> position</td>
-    </tr>
-    <tr>
-      <td><code>/base/zero_yaw</code></td>
-      <td>Sends <code>ZERO_YAW</code>; resets the heading reference</td>
-    </tr>
-    <tr>
-      <td><code>/base/calibrate_imu</code></td>
-      <td>Sends <code>CAL_IMU</code>; re-runs IMU calibration (robot must be still)</td>
-    </tr>
-  </tbody>
-</table>
+<FunctionTable
+  caption="ROS 2 services"
+  columns={["Service", "Effect"]}
+  rows={[
+    ["/base/emergency_stop", "Sends ESTOP to Arduino; latches a hard stop until cleared"],
+    ["/base/clear_emergency_stop", "Sends CLEAR_ESTOP; releases the latched stop"],
+    ["/base/reset_odometry", "Sends RESET_ODOM; zeroes /odom position"],
+    ["/base/zero_yaw", "Sends ZERO_YAW; resets the heading reference"],
+    ["/base/calibrate_imu", "Sends CAL_IMU; re-runs IMU calibration (robot must be still)"]
+  ]}
+/>
 
 ```bash
 ros2 service call /base/emergency_stop std_srvs/srv/Trigger {}

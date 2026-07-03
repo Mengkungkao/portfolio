@@ -43,9 +43,10 @@
 .tableWrapper {
   width: 100%;
   margin: var(--static-space-20) 0 var(--static-space-28);
-  overflow-x: auto;
-  border: 1px solid var(--neutral-alpha-medium);
+  overflow: hidden auto;
+  border: 1px solid var(--neutral-border-medium);
   border-radius: var(--radius-m);
+  background: var(--surface-background);
 }
 
 .mdxTable {
@@ -65,13 +66,21 @@
   text-align: left;
   font-weight: 600;
   color: var(--neutral-on-background-strong);
-  border: 1px solid var(--neutral-alpha-medium);
+  border: 1px solid var(--neutral-border-medium);
   white-space: nowrap;
 }
 
 .tableCell {
   padding: var(--static-space-12) var(--static-space-16);
   color: var(--neutral-on-background-medium);
-  border: 1px solid var(--neutral-alpha-medium);
+  border: 1px solid var(--neutral-border-medium);
   vertical-align: top;
+}
+
+.mdxTable tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.mdxTable tbody tr:hover {
+  background-color: var(--neutral-alpha-weak);
 }
