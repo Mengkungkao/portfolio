@@ -19,6 +19,12 @@ export function FunctionTable({
     return null;
   }
 
+  // Wide tables (many columns) get tighter typography/padding so they fit
+  // the article column instead of forcing a wide horizontal scroll.
+  const isWide = columns.length > 8;
+  const fontSize = isWide ? "0.72rem" : "0.95rem";
+  const cellPadding = isWide ? "6px 6px" : "10px 12px";
+
   return (
     <figure style={{ margin: "24px 0", width: "100%" }}>
       {caption && (
@@ -37,8 +43,9 @@ export function FunctionTable({
         <table
           style={{
             width: "100%",
+            tableLayout: isWide ? "fixed" : "auto",
             borderCollapse: "collapse",
-            fontSize: "0.95rem",
+            fontSize,
           }}
         >
           <thead>
@@ -48,10 +55,11 @@ export function FunctionTable({
                   key={`heading-${index}`}
                   style={{
                     border: "1px solid var(--neutral-border-medium, #d9d9d9)",
-                    padding: "10px 12px",
+                    padding: cellPadding,
                     textAlign: "left",
                     fontWeight: 600,
-                    whiteSpace: "nowrap",
+                    whiteSpace: isWide ? "normal" : "nowrap",
+                    wordBreak: isWide ? "break-word" : "normal",
                   }}
                 >
                   {column}
@@ -68,8 +76,9 @@ export function FunctionTable({
                     key={`cell-${rowIndex}-${cellIndex}`}
                     style={{
                       border: "1px solid var(--neutral-border-medium, #d9d9d9)",
-                      padding: "10px 12px",
+                      padding: cellPadding,
                       verticalAlign: "top",
+                      wordBreak: isWide ? "break-word" : "normal",
                     }}
                   >
                     {row[cellIndex] ?? ""}
