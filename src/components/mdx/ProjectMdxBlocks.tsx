@@ -43,7 +43,6 @@ export function FunctionTable({
         <table
           style={{
             width: "100%",
-            tableLayout: isWide ? "fixed" : "auto",
             borderCollapse: "collapse",
             fontSize,
           }}
@@ -59,7 +58,7 @@ export function FunctionTable({
                     textAlign: "left",
                     fontWeight: 600,
                     whiteSpace: isWide ? "normal" : "nowrap",
-                    wordBreak: isWide ? "break-word" : "normal",
+                    overflowWrap: isWide ? "break-word" : "normal",
                   }}
                 >
                   {column}
@@ -78,7 +77,7 @@ export function FunctionTable({
                       border: "1px solid var(--neutral-border-medium, #d9d9d9)",
                       padding: cellPadding,
                       verticalAlign: "top",
-                      wordBreak: isWide ? "break-word" : "normal",
+                      overflowWrap: isWide ? "break-word" : "normal",
                     }}
                   >
                     {row[cellIndex] ?? ""}
