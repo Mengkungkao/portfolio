@@ -1,7 +1,7 @@
 ---
 title: "ROS 2 Humble and Rviz navigation for Autonomous Robotic platform"
 summary: "Why we rebuilt the mDetect robot's control software on ROS 2 Humble, how it compares to the old Pygame waypoint controller, and what it took to get there."
-image: "/images/projects/mdetect/image1.png"
+image: "/images/projects/autonomousrobot/rviz-nav-pathfinding-3.png"
 publishedAt: "2026-07-04"
 tag: "Robotics"
 ---
@@ -16,9 +16,16 @@ So for this next stage, called **AutonomousRobot**, I kept the exact same physic
 
 The old system was a remote control: one script, one computer, one input source, no map. The new system can look at a map and figure out how to get somewhere on its own — click a point in RViz, or now type an exact `x_mm, y_mm, heading_deg` into a custom **Goto** panel docked right next to Nav2's own, and it plans the route and drives it, watching the LiDAR the whole way. A custom **Teleop** panel sits next to it for manual driving, so nudging the robot clear of an obstacle no longer means a separate SSH session. Teleop, manual test commands, and autonomous navigation all pass through a single arbitration node (`cmd_mux`) before reaching the motors, with a dedicated safety layer that stops the robot near obstacles no matter which of the three is currently driving.
 
+![RViz2 with the custom Goto/Teleop panels: goal just sent, global plan visible across the mapped room](/images/projects/autonomousrobot/rviz-nav-pathfinding-3.png)
+
 ![RViz2 mid-route: Nav2 threading between obstacle clusters, tracked live through the custom Goto/Teleop panels](/images/projects/autonomousrobot/rviz-nav-pathfinding-4.png)
 
+Watch it in action: 
+![image](https://youtube.com/shorts/jLtVn-1tlAI)
+
 None of the test runs were clean, obstacle-free demos, either — Nav2's local planner had to trigger recovery behaviours mid-route to work around clutter in the room before closing the last few centimetres to the goal, which is exactly the kind of real-world messiness the old Pygame script had no way to handle.
+
+![Final approach after two local-costmap recoveries, closing in on the goal pose](/images/projects/autonomousrobot/rviz-nav-pathfinding-1.png)
 
 ## The Hard Parts
 
