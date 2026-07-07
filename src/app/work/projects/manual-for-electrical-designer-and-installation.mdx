@@ -1,0 +1,267 @@
+---
+title: "Canvas Projects — Building Services Engineering Reference"
+description: "A consolidated, screenshot-illustrated guide to electrical and ELV building services design, pulled together from the full Canvas Projects file set."
+date: "2026-07-07"
+---
+
+# Canvas Projects — Building Services Engineering Reference
+
+*A consolidated guide pulled together from the full Canvas Projects file set.*
+
+## A note on this edition
+
+This version pulls everything from the 27 project files into one working reference. The tenancy agreement was left out — it's a personal rental lease with no engineering content in it, so it never belonged here. Where two or three files said basically the same thing in slightly different words, that's now one passage instead of three. Where a file leaned on the wrong regulatory body — Indian earthing rules turning up in what's otherwise an Australian-standards document, US ventilation codes sitting next to AS/NZS references — that's been corrected to match the AS/NZS framework the rest of the set is built around. And wherever the thesis had already done the real technical work — actual formulas, actual tables, a real building run through the whole process — that became the backbone for load estimation and cable sizing instead of the thinner, generic version sitting elsewhere in the files.
+
+---
+
+## 1. Getting started: how a project like this actually comes together
+
+Before anyone opens a drawing, the first job is figuring out which code book governs the project. In Australia that's AS/NZS 3000 (the Wiring Rules), backed by AS/NZS 3100 for equipment testing, AS/NZS 3112 for plugs and socket-outlets, and a run of companion standards covering everything from cable to inverter connections. A typical scope of work reads about the same on every job: design, install, and commission a system that covers the building's full load — lighting, HVAC, receptacles, all of it — sized to meet code, run efficiently, and stay serviceable down the track. The component list is predictable too: transformers, switchgear, panelboards, breakers, fuses, cable, luminaires, whatever mechanical and office loads the building carries. Installation, commissioning, testing, then a maintenance and warranty period close things out — usually a 12-month defects period gets written into the contract.
+
+The bigger picture — what an entire project folder actually holds — comes through clearly once you line the files up side by side. It's worth setting out in full, because it's a genuinely solid map of the whole design-to-handover process:
+
+- **Design drawings**: architectural block plan, MEP shaft openings, equipment locations (generator, transformer, MDB/DB), cable routing, lighting, receptacles, single-line diagrams, earthing, lightning protection, fire alarm, and every ELV system, plus the combined reflected ceiling plan.
+- **Design calculations**: load estimation, calculation notes, DIALux lighting results, WiFi heat-map coverage, and software verification (Ecodial, ABB, or equivalent).
+- **Specifications, BOQ, and tender documents.**
+- **Material submissions** — compliance statements, technical data, certificates, catalogues, company profile, references — both the request and the approval side of it.
+- **Sample boards** covering fittings, wiring devices, protective devices, cable, and wireways.
+- **Shop drawings, purchase orders, variation orders, and delivery records.**
+- **As-built package**: drawings, catalogues, O&M manuals, commissioning and lux-test records, and the maintenance/warranty plan.
+
+Different building types need different versions of all this — houses and villas, standalone residential blocks, mixed residential/commercial towers, offices, malls, restaurants, hotels, hospitals, schools all show up as their own design templates. What doesn't really change is the underlying logic; what does change is load density, how much redundancy you build in, and how conservative you get with standby power.
+
+---
+
+## 2. Load estimation, power factor, and sizing the transformer and generator
+
+This is the section where the difference between the generic version and the real engineering shows up most. The generic version hands you a rough watts-per-square-metre table — residential at 15–20 W/m², commercial at 30–40 W/m², industrial at 50–60 W/m² — and tells you to multiply by floor area. Fine for a back-of-envelope early estimate, but it's not how a real design gets sized, and the thesis case study shows what the actual method looks like.
+
+**Installed power** is just every load's nameplate rating added up — every fixture, socket, motor. But that number badly overstates real demand, because nothing runs at full rated output all at once. Two correction factors bring it back down to earth:
+
+- **Utilization factor (ku)** — how hard a load actually runs relative to its nameplate rating. Lighting and HVAC usually sit at ku = 1.0, since they tend to run close to rated output whenever they're on. General socket-outlets sit much lower, around 0.1–0.2, because most sockets simply aren't drawing full load at any given moment.
+- **Diversity factor (ks)** — accounts for the fact that not every circuit on a board fires at once. A board with two or three circuits gets ks around 0.9; a board with ten or more drops to around 0.6, since it's statistically unlikely everything runs together.
+
+From there, the power demand chain runs: nameplate power × ku gives estimated demand per load; sum those and multiply by ks to get the board's real maximum demand; convert to reactive and apparent power using the circuit's power factor; and for three-phase boards, divide by (√3 × voltage) to land on design current. That's the number everything downstream — cable size, breaker rating, transformer size — actually gets sized against, not the raw nameplate total.
+
+**Power factor correction** matters because a low power factor inflates apparent power and current for the exact same real load, wasting capacity and driving up losses on the feeder. A capacitor bank sized against the gap between the existing and target power factor brings the system back into an efficient range, without tipping over into a leading power factor, which just trades one problem for another.
+
+![Power transformer](\images\projects\manual-electrical-design\thesis_transformer.png)
+
+**Transformer sizing** is driven by the maximum apparent demand after compensation, with an extension factor built in for future load growth — so the transformer isn't sized right to today's peak, it's sized with some room to grow. **Generator sizing** follows the same logic but only has to cover the emergency/critical load list, not the whole building, which is why a backup generator is almost always smaller than the main transformer.
+
+![Standby power generator](\images\projects\manual-electrical-design\thesis_generator.jpg)
+
+---
+
+## 3. Cable routing, cable sizing, and circuit protection
+
+### Physical routing
+
+Cable routing systems exist to organise, protect, and support cable runs, and to keep them from becoming a trip hazard or a fire-spread path. Three systems cover almost every installation:
+
+![Cable tray](\images\projects\manual-electrical-design\cable_tray.jpg)
+
+- **Cable tray** — open metal or plastic channel, the most common general-purpose option.
+
+![Cable ladder](\images\projects\manual-electrical-design\cable_ladder.jpg)
+
+- **Cable ladder** — rung-style tray, more flexible and better suited to runs with vibration.
+- **Conduit** — fully enclosed pipe (metal, plastic, or fibreglass), used wherever the cable needs full mechanical or environmental protection.
+
+The design workflow itself is fairly simple in principle: gather the floor plan and equipment locations (MDB, DB, generator, transformer, ATS, control panels, pumps, motors, fans), work out tray/ladder/conduit sizing based on cable count and whether any single cable is over 6 mm², lay the routing out on its own drawing layer, and check cable fill against the tray's rated capacity. Trunking and cable-routing assemblies used in Australia are typically qualified against IEC and AS/NZS series — the American UL 2024 reference that shows up in some of the source material doesn't apply directly here, though the underlying fill and separation principles carry across regardless of which standard is sitting on top.
+
+### Sizing the conductor
+
+This is where the thesis material really earns its keep, because conductor sizing is one of the highest-consequence calculations in the whole design. Get it wrong and you're looking at overheating, nuisance voltage drop, or a fire risk from an undersized cable — or unnecessary cost from an oversized one.
+
+The process, roughly in order:
+
+1. **Pick the insulation type.** XLPE handles higher continuous temperatures (up to 90°C) and is the default for larger main-supply cables. PVC is rated to about 70°C and remains the standard choice for most branch circuits, lighting risers, and control wiring, thanks to how easy it is to bend and install.
+2. **Work out the design current (Ib).** This comes straight out of the power demand calculation above — apparent power divided by voltage (and by √3 for three-phase), with separate formulas for single-phase and three-phase motors that account for efficiency and power factor.
+3. **Apply correction factors.** The base current-carrying capacity tables assume 30°C ambient air (or 20°C in the ground) and standard soil resistivity. Real installations need correction factors applied for actual ambient temperature, ground temperature, soil thermal resistivity, and how many cables are grouped together — the corrected capacity still has to beat the design current.
+4. **Check voltage drop.** IEC 60364 sets maximum allowable voltage drop for steady-state operation (these limits don't apply during motor starting or when several loads switch at once). Voltage drop gets calculated from cable length, per-km resistance and reactance, and load current — worked separately for phase-to-phase, phase-to-neutral, and balanced three-phase circuits. If the drop goes over the limit, the fix is a bigger cable, not a different breaker.
+5. **Size the neutral and earth conductors.** Under TT and TN-S systems, a neutral serving cable ≤16 mm² (copper) or ≤25 mm² (aluminium) has to match the phase conductor size; larger cables can use a reduced neutral once harmonic loading has been checked. Protective earth conductor sizing follows a simplified ratio against the phase conductor — matching size up to 16 mm², roughly half the incremental size between 16–35 mm², and about half size again above that, with a practical floor of 25 mm² (Cu) / 35 mm² (Al) on TT systems.
+6. **Check short-circuit current and pick the breaker.** Fault current at any point in the system depends on the combined impedance of everything upstream of it — the MV network, the transformer, and the cable or busway runs between the source and the fault point. Each element contributes its own resistive and reactive share, and those combine into a total impedance that gives you the prospective fault current. The breaker then has to be rated to interrupt that fault current safely, on top of carrying the normal design current.
+
+![Busway trunking system](\images\projects\manual-electrical-design\thesis_busway.png)
+
+![Circuit breaker](\images\projects\manual-electrical-design\thesis_breaker.jpg)
+
+Cable is normally specified in mm² for AS/NZS-based projects rather than AWG, though AWG still shows up in older ELV and low-current references in the file set — worth flagging that mismatch if you're pulling together a BOQ across both.
+
+---
+
+## 4. Single-line diagrams
+
+A single-line diagram is the simplified, symbol-based map of how power flows through a system — from the incoming supply, through the main board, out to sub-boards, and down to individual loads. Solid lines mean live conductors, dashed lines mean de-energized ones; circles mark transformers, squares mark breakers, triangles mark fuses. Voltage, current, and power ratings usually get annotated at each stage.
+
+SLDs get used for planning, troubleshooting, training, documentation, and — often overlooked — as a required part of permit and approval submissions. The main references are ANSI/IEEE Std 315 for the symbol set, IEC 60617-1 internationally, and BS 1420 in the UK; in Australia, these principles carry through the AS/NZS wiring documentation conventions. Whichever standard applies, the diagram still needs the system name, type, voltage level, equipment locations and types, and the connections between everything, labelled consistently and reviewed before it goes out.
+
+---
+
+## 5. Lighting design
+
+### The design logic
+
+A lighting system really comes down to four things working together: a light source, a fixture to hold and direct it, a power supply, and some form of control. Fixtures split into four functional categories:
+
+![Ceiling-mounted ambient lighting](\images\projects\manual-electrical-design\light_ceiling.jpg)
+
+**Ambient lighting** — ceiling fixtures, LED downlights, track lighting, wall-mounts, floor lamps indoors; bollards, sconces, canopy lights, and lanterns outdoors.
+
+![Desk lamp — task lighting](\images\projects\manual-electrical-design\light_desk.jpg)
+
+**Task lighting** — desk lamps, under-cabinet strips, directional downlights, pendants — anything aimed at a specific work surface.
+
+![Accent lighting fixture](\images\projects\manual-electrical-design\light_accent.jpg)
+
+**Accent lighting** — wall-washers, tape and extrusion lighting, directional recessed fixtures, track heads — used to highlight a feature rather than light a whole room evenly.
+
+![Pendant — decorative lighting](\images\projects\manual-electrical-design\light_pendant.jpg)
+
+**Decorative lighting** — pendants, sconces, table and floor lamps, fan-light combos — chosen as much for how they look as what they put out.
+
+### Lux calculation
+
+The core relationship is: illuminance (lux) equals lamp output (lumens) times utilization factor times maintenance factor, divided by the area being lit. The utilization factor accounts for how much light actually lands usefully given room geometry and surface reflectance; the maintenance factor accounts for lumen depreciation over the lamp's life. Typical working values sit around 0.4 for utilization and 0.9 for maintenance, which means a real space usually ends up with roughly a third of the theoretical maximum illuminance a fixture could produce inside a perfectly reflective box.
+
+Recommended illuminance levels vary a lot by task — general circulation areas sit around 200–500 lux, reading and desk work climb to 300–1000 lux, fine detail work like drafting or sewing needs 750–1500 lux, and surgical lighting runs 2000–10,000 lux. These figures come from ANSI/IESNA, ISO 8995, and BS EN 12464 guidance, with the AS/NZS 1680 series being the direct local equivalent.
+
+![Lighting installation detail](\images\projects\manual-electrical-design\light_fountain_detail.png)
+
+### DIALux workflow
+
+DIALux is the standard software for estimating and verifying lux levels across a whole building model before anything gets installed. The workflow: import or trace the building plan, set the coordinate origin and scale, draw the rooms, assign each room its required lux level from the applicable standard, pull fixtures from the manufacturer catalogue, let the software auto-place them, then fine-tune by trading fixture wattage against fixture count until the target lux is hit without going over. Once it's calculated, the software renders a visual simulation and exports the results and photometric report for the design file. Worth remembering: lighting design isn't just fixture selection — daylighting, control zoning, and the building's architectural massing (ceiling height, window placement, orientation) all shape how much electric lighting is actually needed, and that's worth thinking through before the fixture count gets locked in.
+
+---
+
+## 6. Receptacle (power point) system
+
+Receptacles fall into two functional categories: conventional two-pin sockets for general use, and RCD/GFCI-protected outlets required in wet areas like bathrooms, kitchens, and outdoor points. Circuit loading depends on the breaker rating serving that circuit — a common rule of thumb is up to around 8 single or double sockets per circuit for a standard ETS-style design, with single sockets budgeted at 75 W and doubles at 150 W for load-estimation purposes. That said, the real number should always be checked against actual connected load and the circuit breaker's rated current, not a fixed socket count.
+
+Placement conventions worth keeping as a running checklist:
+
+- Wall-mounted sockets preferred over floor or table-mounted wherever practical.
+- Double sockets at desk height (900–1200 mm) for workstations and TV points.
+- Single socket within 150 mm of each door, at 300 mm height.
+- Double sockets each side of a bed head, 300–600 mm height.
+- Waterproof single socket in bathrooms (around 1200 mm, for dryers) and at balconies and outdoor areas (300–600 mm).
+- Single socket at 1200 mm for laundry appliances, waterproof-rated.
+- Single socket at 300 mm along corridors.
+- Dedicated single sockets at 1200 mm in kitchens for fixed appliances — fridge, rice cooker, dishwasher, oven, microwave.
+
+Mechanical loads carry their own switching logic: fans under 5.5 kW run direct-on-line, fans between 5.5–15 kW typically need a VSD or star-delta starter, and anything above 15 kW should use a soft starter — each with auto/off/manual control and interlocks tied to pressure switches or thermostats where relevant.
+
+---
+
+## 7. Earthing systems
+
+An earthing (grounding) system gives fault current a controlled, low-impedance path back to source — which is what actually trips the protective device and clears the fault, rather than letting it linger as a shock or fire risk. Three system topologies cover essentially all installations:
+
+- **TN** — the supply neutral is earthed at the source, giving a low-impedance fault-current path through the neutral/PEN conductor.
+- **TT** — each installation has its own local earth electrode, independent of the supply neutral; this relies on an RCD to clear faults, since fault-loop impedance through separate earths is usually too high to trip a standard breaker fast enough.
+- **IT** — the system is either unearthed or earthed through a high impedance, used where a first fault mustn't cause an automatic shutdown — some industrial or medical continuity-of-supply applications, for instance.
+
+One correction worth flagging here: the original file cited an Indian standard as the governing document, which doesn't apply outside India. For an Australian project, earthing design sits under AS/NZS 3000, with electrode and conductor sizing following the same document rather than a separate national earthing code. The underlying engineering logic still holds regardless of which national code sits on top — conductor sizing scaled to fault current, electrode selection (plate, rod, or conductor-mesh), minimum clearance from buildings and services, and periodic resistance testing by a qualified electrician.
+
+---
+
+## 8. Lightning protection
+
+A lightning protection system has three functional layers: air terminals to intercept a strike, down conductors to carry that current to ground, and grounding electrodes to dissipate it safely. The three standards worth actually designing against are NFPA 780 (US), IEC 62305 (the comprehensive international standard, covering risk assessment, air terminal placement using the rolling-sphere or mesh method, down-conductor spacing, and bonding), and BS EN 62305, which is IEC 62305 adopted for European and UK use. IEC 62305 lines up with AS/NZS practice, so that's the one worth designing against locally, with down-conductor spacing and testing intervals checked against AS 1768 for projects sitting in Australia specifically.
+
+---
+
+## 9. Mechanical services: air conditioning and ventilation
+
+An air conditioning system removes heat and moisture from a space by circulating refrigerant through an evaporator (absorbing heat indoors) and a condenser (rejecting it outdoors). System types range from simple split units through VRF, air-handling-unit, and chiller systems, chosen based on building scale and zoning needs — sizing starts from room volume and cooling load. Ventilation is a separate function — supplying fresh air and clearing stale air — split between natural ventilation (relying on wind and stack effect, workable for small or simply-laid-out buildings) and mechanical ventilation (fan-driven, needed for larger or more complex layouts, or spaces without adequate natural airflow paths).
+
+Another correction worth flagging: the source file leaned on US EPA and California CARB standards for compliance, and neither applies outside the US. For an Australian project, HVAC and ventilation performance sits under AS 1668 (ventilation and refrigerant safety), AS/NZS 3823 (equipment performance), and the National Construction Code's energy efficiency provisions — with ASHRAE 62.1 (ventilation rates) and ASHRAE 90.1 (energy efficiency) commonly used as design references even outside the US, since they're widely adopted engineering benchmarks rather than purely regulatory ones.
+
+---
+
+## 10. Extra-low-voltage (ELV) systems
+
+The building's nervous system — data, security, communications, life-safety signalling — all runs at extra-low voltage and shares a lot of common design logic: analyse the building type first, plan device locations against actual occupant use, run a schematic before committing to a physical layout, and size the backbone infrastructure (racks, switches, panels) against the total device count rather than guessing. Each system below follows roughly that same shape.
+
+### Data network and Wi-Fi
+
+![Data network system diagram](\images\projects\manual-electrical-design\data_network_diagram1.png)
+
+Core components: ONU or incoming service termination, router, managed and PoE switches, patch panels, ceiling access points, and a UPS to keep networking equipment alive through short outages. Design sequence: place a data point at every workstation (wall-mounted sockets preferred over floor boxes), place access points room by room, and validate coverage with a Wi-Fi heat-map tool rather than eyeballing it. Cat6 UTP is the standard cable, capped at 90 m per the usual structured-cabling limit; patch panels and switches get sized in blocks — 8/16/24/32/48 ports — against the actual device count. Rack sizing (in rack units) follows equipment count and type: a standard server or switch is usually 1 RU, a UPS or blade server closer to 2 RU, plus whatever power, cooling, and access clearance the rack needs. IEEE 802.11 (Wi-Fi) and 802.3 (Ethernet) are the governing interoperability standards, layered under standard IP/TCP/UDP networking.
+
+![Network rack and switch layout](\images\projects\manual-electrical-design\data_network_diagram2.png)
+
+### CCTV
+
+Two architectures: analog (cameras → DVR → monitor, over RG6 coax) and IP (cameras → NVR → monitor, over Cat6, usually via PoE switch). Placement logic: bullet cameras cover open or outdoor areas, dome cameras cover corridors and indoor public areas, and each camera's coverage cone gets drawn to its actual lens specification rather than an assumed angle. Storage sizing uses the manufacturer's calculator (Hikvision's tool is the one referenced in the source material) based on resolution, frame rate, and retention period, from which the NVR/DVR channel count and hard drive capacity follow. A UPS sized around 3 kVA, scaling up with camera count, keeps the system recording through short outages.
+
+### Telephone systems
+
+Two technology paths: traditional analog (cheap, reliable, but limited — no caller ID or call waiting without add-ons) and IP/VoIP (cheaper to run at scale, more flexible, supports encryption, but depends on network bandwidth and needs a fast enough connection to carry voice traffic cleanly). H.323 and SIP are the two competing IP telephony protocols, with SIP now the dominant lightweight choice; STUN and TURN handle NAT traversal so devices on different networks can still connect.
+
+### Television and IPTV
+
+![IPTV system diagram](\images\projects\manual-electrical-design\iptv_diagram.png)
+
+Broadcast paths split into terrestrial (free, limited channel count, coverage-dependent) and satellite (wider coverage, subscription-based, more expensive). IPTV delivers content over the data network instead of dedicated coax or RF distribution, through a headend that ingests and formats content, the building's IP network for transport, and a set-top box at each viewing point to decode it — the real payoff being on-demand playback and pause/rewind/fast-forward on live content, which broadcast and cable simply can't do natively. ETSI TS 102 196 and the DVB-IP/DVB-IPX family are the relevant interoperability standards.
+
+### Fire alarm systems
+
+Three architectures, in increasing sophistication: **conventional** (zone-based — the panel knows which zone triggered, not which device), **addressable** (loop-based — every device has a unique address, so the panel pinpoints the exact device), and **semi-addressable** (a loop with zone modules, a middle-ground retrofit option). Core components: the Fire Alarm Control Panel, heat detectors (rated 65°C/70°C or similar), smoke detectors on shared bases, manual call points, alarm bells with strobes, monitor modules, elevator I/O modules, and fire-resistant signal and power cable throughout. Cable length is limited by loop resistance and voltage-drop calculations specific to the panel manufacturer, and relay modules typically interface the fire alarm system to exhaust fans or fire/smoke dampers for smoke control. NFPA 72 governs in the US, ISO 7240-14 internationally, EN 54 in Europe — for an Australian project, the applicable document is AS 1670 (fire detection, warning, and intercom systems), which sits alongside these as the local equivalent.
+
+### Public address systems
+
+![Public address call station setup](\images\projects\manual-electrical-design\pa_diagram.png)
+
+Standard signal chain: microphone or source into an amplifier, out to speakers — ceiling, box, or horn type — tied together through a controller with zoning, so different areas can carry different announcements or background music independently. For runs beyond standard analog cable distance, Dante audio-over-network is the go-to solution for long-distance or multi-building distribution. IEC 60268 (and locally, AS 1670.4 for emergency warning and intercom systems specifically) governs performance and intelligibility requirements, particularly for the life-safety announcement function layered into most commercial PA systems.
+
+### Access control
+
+Hardware: card or proximity readers, biometric readers where required, electric door locks or strikes, exit buttons, door contacts, and emergency door release hardware, tied back to an access management system and modular controllers. Software layer: access management software plus an audit trail logging who accessed what and when. ISO/IEC 14443 (proximity cards) and ISO/IEC 18000-3 (RFID) are the relevant hardware-interoperability standards.
+
+### Building management system (BMS)
+
+A BMS centralises monitoring and control across HVAC, lighting, security, access, fire, lifts, plumbing, and energy management. Typical inputs: power meters, ATS status, MV switchgear, transformer and generator status, and board-level (MDB/SDB/DB) monitoring points. Typical outputs: VSD speed control, motor start/stop, and door control. Field devices run on DDC/IOM controllers talking Modbus or a vendor gateway protocol back to a head-end platform — Desigo, Metasys, Citect, and iFIX are the ones that show up in the source material — usually over 2-core 1.5 mm² copper cable, with 24VAC transformers for field device power and 18 AWG STP for high-level interface links. ANSI/ASHRAE 135 (BACnet) is the dominant communication protocol standard, with ISO 16484 covering general principles, hardware, and software requirements.
+
+---
+
+## 11. Drawing standards, CAD practice, and documentation
+
+### Drawing setup
+
+The ETS drawing-prep checklist is a solid general-purpose base-drawing routine to run before starting any services layout: unfreeze and turn on all layers, strip unnecessary architectural and civil annotation and hatching, delete elevation markers (keep section markers), remove non-boundary dimensions, standardise architectural layers to a consistent colour and zero lineweight without renaming them, purge the file, and scale to a standard sheet size. The full drawing set for a typical project runs: block plan, lighting, receptacles, distribution boards and single-line diagrams, earthing and lightning protection, then the ELV set — data/Wi-Fi, telephone, fire alarm, PA, CCTV — finishing with a drawing list and legend/symbol sheet.
+
+### AutoCAD technique notes
+
+Worth keeping a running list of practical AutoCAD skills for services drawings specifically, rather than architectural ones: single-line tables, A3/A4 scaling, revision clouds, block editing (including making a selectable switch block), the Divide command for repetitive layout, M2P and MID object snaps for precise midpoint placement, Trim/Extend for cleaning up routing, rotated UCS references for angled walls, external reference (Xref) drawing inserts, Offset, and block replacement that preserves existing attribute data.
+
+### Bill of quantities and sample boards
+
+A BOQ counts every major item of equipment and measures every run of cable per floor — it's what a quotation or tender bid actually gets built from.
+
+![Sample board](\images\projects\manual-electrical-design\sample_board.png)
+
+A sample board is the physical (or documented) reference set of the actual products going into the job — conduit and fittings, wiring devices, protective devices, cable (including fire-rated cable), and wireway — organised so a client or consultant can sign off on the exact specification before procurement. Typical installation detail sheets round out the documentation set: transformer-to-underground-cable routing with front and side views, generator concrete plinth sections, and cable tray support details.
+
+---
+
+## 12. Worked example: La Cozii TK Condominium
+
+The thesis case study is worth summarising on its own, because it's the one place in the file set where the full methodology above actually gets run end-to-end on a real building, rather than just described in the abstract.
+
+![La Cozii TK Condominium](\images\projects\manual-electrical-design\thesis_building.jpg)
+
+La Cozii TK Condominium is an 18-storey mixed residential/commercial development in Phnom Penh, with 79 residential units on a 480 m² site. The design objective was straightforward: size a low-voltage system to IEC standard using the Schneider Electrical Installation Guide methodology, then verify the hand calculation against EcoStruxure Power Design (Ecodial) software.
+
+![Cable and circuit breaker sizing methodology](\images\projects\manual-electrical-design\thesis_cable_methodology.png)
+
+The workflow followed exactly the load-estimation-to-breaker-selection chain described above: power demand calculated per floor using utilization and diversity factors, a capacitor bank sized to correct power factor, the MV/LV transformer and standby generator sized off the post-compensation demand, and cable and circuit breakers sized against design current, voltage drop, and short-circuit fault current. The payoff was a floor-by-floor and total building power demand, voltage drop and short-circuit results at each distribution board, and a direct comparison between the hand-calculated figures and the Ecodial simulation output — which is really the point of the exercise, since it confirms the manual method and the software agree closely enough that either one can be trusted on a live project.
+
+---
+
+## 13. Where this content came from
+
+Getting Start Engineering, Cable Routing & Wire Way, Lighting System, DIALux Guide, Receptacle System, Single Line Diagram, Earthing System, Lightning Protection System, MVAC Design, Data Network & WIFI System, CCTV System, Telephone System, Television System, Fire Alarm System, Public Address System, Access Control System, Building Management System, ETS Design Drawing, AutoCAD Problem, BOQ, Sample board, Typical Installation, EL Project, Abstract of book, AU Electrical Standards, Load Estimation, and the thesis *Design of Low Voltage System — La Cozii TK Condominium* (Kao, 2023).
+
+The tenancy agreement (Contract.01.05[1].docx) was left out — a personal rental lease with no engineering content and private details belonging to named individuals, unrelated to the rest of the material.
