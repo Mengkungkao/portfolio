@@ -123,7 +123,7 @@ source install/setup.bash
 `--symlink-install` matters here: it symlinks the Python sources and launch files into `install/` instead of copying them, so editing a node or launch file and re-running `colcon build` picks up the change immediately without a full rebuild.
 
 One build-file trap surfaced repeatedly during development: `~/ros2_ws/src/mdetect_robot` is supposed to be a **symlink** back into this repo (set up by the bootstrap script), not a real directory. If it's ever a real directory instead — e.g. from an early manual checkout — `colcon build` keeps happily building a stale, disconnected copy of the package. `git pull` in the repo then does nothing, and `ros2 launch` fails on launch files that were renamed or added since. The giveaway symptoms: `ros2 pkg prefix mdetect_robot` failing after sourcing the workspace (symlink missing entirely), or an old launch file name still working while the documented one doesn't. Re-running the bootstrap script now detects and fixes this automatically by moving the stale directory aside and re-linking.
-
+ 
 ## ROS 2 Nodes
 
 <FunctionTable
@@ -161,6 +161,31 @@ ros2 service call /base/emergency_stop std_srvs/srv/Trigger {}
 ros2 service call /base/clear_emergency_stop std_srvs/srv/Trigger {}
 ros2 service call /base/reset_odometry std_srvs/srv/Trigger {}
 ```
+
+## Custom RViz Panels: Goto and Teleop
+
+Nav2's stock RViz2 panel only gets you so far: clicking **2D Goal Pose** by hand is fine for one-off tests, but it's slow to repeat and gives no way to send an exact, reproducible coordinate. So RViz2 got two custom docked panels alongside the stock **Navigation 2** panel, instead of falling back to a separate terminal for every goal or teleop session.
+
+The **Goto** panel takes a target directly as text — `x_mm, y_mm, heading_deg` — and sends it straight to Nav2 as a goal pose, which makes repeat-testing a specific spot in the map a one-line, no-mouse operation. The **Teleop** panel docks manual driving into the same window, with directional buttons and independent `Speed (m/s)` / `Turn (rad/s)` fields instead of running `teleop_keyboard` in a separate SSH session — useful for nudging the robot clear of a costmap obstacle without leaving RViz.
+
+<FunctionTable
+  caption="Live navigation run, tracked through the custom Navigation 2 + Goto panel"
+  columns={["Stage", "ETA", "Distance remaining", "Time taken", "Recoveries"]}
+  rows={[
+    ["Goal just sent", "—", "4.34 m", "2 s", "0"],
+    ["Mid-route, planner replanning around obstacles", "10 s", "1.94 m", "21 s", "0"],
+    ["Final approach", "5 s", "0.21 m", "35 s", "2"],
+    ["Arrival", "0 s", "0.11 m", "39 s", "2"]
+  ]}
+/>
+
+![RViz2 with the custom Goto/Teleop panels: goal just sent, global plan visible across the mapped room](/images/projects/autonomousrobot/rviz-nav-pathfinding-3.png)
+
+![Mid-route: Nav2 threading the costmap-inflated corridor between two obstacle clusters](/images/projects/autonomousrobot/rviz-nav-pathfinding-4.png)
+
+![Final approach after two local-costmap recoveries, closing in on the goal pose](/images/projects/autonomousrobot/rviz-nav-pathfinding-1.png)
+
+The recoveries in the table above are the point worth calling out: this wasn't a clean, obstacle-free run. Nav2's local planner had to trigger two recovery behaviours to get past the inflation zones around clutter in the room before it could close the last 0.11 m to the goal — exactly the kind of real-world messiness a Pygame waypoint script had no way to handle.
 
 ## Updated Arduino Firmware
 
@@ -227,6 +252,29 @@ Before trusting any of this on the floor, several sign/scale checks have to be v
 - **Track width** — an in-place 360° turn should match `TRACK_WIDTH_MM`; heading itself still comes from the IMU, not this constant.
 - **LiDAR alignment** — a wall directly ahead must read at angle zero in `/scan`; adjust the `laser_joint` yaw in the URDF if RViz shows it rotated.
 
+## Straight-Line Drift and PID Autotuning
+
+The last hardware issue standing between this and a robot that could be trusted to drive itself was mechanical: the four DC motors aren't equally accurate, and one corner has noticeably harder gearing and higher torque than the other three, so the robot pulled off a straight line even with all four wheel-speed PID loops running the same gains.
+
+An architecture review first confirmed the control loop itself wasn't the problem — all four wheels already ran independent, closed-loop PID at 100 Hz from quadrature encoders, and `/joint_states` already published each wheel's real velocity, so nothing needed to be built to *see* the drift, only to *diagnose and correct* it. Rather than guess at new gains by hand, the fix was a standalone PID autotune sketch (`arduino_motor_autotune/`), built as a fully independent Arduino project — its own copies of every driver file, zero shared state with the production firmware — so tuning experiments could never risk the robot's working control code. It drives one wheel at a time through repeated step-speed trials and searches `kp`/`ki`/`kd` with a twiddle (coordinate-descent) search, then a second **MATCH** mode refines all four motors together against each other and against the analytically expected ramp-and-hold distance for the commanded profile.
+
+Two bugs surfaced only once the tool was actually run against the hardware. First, releasing a motor (coast) between trials let the higher-torque wheel keep drifting for longer than the other three after its target dropped to zero, so trials could start from inconsistent, still-moving wheels — fixed by actively braking every motor to a full stop between trials instead of coasting. Second, the group-matching cost function only rewarded the four wheels for *agreeing with each other*, so a run where all four motors overshot the target by roughly the same amount scored just as well as one that actually tracked it — fixed by adding an absolute-distance term anchored to the commanded ramp/hold profile, so the search can no longer converge on "consistent but wrong."
+
+The result was four genuinely different per-motor gains, not one shared set — the harder-geared corner needed roughly double the proportional gain of the softest one to track the same target:
+
+<FunctionTable
+  caption="Autotuned per-wheel PID gains"
+  columns={["Motor", "Kp", "Ki", "Kd"]}
+  rows={[
+    ["1 — front-left", "0.3420", "0.0290", "0.0035"],
+    ["2 — front-right", "0.2056", "0.0292", "0.0030"],
+    ["3 — rear-right", "0.2598", "0.0183", "0.0042"],
+    ["4 — rear-left (hardest gearing)", "0.4543", "0.0603", "0.0035"]
+  ]}
+/>
+
+These values now run in production, replacing the single shared `(0.25, 0.034, 0.003)` gain set the whole robot launched with. An IMU yaw-rate heading-hold trim was also discussed as a second layer of correction on top of per-wheel PID, but wasn't needed to close out this stage — it stays on the list below in case retuned gains alone don't fully hold a straight line over longer runs.
+
 ## Challenges
 
 **Stable serial port identification.** The LiDAR and Arduino are both CH340-based USB-serial adapters sharing the same vendor/product ID with no serial EEPROM, so `udevadm`'s `ATTRS{serial}` lookup returns identical values for both — it can't distinguish them. The fix was udev rules keyed on the physical `ID_PATH` (USB port path) instead of serial number, which is stable as long as each adapter stays plugged into the same port.
@@ -248,7 +296,12 @@ Before trusting any of this on the floor, several sign/scale checks have to be v
 - Got full SLAM Toolbox mapping and Nav2 (AMCL + A* global planning + Regulated Pure Pursuit local control) working live against the real robot, including saved-map reuse for repeat navigation.
 - Added a `verify_robot_stack.sh` script that checks all expected nodes, topics, and services are present, turning "is the robot actually working?" into a single command instead of manual `ros2 topic echo` spelunking.
 - Documented and solved the CH340 dual-adapter identification problem with `ID_PATH`-based udev rules, producing stable `/dev/arduino_mdetect` and `/dev/coin_d6` device names regardless of enumeration order.
+- Built a standalone Arduino PID autotune tool with its own private copy of every driver file, run and compile-verified independently of the production sketch, so the drift investigation could never put the working robot at risk.
+- Diagnosed and fixed two bugs in the autotuning process itself — coast-vs-brake settling between trials, and a cost function that rewarded agreement over accuracy — before trusting its output.
+- Replaced the robot's single shared wheel-PID gain set with four individually autotuned gains now running in production, directly addressing the straight-line drift traced to one motor's harder gearing.
+- Built custom RViz2 **Goto** and **Teleop** panels docked alongside the stock Nav2 panel, so a goal can be sent as an exact `x_mm, y_mm, heading_deg` coordinate and manual driving no longer needs a separate SSH/teleop terminal.
+- Ran and recorded full closed-loop Nav2 goals against the real robot, including runs that needed local-costmap recovery behaviours to route around obstacle clutter before reaching the goal.
 
 ## Future Work
 
-The next steps are the same ones identified at the end of the original mDetect project, now with a proper ROS 2 foundation to build them on: sensor fusion via an Extended Kalman Filter across encoder, IMU, and LiDAR data (`robot_localization` is a natural fit here), fully autonomous obstacle avoidance rather than a stop-and-wait gate, and longer-duration field testing in real tunnel environments to validate SLAM and Nav2 tuning under realistic conditions.
+The next steps are the same ones identified at the end of the original mDetect project, now with a proper ROS 2 foundation to build them on: sensor fusion via an Extended Kalman Filter across encoder, IMU, and LiDAR data (`robot_localization` is a natural fit here), fully autonomous obstacle avoidance rather than a stop-and-wait gate, and longer-duration field testing in real tunnel environments to validate SLAM and Nav2 tuning under realistic conditions. Whether the retuned per-wheel PID gains alone hold a straight line over longer runs, or whether an IMU yaw-rate heading-hold trim is still needed on top, remains an open question for that field testing to answer.
